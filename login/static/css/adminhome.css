@@ -1,0 +1,149 @@
+body{
+  margin: 0;
+}
+
+.headcontainer{
+  background-color: #0F4970;
+  display: flex;
+  justify-content: space-between;
+  padding: 2%;
+  padding-top: 2.3%;
+  padding-bottom: 0;
+}
+
+.headcontainer .logo{
+  width: 10%;
+}
+
+.headcontainer .logo img{
+  width: 100%;
+}
+
+.headcontainer .wrapper{
+  width: 55%;
+}
+
+.wrapper nav{
+  margin-top: 0;
+}
+
+.wrapper ul{
+  display: flex;
+  margin: 0;
+  margin-bottom: 1em;
+  padding-right: 5%;
+}
+
+.wrapper a{
+  font-size: 1.4em;
+  text-decoration:none;
+  color: #fff;
+}
+
+.wrapper li{
+  list-style-type:  none;
+  /* width: 70%; */
+  align-items: center;
+}
+
+.wrapper .sub4{
+  padding-left: 18%;
+  width: 35%;
+}
+
+.wrapper .sub3{
+  width: 29%;
+}
+
+.wrapper .sub2{
+  width: 27%;
+}
+
+.wrapper .sub1{
+  width: 5%;
+}
+
+
+.wrapper li .fa{
+  font-size: 1.5em;
+  padding-left: 50%;
+}
+
+.content{
+  width: 75%;
+  margin-left: 12%;
+  margin-top: 2%;
+}
+
+.content legend{
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+
+.content fieldset{
+  padding: 2%;
+}
+
+.content table{
+  margin-left: 10%;
+  width: 80%;
+
+}
+
+
+.content table td{
+  /* border: 1px solid black; */
+  width: 20%;
+  padding: 10px;
+}
+
+.content .meterdetails .col1{
+  width: 15%;
+  /* padding-right:  100%; */
+}
+
+.content .col1{
+  width: 10%;
+}
+
+.content table input{
+  height: 39px;
+  padding-left: 5%;
+  width: 90%
+
+}
+
+.content table td label{
+  font-size: 1.2em;
+}
+
+.search{
+  margin-left: 32%;
+  width: 30%;
+  height: 35px;
+  border: none;
+  font-size: 1em;
+  background-color: black;
+  color: #fff;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.search:hover{
+  background-color: #fff;
+  color: black;
+  cursor: pointer;
+  border: 2px solid black;
+}
+
+.form_group{
+  position: relative;
+}
+.form_group label{
+  position:absolute;
+  top:-10px;
+  left:10px;
+  color: black;
+  background-color:white;
+}

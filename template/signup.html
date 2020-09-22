@@ -1,0 +1,89 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+    <link rel="stylesheet" href="{% static 'css/userValidation.css' %}">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}">
+  </head>
+  <body>
+
+    <div class="mainContainer">
+      <div class="content">
+        <div class="logo">
+          <img src="{% static 'img/logo/logo_ashrae.png' %}" alt="">
+        </div>
+        <div class="loginContainer">
+          <div class="loginContent">
+            <h1 class="title">Create a</h1>
+            <h2 class="tag">Free Account</h2>
+            <form name="form1" class="" action="signup" method="post">
+              {% csrf_token %}
+              <div>
+                {% for message in messages %}
+                  <h3 style="margin-bottom: 0; color:red"> {{message}} </h3>
+                  <br>
+                {% endfor %}
+              </div>
+              <div class="temp">
+                <input type="text" name="first_name" value="" placeholder="First Name" required autocomplete="off" onblur="ValidateFname()">
+                <span class="tooltiptextFname">No Special Characters and Numbers are allowed!!!</span>
+              </div><br>
+              <div class="temp">
+                <input type="text" name="last_name" value="" placeholder="Last Name" required autocomplete="off" onblur="ValidateLname()">
+                <span class="tooltiptextLname">No Special Characters and Numbers are allowed!!!</span>
+              </div><br>
+              <div class="temp">
+                <input type="text" name="username" value="" placeholder="User Name" required autocomplete="off" onblur="ValidateUname()">
+                <span class="tooltiptextUname">No Special Characters are allowed!!!</span>
+              </div><br>
+              <div class="temp">
+                <input type="email" name="email" value="" placeholder="Email Address" required autocomplete="off" onblur="ValidateEmail()">
+                <span class="tooltiptextEmail">Please enter valid email!!!</span>
+              </div><br>
+              <div class="passwords">
+                <div class="temp password">
+                  <input type="password" name="password1" value="" placeholder="Password" required onblur="ValidatePassword()">
+                  <span class="tooltiptextPwd">Minimum length should be 8!!!</span>
+                </div>
+                <div class="temp Cpassword">
+                  <input type="password" name="password2" value="" placeholder="Confirm Password" required onblur="CheckPwdMatch()">
+                  <span class="tooltiptextConfirmPwd">Password is not matched!!!</span>
+                </div>
+              </div><br><br>
+              <input class="submit" type="submit" name="" value="Get Started">
+            </form>
+              <p class="haveAccount">Already have an Account?&nbsp;&nbsp;
+                <a href="/login">Log In!</a>
+              </p>
+          </div>
+
+        </div>
+
+      </div>
+      <div class="banner">
+        <div class="text">
+          <div>
+            <p class="text1">ASHRAE - Great Energy Predictor </p>
+          </div>
+
+          <div>
+            <p class="text2">How much energy will a building consume?</p>
+          </div>
+
+          <div>
+            <a class="readMore" target="_blank" href="https://www.ashrae.org">Read More</a>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <script src="{% static 'js/userValidate.js' %}"></script>
+
+  </body>
+</html>

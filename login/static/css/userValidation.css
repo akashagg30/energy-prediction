@@ -1,0 +1,53 @@
+
+.tooltiptextEmail,
+.tooltiptextFname,
+.tooltiptextLname,
+ .tooltiptextPwd,
+ .tooltiptextUname,
+ .tooltiptextConfirmPwd{
+  visibility: hidden;
+  width: 30%;
+  background-color: #A6ACAF ;
+  /* background-color: #1ab188; */
+  color: #fff;
+  text-align: center;
+  border-radius: 14px;
+  padding: 9px 0;
+  margin-top: 4%;
+  font-weight: bold;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  left: 16.5%;
+}
+
+span.tooltiptextEmail::before,
+span.tooltiptextFname::before,
+span.tooltiptextLname::before,
+span.tooltiptextUname::before,
+  span.tooltiptextPwd::before,
+  span.tooltiptextConfirmPwd::before {
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-width: 10px;
+      border-style: solid;
+      border-color: transparent transparent #A6ACAF  transparent;
+      top: -25%;
+      left: 55%;
+      transform: translate(calc(-100% - 5px), -50%);
+}
+
+  .tooltiptextPwd {
+    width: 17%;
+    margin-top: 0.8%;
+    left: 14%;
+}
+
+  .tooltiptextConfirmPwd{
+    width: 17%;
+    margin-top: 0.8%;
+    left: 32%;
+}

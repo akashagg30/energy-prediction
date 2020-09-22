@@ -1,0 +1,72 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+  </head>
+  <body>
+
+    <div class="mainContainer">
+      <div class="content">
+        <div class="logo">
+          <img src="{% static 'img/logo/logo_ashrae.png' %}" alt="">
+        </div>
+        <div class="loginContainer">
+          <div class="loginContent">
+            <h1 class="title">Log in to your</h1>
+            <h2 class="tag">Energy Prediction Account</h2>
+            <form class="" action="login" method="post">
+              {% csrf_token %} 
+              <div class="temp">
+                <input type="text" name="username" value="" placeholder="Username" required>  <!-- changed a bit -->
+              </div><br>
+              <div class="temp">
+                <input type="password" name="password" value="" placeholder="Password" required>
+              </div><br>
+              <div class="forgotPwd">
+                <a href="/reset_password">Forgot Password?</a>
+              </div><br>
+              <input class="submit" type="submit" name="" value="Login">
+            </form>
+              <p class="haveAccount">Don't have an Account?&nbsp;&nbsp;
+                <a href="/signup">Sign Up!</a>
+              </p>
+
+              <!-- Added Sunidhi-->
+              <div>
+                {% for message in messages %}
+                  <h3> {{message}} </h3>
+                  <br>
+                {% endfor %}
+              </div>
+              <!--end-->
+
+
+          </div>
+
+        </div>
+
+      </div>
+      <div class="banner">
+        <div class="text">
+          <div>
+            <p class="text1">ASHRAE - Great Energy Predictor </p>
+          </div>
+
+          <div>
+            <p class="text2">How much energy will a building consume?</p>
+          </div>
+
+          <div>
+            <a class="readMore" target="_blank" href="https://www.ashrae.org">Read More</a>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </body>
+</html>

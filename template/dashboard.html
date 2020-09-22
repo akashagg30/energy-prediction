@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <link rel="stylesheet" href="{% static 'css/adminhome.css' %}">
+
+  <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}">
+
+</head>
+
+
+<body>
+
+
+  <div class="header">
+
+    <div class="headcontainer">
+
+      <div class="logo">
+
+        <a href="/adminhome"><img src="{% static 'img/logo/virtusa-footer-logo.png' %}" alt=""></a>
+
+      </div>
+
+      <div class="wrapper">
+        <nav>
+          <ul>
+            <li class="sub4"><a style="opacity:0.6" href="/adminhome">DataBase Search</a></li>
+            <li class="sub3"><a style="opacity:0.6" href="/userdetails">User details</a></li>
+            <li class="sub2"><a href="/dashboard">Dashboard</a></li>
+            <li class="sub1"><a href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i></a></li>
+          </ul>
+
+        </nav>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="container">
+
+
+  </div>
+
+</body>
+
+
+</html>

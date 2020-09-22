@@ -1,0 +1,49 @@
+.maincontainer{
+  height: 80vh;
+}
+
+.filesform{
+  width: 100%;
+  padding-left: 20%;
+}
+
+.filestable{
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-top: 5%;
+  width:80%;
+  /* border: 1px solid black; */
+}
+.filestable td{
+  height: 100px;
+  width: 30%;
+}
+
+.filesupload {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.filesupload + label {
+    width: 8em;
+    height: 2em;
+    color: white;
+    background-image: linear-gradient(to right,#6666ff, violet);
+    display: inline-block;
+    border-radius: 10px;
+    text-align: center;
+    padding-top: 0.8%;
+}
+
+.filesupload:focus + label,
+.filesupload + label:hover {
+    background-image: linear-gradient(to right, violet, #6666ff);
+}
+
+.filesupload + label {
+	cursor: pointer; /* "hand" cursor */
+}
