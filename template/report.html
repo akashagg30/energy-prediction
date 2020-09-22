@@ -1,0 +1,104 @@
+{% block content %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <h1>Report</h1>
+    <div id="charts" style="width: 75%;">    
+        <canvas id="chart1"></canvas>
+        <br>
+        <br>
+        <br>
+        <br>
+        <canvas id="chart2"></canvas>
+        <br>
+        <br>
+        <br>
+        <br>
+        <canvas id="chart3"></canvas>
+        <br>
+        <br>
+        <br>
+        <br>
+        <canvas id="chart4"></canvas>
+    </div>
+    
+    
+    <script>
+        function area_vs_electricity(){
+            var ctx= document.getElementById('chart1').getContext('2d');
+            
+            var chart = new Chart(ctx,{
+                type : 'bar',
+                data : {
+                    // X axis
+                    labels: {{X_Area_vs_electricity|safe}},
+                    datasets: [{
+                        // Y label
+                        label: 'Mean Meter Reading',
+                        // Y axis
+                        data : {{Y_Area_vs_electricity|safe}},
+                    }]
+                }
+            }) 
+        }   
+        
+        function floorcount_vs_electricity(){
+            var ctx= document.getElementById('chart2').getContext('2d');
+            
+            var chart = new Chart(ctx,{
+                type : 'line',
+                data : {
+                    // X axis
+                    labels: {{X_Floorcount_vs_electricity|safe}},
+                    datasets: [{
+                        // Y label
+                        label: 'Mean Meter Reading',
+                        // Y axis
+                        data : {{Y_Floorcount_vs_electricity|safe}},
+                    }]
+                }
+            }) 
+        } 
+        
+        function temprature_vs_electricity(){
+            var ctx= document.getElementById('chart3').getContext('2d');
+            
+            var chart = new Chart(ctx,{
+                type : 'line',
+                data : {
+                    // X axis
+                    labels: {{X_Temprature_vs_electricity|safe}},
+                    datasets: [{
+                        // Y label
+                        label: 'Mean Meter Reading',
+                        // Y axis
+                        data : {{Y_Temprature_vs_electricity|safe}},
+                    }]
+                }
+            }) 
+        }
+
+        function age_vs_electricity(){
+            var ctx= document.getElementById('chart4').getContext('2d');
+            
+            var chart = new Chart(ctx,{
+                type : 'bar',
+                data : {
+                    // X axis
+                    labels: {{X_Age_vs_electricity|safe}},
+                    datasets: [{
+                        // Y label
+                        label: 'Mean Meter Reading',
+                        // Y axis
+                        data : {{Y_Age_vs_electricity|safe}},
+                    }]
+                }
+            }) 
+        }
+
+        
+        area_vs_electricity();
+        floorcount_vs_electricity();
+        temprature_vs_electricity();
+        age_vs_electricity();
+    </script>
+    
+{% endblock content %}
