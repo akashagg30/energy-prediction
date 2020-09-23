@@ -13,10 +13,7 @@ from django.views.decorators.csrf import csrf_protect
 
 
 def system_resource_monitor(request):
-    return render(request, 'resource_monitor.html', {
-        'cpu': [cpu, 100.0-cpu],
-        'memory': [memory, 100-memory]
-    })
+    return render(request, 'resource_monitor.html')
 
 @csrf_protect
 def resource_info(request):
