@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import path
-from login import views,report
+from login import views,report,resources
 from login.forms import EmailValidationOnForgotPassword
 
 urlpatterns = [
@@ -46,4 +46,6 @@ urlpatterns = [
     path('history',views.history),
     # ------------ report ---------
     path('report',report.Report),
+    # ------------ system resource monitor --------
+    path('resources',resources.system_resource_monitor)
     ]
