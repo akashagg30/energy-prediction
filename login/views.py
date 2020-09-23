@@ -13,10 +13,11 @@ import pickle
 import os
 from datetime import datetime
 from django.contrib.auth import get_user_model
+from django.template.response import TemplateResponse
 # Create your views here.
 
-id_first = 0
-id_last = 0
+id_first = -1
+id_last = -1
 Pkl_Filename = './models/rf_model.sav'
 with open(Pkl_Filename,'rb') as f:
     reloadModel = pickle.load(f,encoding='latin1')
@@ -206,7 +207,8 @@ def uploadfile(request):
         fs.delete(fname)
         context = {'a':1}
         print(context['a'])
-        return render(request, 'fileupload.html',{'a': 173687})
+        return TemplateResponse(request,'fileupload.html',context)
+        #return render(request, 'fileupload.html',{'a': 1,'aas':123})
 
 @login_required(login_url='/login')
 @customers_only
@@ -217,8 +219,12 @@ def export_csv(request):
     writer = csv.writer(response)
     writer.writerow(['SNo.','Air Temperature','Dew Temperature','Precip Depth','Building Size','Year Built','Floor_Count','Meter Reading'])
 
+    global id_first
+    global id_last
     filtered_data = Energy_Data.objects.filter(id__range = [id_first,id_last])
     print(id_first,id_last)
+    id_first = -1
+    id_second = -1
     print(filtered_data)
     x = 1
     for data in filtered_data:
@@ -317,13 +323,15 @@ def history(request):
     print(user_inputs)
     return render(request,'history.html',{'user_inputs':user_inputs})
 
-
 @login_required
 @customers_only
 def password_changed(request):
   messages.success(request, 'Your password has been changed.')
   context = {'a' : 1}
   return render(request,'password_change_form.html',context)
+<<<<<<< HEAD
     #return render(request,'password_reset.html')
 # def reset_password_sent(request):
 #     return render(request,'password_reset_sent.html')
+=======
+>>>>>>> d9b5a203325b95768db5ee0fb4dea4ee553f271a
