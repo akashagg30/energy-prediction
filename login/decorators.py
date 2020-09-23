@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import redirect
+from django.contrib.auth.models import User, auth
 
 def unauthenticated_user(view_func):
     def wrapper_func(request, *args, **kwargs):
@@ -25,17 +26,34 @@ def unauthenticated_user(view_func):
 #         return wrapper_func
 #     return decorator
 
-def allowed_only(view_func):
+def customers_only(view_func):
     def wrapper_func(request, *args, **kwargs):
         group = None
         if request.user.groups.exists():
             group = request.user.groups.all()[0].name
-        print(group)
+        print("h",group)
         if group == 'customer':
             return view_func(request,*args,**kwargs)
         elif group == 'admin':
             return redirect('/adminhome')
             #return redirect('/logout')
-            #return HttpResponse("You are not authorized to view this page")
+            # auth.logout(request)
+            # return HttpResponse("You are not authorized to view this page")
+    return wrapper_func
+
+
+def admin_only(view_func):
+    def wrapper_func(request, *args, **kwargs):
+        group = None
+        if request.user.groups.exists():
+            group = request.user.groups.all()[0].name
+        print("HI",group)
+        if group == 'admin':
+            return view_func(request,*args,**kwargs)
+        elif group == 'customer':
+            return redirect('/home')
+            #return redirect('/logout')
+            # auth.logout(request)
+            # return HttpResponse("You are not authorized to view this page")
     return wrapper_func
 

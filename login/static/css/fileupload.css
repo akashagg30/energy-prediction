@@ -47,3 +47,12 @@
 .filesupload + label {
 	cursor: pointer; /* "hand" cursor */
 }
+
+.btncontainer{
+  margin-left: 15%;
+  margin-bottom: 10%;
+}
+
+.btncontainer .btn{
+  background-color: black
+}

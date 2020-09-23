@@ -42,5 +42,6 @@ urlpatterns = [
     path('uploadfile',views.uploadfile),
     path('adminhome',views.adminhome),
     path('exportcsv',views.export_csv),
-    path('userdetails',views.userdetails)
+    path('userdetails',views.userdetails),
+    path('insights',views.insights)
     ]

@@ -148,7 +148,35 @@
   </header>
   <!-- Header End -->
   <main>
-
+    <div>
+      {% if user_inputs %}
+      <table>
+        <tr>
+          <td>SNo.</td>
+          <td>Date Created</td>
+          <td>Air Temperature</td>
+          <td>Dew Temperature</td>
+          <td>Precip Depth</td>
+          <td>Building Size</td>
+          <td>Year Built</td>
+          <td>Floor Count</td>
+          <td>Meter Reading</td>
+        </tr>
+        {% for data in user_inputs %}
+          <tr>
+            <td>{{data.index}}</td>
+            <td>{{data.air_temperature}}</td>
+            <td>{{data.dew_temperature}}</td>
+            <td>{{data.precip_depth}}</td>
+            <td>{{data.building_size}}</td>
+            <td>{{data.year_built}}</td>
+            <td>{{data.floor_count}}</td>
+            <td>{{data.meter_reading}}</td>
+          </tr>
+        {% endfor %}
+      </table>
+    {% endif %}
+    </div>
   </main>
 
   <footer>

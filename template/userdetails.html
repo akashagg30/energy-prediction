@@ -46,36 +46,28 @@
 
 
   <div class="container">
-    <!-- {% if filtered_data %}
+    {% if user_data %}
     <table>
       <tr>
         <td>Id</td>
+        <td>Date Joined</td>
         <td>Username</td>
-        <td>Date Created</td>
-        <td>Air Temperature</td>
-        <td>Dew Temperature</td>
-        <td>Precip Depth</td>
-        <td>Building Size</td>
-        <td>Year Built</td>
-        <td>Floor Count</td>
-        <td>Meter Reading</td>
+        <td>First Name</td>
+        <td>Last Name</td>
+        <td>Email</td>
       </tr>
-    {% for data in filtered_data %}
+    {% for data in user_data %}
         <tr>
           <td>{{data.id}}</td>
+          <td>{{data.date_joined}}</td>
           <td>{{data.username}}</td>
-          <td>{{data.date_created}}</td>
-          <td>{{data.air_temperature}}</td>
-          <td>{{data.dew_temperature}}</td>
-          <td>{{data.precip_depth}}</td>
-          <td>{{data.building_size}}</td>
-          <td>{{data.year_built}}</td>
-          <td>{{data.floor_count}}</td>
-          <td>{{data.meter_reading}}</td>
+          <td>{{data.firt_name}}</td>
+          <td>{{data.last_name}}</td>
+          <td>{{data.email}}</td>
         </tr>
     {% endfor %}
     </table>
-  {% endif %} -->
+  {% endif %}
   </div>
 
 </body>

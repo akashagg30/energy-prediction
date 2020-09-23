@@ -3,9 +3,10 @@ from django.contrib.auth.models import User, auth
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
-from .decorators import unauthenticated_user, allowed_only
+from .decorators import unauthenticated_user, admin_only, customers_only
 from .models import Energy_Data
 from django.core.files.storage import FileSystemStorage
+from django.http import HttpResponse
 import csv
 import pandas as pd
 import pickle
@@ -77,6 +78,8 @@ def signup(request):
             return redirect('/signup')
     else:
         return render(request,'signup.html')
+
+
 @login_required(login_url='/login')
 def logout(request):
     auth.logout(request)
@@ -85,36 +88,31 @@ def logout(request):
 
 # Added by Prasanna
 @login_required(login_url='/login')
-@allowed_only
+@customers_only
 def fileupload(request):
     return render(request,'fileupload.html')
 
 @login_required(login_url='/login')
-@allowed_only
+@customers_only
 def input(request):
     return render(request,'input.html')
 
 
 
 @login_required(login_url='/login')
-@allowed_only
+@customers_only
 def home(request):
     return render(request,'index.html')
 
 
 @login_required(login_url='/login')
-@allowed_only
+@customers_only
 def profile(request):
     return render(request,'profile.html')
 
-@login_required(login_url='/login')
-@allowed_only
-def changepassword(request):
-    return render(request,'changepassword.html')
-
 
 @login_required(login_url='/login')
-@allowed_only
+@customers_only
 def predict(request):
     if request.method == 'POST':
         temp = {}
@@ -143,7 +141,7 @@ def predict(request):
         return render(request, 'input.html',context)
 
 @login_required(login_url='/login')
-@allowed_only
+@customers_only
 def uploadfile(request):
     if request.method=='POST' and  request.FILES['datafile']:
         myfile = request.FILES['datafile']
@@ -194,41 +192,45 @@ def uploadfile(request):
                 obj.save()
                 print(temp)
                 if(numberOfRows == 0):
+                    global id_first 
                     id_first = obj.id
                 numberOfRows=numberOfRows+1
-        id_second = obj.id + numberOfRows
+        global id_last
+        id_last = obj.id + numberOfRows
         fs.delete(fname)
-        context = {'a':"Uploaded Successfully"}
-        return render(request, 'fileupload.html',context)
+        context = {'a':1}
+        print(context['a'])
+        return render(request, 'fileupload.html',{'a': 173687})
 
 @login_required(login_url='/login')
-@allowed_only
+@customers_only
 def export_csv(request):
-
-    response = HttpResponse(context_type = 'text/csv')
-    response['Context-Disposition'] = 'attachment; filename=MeterReading' + datetime.now() + '.csv'
+    response = HttpResponse(content_type = 'text/csv')
+    response['Content-Disposition'] = 'attachment; filename=MeterReading'  + '.csv'
 
     writer = csv.writer(response)
     writer.writerow(['SNo.','Air Temperature','Dew Temperature','Precip Depth','Building Size','Year Built','Floor_Count','Meter Reading'])
 
-    filterd_data = Energy_Data.filter(id__range = [id_first,id_last])
+    filtered_data = Energy_Data.objects.filter(id__range = [id_first,id_last])
+    print(id_first,id_last)
+    print(filtered_data)
     x = 1
     for data in filtered_data:
-        writer.writerow(x,
-                        data.air_temperature,
+        writer.writerow([x,
+                        data.air_temeprature,
                         data.dew_temperature,
                         data.precip_depth,
                         data.building_size,
                         data.year_built,
                         data.floor_count,
-                        data.meter_reading)
+                        data.meter_reading])
         x = x + 1
     return response
 
 
 
 @login_required(login_url='/login')
-@allowed_only
+@admin_only
 def adminhome(request):
     if request.method == 'POST':
         meter_reading = request.POST.get('meter_reading')
@@ -269,22 +271,28 @@ def adminhome(request):
             filtered_data = filtered_data.filter(dew_temperature__range = [dew_temperature1,dew_temperature2])
         if precip_depth1 and precip_depth2:
             filtered_data = filtered_data.filter(precip_depth__range = [precip_depth1,precip_depth2])
-        # filtered_data = Energy_prediction_Data.objects.filter(prediction=meter_reading,
-        #                                                     year_built__range = [year_built1,year_built2],
-        #                                                     building_size__range = [building_size1,building_size2],
-        #                                                     floor_count__range = [floor_count1,floor_count2],
-        #                                                     air_temeprature__range = [air_temperature1,air_temperature2],
-        #                                                     dew_temperature__range = [dew_temperature1,dew_temperature2],
-        #                                                     precip_depth__range = [precip_depth1,precip_depth2])
         print(filtered_data)
-        return render(request,'adminhome.html',{'filtered_data':filtered_data})
-    return render(request, 'adminhome.html')
+        #return render(request,'adminhome.html',{'filtered_data':filtered_data})
+    else:
+        return render(request, 'adminhome.html')
 
 
 
 @login_required(login_url='/login')
-@allowed_only
+@admin_only
 def userdetails(request):
     user = get_user_model()
-    user_data = user.objects.all()  
+    user_data = user.objects.filter(is_superuser = False)
+    print(user_data)
     return render(request,'userdetails.html',{'user_data':user_data})
+
+
+@login_required(login_url='/login')
+@customers_only
+def insights(request):
+    if request.user.is_authenticated:
+        user_id = request.user.id
+    print(user_id)
+    user_inputs = Energy_Data.objects.filter(username = user_id)
+    return render(request,'insights.html',{'user_inputs':user_inputs})
+    

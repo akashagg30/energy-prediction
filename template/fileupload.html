@@ -26,37 +26,73 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/fileupload.css' %}">
 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
 
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,400" />
     <style>
     .logo img{
-      width: 80%;
+      width: 75%;
     }
 
     .sticky-bar{
       height: 13%;
+
     }
+
+    .main-header .main-menu ul ul.submenu>li>.sub1{
+      font-size: 20px;
+      color: black;
+    }
+
+    .main-header .main-menu ul ul.submenu>li>.sub:hover {
+      color: #C86FFF;
+      background: none;
+      padding-left: 13px !important
+    }
+
+
+
+    /* .sub:hover{
+      font-weight: bold;
+      padding-left: 4px;
+      color: black
+    } */
 
     .maincontainer{
       margin-top: 10%;
     }
 
-    .footer{
-      height: 5em;
-      background-color: #2D353B;
-      padding-top: 2%;
-      padding-right: 5%;
-      padding-left: 8%;
-      margin-bottom: 0;
-    }
+          .footer{
+            height: 4em;
+            background-color: #515456;
+            padding-right: 5%;
+            padding-left: 8%;
+            padding-top: 0.5%;
+            margin-bottom: 0;
+            color: #fff;
+          }
 
-    .fcontent ul{
-      width: 75%;
-    }
+          .fcontent ul{
+            padding-top: 10px;
+            width: 75%;
+          }
 
-    .fcontent li{
-      width: 20%;
-    }
+          .fcontent li{
+            height: 50px;
+          }
+
+          .fcontent a{
+            font-size: 25px;
+          }
+
+          .fcontent span{
+            padding-top: 2px;
+            font-size: 20px;
+          }
+
+
+
       body {
         font-family: Roboto, sans-serif;
         color: #0f3c4b;
@@ -68,7 +104,6 @@
         max-width: 680px;
         text-align: center;
         margin: 0 auto;
-        padding-top: 0.1%;
       }
 
       .container h1 {
@@ -305,21 +340,22 @@
                   <div class="main-menu d-none d-lg-block">
                     <nav>
                       <ul id="navigation">
-                        <li ><a style="opacity:0.7" href="/home">Home</a></li>
-                        <li><a  style="opacity:0.7" href="/input">Input</a></li>
+                        <li ><a style="opacity:0.7;font-weight: normal" href="/home">Home</a></li>
+                        <li><a  style="opacity:0.7;font-weight: normal" href="/input">Input</a></li>
                         <li class="active"><a  style="text-decoration: underline;font-weight:bold " href="/fileupload">FileUpload</a></li>
-                        <li><a style="opacity:0.7" href="about.html">About</a>
+                        <li><a style="opacity:0.7;font-weight: normal" href="#">About</a>
                         </li>
-                        <li><a style="opacity:0.7" href="contact.html">Contact</a></li>
+                        <li><a style="opacity:0.7;font-weight: normal" href="/insights">Insights</a></li>
                         <!-- Changes -->
                         <li class="user-avatar">
                             <i class="far fa-user"></i>
                             <i class="fas fa-sort-down"></i>
-                            <ul class="submenu">
-                                <li><a href="#">{{user.username}}</a></li><br><hr>
-                                <li><a href="/profile">Profile</a></li><hr>
-                                <li><a href="/changepassword">Change Password</a></li><hr>
-                                <li><a href="/logout">Logout</a></li>
+                            <ul class="submenu" >
+                                <li><a class="sub1" style="font-weight: bold;" href="#">{{user.username}}</a></li><br><hr>
+                                <li><a class="sub" style="font-weight: normal" href="/profile">Profile</a></li><hr>
+                                <li><a class="sub" style="font-weight: normal" href="/changepassword">Change Password</a></li><hr>
+                                <li><a class="sub" style="font-weight: normal;" href="/history">History</a></li><hr>
+                                <li><a class="sub" style="font-weight: normal" href="/logout">Logout</a></li>
                             </ul>
                         </li>
                         <!-- end -->
@@ -369,7 +405,6 @@
           </tr>
         </table>
       </form> -->
-
       <div class="container" role="main">
         <h1><a href="/article-url"></a></h1>
         <form method="post" action="uploadfile" enctype="multipart/form-data" novalidate class="box">
@@ -383,37 +418,64 @@
             <label for="file"><strong>Choose a CSV file</strong><span class="box__dragndrop"> or drag it here</span>.</label>
             <button type="submit" class="box__button">Upload</button>
           </div>
+          <h3>{{a}}</h3>
+          132145
           <div class="box__uploading">Uploading&hellip;</div>
           <div class="box__success">Done! <a href="" class="box__restart" role="button">Upload more?</a></div>
           <div class="box__error">Error! <span></span>. <a href="" class="box__restart" role="button">Try again!</a></div>
         </form>
       </div>
-
     </div>
+    {{a}}
+    {% if a %}
+      <div class="btncontainer">
+        <a href="/exportcsv">
+          <button class="btn" type="button" name="button">Download</button>
+        </a>
+
+        <a href="/insights">
+          <button class="btn" type="button" name="button">Summary</button>
+        </a>
+
+        <a href="/home">
+          <button class="btn" type="button" name="button">Back to Home</button>
+        </a>
+
+      </div>
+    {% endif %}
 
   </main>
 
   <footer>
-
     <div class="footer">
       <div class="fcontainer" style="display:flex;justify-content:space-between;">
-        <div style="width:20%;" class="logo">
-          <a href="/inex"><img style="width:50%;" src="{% static 'img/logo/virtusa-footer-logo.png' %}" alt=""></a>
+        <div style="width:60%;" class="logo">
+          <table>
+            <tr>
+              <td>Email: </td>
+              <td style="padding-left:4%;">sample@gmail.com</td>
+            </tr>
+            <tr>
+              <td>Phone: </td>
+              <td style="padding-left:4%;">+91 xxxxx xxxxx</td>
+            </tr>
+          </table>
         </div>
-        <div style="width:80%;" class="fcontent">
+        <div style="width:30%;" class="fcontent">
           <div class="main-menu d-none d-lg-block">
             <nav>
-              <ul style="display:flex;float:right" id="navigation">
-                <li><a style="opacity:0.7" href="/home">Home</a></li>
-                <li><a style="opacity:0.7" href="/input">Input</a></li>
-                <li class="active"><a style="text-decoration: underline; font-weight:bold " href="/fileupload">FileUpload</a></li>
-                <li><a style="opacity:0.7" href="about.html">About</a></li>
-                <li><a style="opacity:0.7" href="contact.html">Contact</a></li>
+              <ul style="display:flex; justify-content: space-around;float:right" id="navigation">
+                <li><a target="_blank" href="https://www.instagram.com/virtusacorp/"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                <li><a target="_blank" href="https://www.linkedin.com/company/virtusa/"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                <li><a target="_blank" href="https://twitter.com/VirtusaCorp"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                <li><a target="_blank" href="https://www.youtube.com/user/VirtusaCorporation"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
+                <li><a target="_blank" href="#"><i class="fa fa-copyright" aria-hidden="true">&nbsp<span>2020</span></i></a></li>
               </ul>
             </nav>
           </div>
         </div>
       </div>
+
     </div>
   </footer>
   <!-- <div id="back-top">
