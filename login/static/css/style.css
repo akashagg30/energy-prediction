@@ -663,12 +663,10 @@ hr {
   position: fixed;
   top: 0;
   width: 100%;
-  -webkit-box-shadow: 0 10px 15px rgba(25, 25, 25, 0.1);
   box-shadow: 0 10px 15px rgba(25, 25, 25, 0.1);
   z-index: 9999;
-  -webkit-animation: 300ms ease-in-out 0s normal none 1 running fadeInDown;
   animation: 300ms ease-in-out 0s normal none 1 running fadeInDown;
-  -webkit-box-shadow: 0 10px 15px rgba(25, 25, 25, 0.1);
+
   background: linear-gradient(to bottom, #1291DD , #075584);
 }
 
@@ -2791,7 +2789,7 @@ hr {
   font-weight: 600;
   padding: 39px 2px;
   display: block;
-  font-size: 16px;
+  font-size: 20px;
   transition: .3s;
   text-transform: capitalize
 }
@@ -2832,8 +2830,8 @@ hr {
   color: #C86FFF;
   background: none;
   padding-left: 13px !important
-}
- */
+} */
+
 
 
 .main-header ul>li:hover>ul.submenu {
@@ -3058,14 +3056,14 @@ hr {
 }
 
 .slider-area, .slider-area2 {
-  position: relative;
+  /* position: relative; */
   background-image: url(../img/hero/b4.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center
 }
 
-.slider-area::before, .slider-area2::before {
+/* .slider-area::before, .area2::before {
     content: "";
     position: absolute;
     top: 0px;
@@ -3073,18 +3071,19 @@ hr {
     bottom: 0px;
     left: 0px;
     background-color: rgba(0,0,0,0.4);
-}
+} */
 
-.slider-area.slider-area2, .slider-area2.slider-area2 {
+/* .slider-area.slider-area2, .slider-area2.slider-area2 {
   background-image: url(../img/hero/hero2.png);
   height: 40vh;
-}
+} */
 
 .slider-area .hero__caption, .slider-area2 .hero__caption {
   overflow: hidden
 }
 
 .slider-area .hero__caption span, .slider-area2 .hero__caption span {
+  position: absolute;
   color: #31ff7a;
   font-size: 60px;
   line-height: 1.2;
@@ -3101,6 +3100,7 @@ hr {
 }
 
 .slider-area .hero__caption h1, .slider-area2 .hero__caption h1 {
+  position: absolute;
   font-size: 60px;
   font-weight: 700;
   color: #fff;
@@ -3139,6 +3139,7 @@ hr {
 }
 
 .slider-area .hero__caption p, .slider-area2 .hero__caption p {
+  position: absolute;
   color: #fff;
   font-size: 18px;
   margin-bottom: 34px

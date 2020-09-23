@@ -1,0 +1,323 @@
+{% load static %}
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>About Us</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- <link rel="manifest" href="site.webmanifest"> -->
+  <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}">
+
+  <!-- CSS here -->
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/slicknav.css' %}">
+  <link rel="stylesheet" href="{% static 'css/flaticon.css' %}">
+  <link rel="stylesheet" href="{% static 'css/progressbar_barfiller.css' %}">
+  <link rel="stylesheet" href="{% static 'css/gijgo.css' %}">
+  <link rel="stylesheet" href="{% static 'css/animate.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/animated-headline.css' %}">
+  <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+  <link rel="stylesheet" href="{% static 'css/fontawesome-all.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/themify-icons.css' %}">
+  <link rel="stylesheet" href="{% static 'css/slick.css' %}">
+  <link rel="stylesheet" href="{% static 'css/nice-select.css' %}">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <style media="screen">
+  .virtusa{
+    width: 60%;
+  }
+   .sticky-bar {
+    height: 10%;
+  }
+  .sticky-bar .logo{
+    margin-top: 11%;
+  }
+  .main-header .main-menu ul li a{
+    padding-top: 20%;
+  }
+    .tabContainer {
+      margin-top: 10%;
+    }
+    footer{
+      position: relative
+    }
+    .footer{
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 4em;
+      background-color: #CCD1D1  ;
+      padding-right: 5%;
+      padding-left: 5%;
+      /* padding-top: 0.5%; */
+      margin-bottom: 0;
+      margin-top: 0;
+      color: black;
+    }
+
+    .fcontact{
+      margin-top: 1%;
+    }
+
+    .fcontact b{
+      font-size: 1.2em;
+    }
+
+
+    .fcontent ul{
+      margin-top: 3%;
+      width: 75%;
+    }
+
+    .fcontent li{
+      height: 50px;
+    }
+
+    .fcontent a{
+      font-size: 25px;
+      color: #10285d;;
+    }
+
+    .fcontent span{
+      padding-top: 2px;
+      font-size: 20px;
+    }
+
+
+    .main-header .main-menu ul ul.submenu>li>.sub1 {
+      font-size: 20px;
+      color: black;
+    }
+
+    .main-header .main-menu ul ul.submenu>li>.sub:hover {
+      color: #C86FFF;
+      background: none;
+      padding-left: 13px !important
+    }
+
+    .submenu ul li a {
+      font-weight: normal;
+    }
+
+    .imgcontainer{
+      color: blue;
+      width:100%;
+      margin-top:5%;
+      /* margin-bottom: 4%; */
+    }
+
+    .imgcontainer .topimg{
+      width:90%;
+      margin-left:2%;
+    }
+
+    .services{
+      background-color:#122665;
+    }
+
+    .services p{
+      font-size: 1.7em;
+      margin-left: 10%;
+      padding-top: 3%;
+      color: white;
+    }
+
+    .servcontainer{
+      display:flex;
+      justify-content: space-around;
+      text-align:center
+    }
+
+    .servcontainer .left, .servcontainer .right{
+      width: 38%;
+    }
+
+    .servcontainer .left{
+      margin-left:2%;
+    }
+
+    .servcontainer .right{
+      margin-right:2%;
+    }
+
+    .servcontainer img{
+      width: 35%;
+      /* margin-left:30%; */
+    }
+
+
+    .left h1, .right h1{
+      width:90%;
+      font-weight:bold;
+      color:white
+    }
+
+    .left h3, .right h3{
+      color: white
+    }
+
+
+
+  </style>
+
+</head>
+
+<body>
+  <header>
+    <!-- Header Start -->
+    <div class="header-area header-transparent">
+      <div class="main-header ">
+        <div class="header-bottom sticky-bar">
+          <div class="container-fluid">
+            <div class="row">
+              <!-- Logo -->
+              <div class="col-xl-2 col-lg-2">
+                <div class="logo">
+                  <a href="/index"><img class="virtusa" src="{% static 'img/logo/virtusa-footer-logo.png' %}" alt=""></a>
+                </div>
+              </div>
+              <div class="col-xl-10 col-lg-10">
+                <div class="menu-wrapper d-flex align-items-center justify-content-end">
+                  <!-- Main-menu -->
+                  <div class="main-menu d-none d-lg-block">
+                    <nav>
+                      <ul id="navigation">
+                        <li><a style="opacity:0.7;font-weight: normal;" href="/home">Home</a></li>
+                        <li><a style="opacity:0.7;font-weight: normal;" href="/input">Single PEP</a></li>
+                        <li><a style="opacity:0.7;font-weight: normal;" href="/fileupload">File PEP</a></li>
+                        <li><a style="text-decoration: underline;font-weight:bold " href="/about">About</a>
+                        </li>
+                        <li class="active"><a style="opacity:0.7;font-weight: normal;"   href="/insights">My Dashboard</a></li>
+
+                        <li class="user-avatar">
+                          <i class="far fa-user"></i>
+                          <i class="fas fa-sort-down"></i>
+                          <ul class="submenu">
+                            <li><a class="sub1" href="#">{{user.username}}</a></li><br>
+                            <hr>
+                            <li><a class="sub" style="font-weight: normal;" href="/profile">Profile</a></li>
+                            <hr>
+                            <li><a class="sub" style="font-weight: normal;" href="/changepassword">Change Password</a></li>
+                            <hr>
+                            <li><a class="sub" style="font-weight: normal;" href="/logout">Logout</a></li>
+                          </ul>
+                        </li>
+                        <!-- end -->
+                      </ul>
+                    </nav>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Header End -->
+  </header>
+  <!-- Header End -->
+  <main class="imgcontainer">
+
+    <img class="topimg" src="{% static 'img/about1.png' %}">
+
+    <!-- <img class="img2" src="{% static 'img/about2.png' %}" > -->
+    <div class="services">
+      <p>What are our services</p>
+      <br><br>
+      <div class="servcontainer">
+        <div class="left">
+          <img src="{% static 'img/sep.png' %}" alt="">
+          <br><br>
+          <h1>Single Property Energy Prediction (PEP)</h1>
+          <h3>Best way to identify your energy consumption of your building</h3><br>
+        </div>
+        <div class="right">
+          <img src="{% static 'img/altermep.png' %}" alt="">
+          <br><br>
+          <h1>Multi Property Energy Prediction (PEP) </h1>
+          <h3>Effective way to Manage your power consumption costs of your property</h3><br>
+        </div>
+      </div>
+      <br>
+
+
+    </div>
+    <br><br><br>
+
+  </main>
+
+  <footer>
+    <div class="footer">
+      <div class="fcontainer" style="display:flex;justify-content:space-between;">
+        <div class="fcontact" >
+          <p><b>Contact Us&nbsp&nbsp</b> <i class="fa fa-envelope" aria-hidden="true"></i> <strong>Email:&nbsp&nbsp</strong> sample@gmail.com &nbsp&nbsp <i class="fa fa-phone" aria-hidden="true"></i> <strong>Phone No:&nbsp&nbsp</strong>+91 xxxxx xxxxx </p>
+        </div>
+        <div style="width:30%;" class="fcontent">
+          <div class="main-menu d-none d-lg-block">
+            <nav>
+              <ul style="display:flex; justify-content: space-around;float:right" id="navigation">
+                <li><a target="_blank" href="https://www.instagram.com/virtusacorp/"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                <li><a target="_blank" href="https://www.linkedin.com/company/virtusa/"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                <li><a target="_blank" href="https://twitter.com/VirtusaCorp"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                <li><a target="_blank" href="https://www.youtube.com/user/VirtusaCorporation"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
+                <li><a target="_blank" href="#"><i class="fa fa-copyright" aria-hidden="true">&nbsp<span>2020</span></i></a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </footer>
+
+
+  <!-- Jquery, Popper, Bootstrap -->
+  <script src="{% static 'js/vendor/jquery-1.12.4.min.js' %}"></script>
+  <script src="{% static 'js/popper.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <!-- Jquery Mobile Menu -->
+  <script src="{% static 'js/jquery.slicknav.min.js' %}"></script>
+
+  <!-- Jquery Slick , Owl-Carousel Plugins -->
+  <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+  <script src="{% static 'js/slick.min.js' %}"></script>
+  <!-- One Page, Animated-HeadLin -->
+  <script src="{% static 'js/wow.min.js' %}"></script>
+  <script src="{% static 'js/animated.headline.js' %}"></script>
+  <script src="{% static 'js/jquery.magnific-popup.js' %}"></script>
+
+  <!-- Date Picker -->
+  <script src="{% static 'js/gijgo.min.js' %}"></script>
+  <!-- Nice-select, sticky -->
+  <script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
+  <script src="{% static 'js/jquery.sticky.js' %}"></script>
+  <!-- Progress -->
+  <script src="{% static 'js/jquery.barfiller.js' %}"></script>
+
+  <!-- counter , waypoint,Hover Direction -->
+  <script src="{% static 'js/jquery.counterup.min.js' %}"></script>
+  <script src="{% static 'js/waypoints.min.js' %}"></script>
+  <script src="{% static 'js/jquery.countdown.min.js' %}"></script>
+  <script src="{% static 'js/hover-direction-snake.min.js' %}"></script>
+
+  <!-- contact js -->
+  <script src="{% static 'js/contact.js' %}"></script>
+  <script src="{% static 'js/jquery.form.js' %}"></script>
+  <script src="{% static 'js/jquery.validate.min.js' %}"></script>
+  <script src="{% static 'js/mail-script.js' %}"></script>
+  <script src="{% static 'js/jquery.ajaxchimp.min.js' %}"></script>
+
+  <!-- Jquery Plugins, main Jquery -->
+  <script src="{% static 'js/plugins.js' %}"></script>
+  <script src="{% static 'js/main.js' %}"></script>
+
+</body>
+
+</html>

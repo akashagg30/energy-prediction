@@ -3,7 +3,11 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .decorators import unauthenticated_user
 
+from django.http import HttpResponse
 from subprocess import Popen, PIPE
+from json import dump
+from django.views.decorators.csrf import csrf_protect
+
 
 # user name
 
@@ -27,3 +31,7 @@ def system_resource_monitor(request):
         'cpu': [cpu, 100.0-cpu],
         'memory': [memory, 100-memory]
     })
+
+@csrf_protect
+def cpu(request):
+    return HttpResponse("hi")

@@ -113,6 +113,12 @@ def profile(request):
 
 @login_required(login_url='/login')
 @customers_only
+def about(request):
+    return render(request,'about.html')
+
+
+@login_required(login_url='/login')
+@customers_only
 def predict(request):
     if request.method == 'POST':
         temp = {}
@@ -277,6 +283,20 @@ def adminhome(request):
         return render(request, 'adminhome.html')
 
 
+def insights(request):
+    return render(request, 'insights.html')
+
+def userdetails(request):
+    return render(request, 'userdetails.html')
+
+def dashboard(request):
+    return render(request, 'dashboard.html')
+
+def reset_password(request):
+    if request.method == 'POST':
+        email = request.POST['email']
+        print("HI")
+        print(email)
 
 @login_required(login_url='/login')
 @admin_only
@@ -299,6 +319,11 @@ def history(request):
 
 
 @login_required
+@customers_only
 def password_changed(request):
   messages.success(request, 'Your password has been changed.')
-  return redirect(request.POST.get('next', reverse('profile')))
+  context = {'a' : 1}
+  return render(request,'password_change_form.html',context)
+    #return render(request,'password_reset.html')
+# def reset_password_sent(request):
+#     return render(request,'password_reset_sent.html')
