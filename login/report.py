@@ -8,8 +8,6 @@ from .models import *
 from .decorators import unauthenticated_user, admin_only, customers_only
 
 
-# me
-import pandas as pd
 import numpy as np
 # def extract
 
