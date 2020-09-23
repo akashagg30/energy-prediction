@@ -329,9 +329,6 @@ def password_changed(request):
   messages.success(request, 'Your password has been changed.')
   context = {'a' : 1}
   return render(request,'password_change_form.html',context)
-<<<<<<< HEAD
     #return render(request,'password_reset.html')
 # def reset_password_sent(request):
 #     return render(request,'password_reset_sent.html')
-=======
->>>>>>> d9b5a203325b95768db5ee0fb4dea4ee553f271a

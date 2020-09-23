@@ -52,5 +52,5 @@ urlpatterns = [
     path('report',report.Report),
     # ------------ system resource monitor --------
     path('resources',resources.system_resource_monitor),
-    path('resources/cpu',resources.cpu),
+    path('resources/get',resources.resource_info),
     ]
