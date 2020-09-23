@@ -49,21 +49,31 @@
     {% if user_data %}
     <table>
       <tr>
-        <td>Id</td>
+        <td>SNo.</td>
         <td>Date Joined</td>
         <td>Username</td>
         <td>First Name</td>
         <td>Last Name</td>
         <td>Email</td>
+        <td>Last Login</td>
+        <td>Status</td>
       </tr>
     {% for data in user_data %}
         <tr>
-          <td>{{data.id}}</td>
+          <td>{{forloop.counter}}</td>
           <td>{{data.date_joined}}</td>
           <td>{{data.username}}</td>
           <td>{{data.firt_name}}</td>
           <td>{{data.last_name}}</td>
           <td>{{data.email}}</td>
+          <td>{{data.last_login}}</td>
+          <td>
+            {% if data.is_active == True %}
+              Active
+            {% else %}
+              Inactive
+            {% endif %}
+          </td>
         </tr>
     {% endfor %}
     </table>

@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import path
-from login import views
+from login import views,report
 from login.forms import EmailValidationOnForgotPassword
 
 urlpatterns = [
@@ -29,8 +29,9 @@ urlpatterns = [
     path('reset_password_sent',auth_views.PasswordResetDoneView.as_view(template_name = 'password_reset_sent.html'), name= "password_reset_done"),
     path('reset/<uidb64>/<token>',auth_views.PasswordResetConfirmView.as_view(template_name = 'password_reset_form.html'), name = "password_reset_confirm"),
     path('reset_password_complete',auth_views.PasswordResetCompleteView.as_view(template_name = 'password_reset_done.html'), name = "password_reset_complete"),
-    path('change_password',auth_views.PasswordChangeView.as_view(template_name = 'password_change_form.html'),name = 'password_change'),
+    path('change_password',auth_views.PasswordChangeView.as_view(template_name = 'password_change_form.html',success_url ='/password_changed'),name = 'password_change'),
     path('change_password_done',auth_views.PasswordChangeDoneView.as_view(template_name = 'password_change_done.html'), name = 'password_change_done'),
+    path('password_changed',views.password_changed),
     # Added by Prasanna
     path('fileupload',views.fileupload),
     path('input', views.input),
@@ -43,5 +44,7 @@ urlpatterns = [
     path('adminhome',views.adminhome),
     path('exportcsv',views.export_csv),
     path('userdetails',views.userdetails),
-    path('insights',views.insights)
+    path('history',views.history),
+    # ------------ report ---------
+    path('report',report.Report),
     ]

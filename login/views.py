@@ -289,10 +289,16 @@ def userdetails(request):
 
 @login_required(login_url='/login')
 @customers_only
-def insights(request):
+def history(request):
     if request.user.is_authenticated:
         user_id = request.user.id
     print(user_id)
     user_inputs = Energy_Data.objects.filter(username = user_id)
-    return render(request,'insights.html',{'user_inputs':user_inputs})
-    
+    print(user_inputs)
+    return render(request,'history.html',{'user_inputs':user_inputs})
+
+
+@login_required
+def password_changed(request):
+  messages.success(request, 'Your password has been changed.')
+  return redirect(request.POST.get('next', reverse('profile')))
