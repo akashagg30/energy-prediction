@@ -1,9 +1,6 @@
 .passwords{
   display: flex;
 }
-.Cpassword{
-  margin-left: 5%;
-}
 .passwords input{
-  width: 100%;
+  width: 80%;
 }

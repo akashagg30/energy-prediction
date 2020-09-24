@@ -18,10 +18,13 @@ from django.template.response import TemplateResponse
 
 id_first = -1
 id_last = -1
+
 Pkl_Filename = './models/rf_model.sav'
+
 with open(Pkl_Filename,'rb') as f:
     reloadModel = pickle.load(f,encoding='latin1')
-#reloadModel = pickle.load(open('./models/model.pkl','rb'))
+
+
 @unauthenticated_user
 def login(request):
     if request.method == 'POST':
@@ -72,7 +75,7 @@ def signup(request):
                 print('user created')
                 auth.login(request,user)
                 return redirect('/home')
-                
+
         else:
             messages.info(request,'password not matchedUsername Taken')
             print('password not matched')
@@ -199,7 +202,7 @@ def uploadfile(request):
                 obj.save()
                 print(temp)
                 if(numberOfRows == 0):
-                    global id_first 
+                    global id_first
                     id_first = obj.id
                 numberOfRows=numberOfRows+1
         global id_last

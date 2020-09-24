@@ -46,20 +46,37 @@
           <fieldset>
             <legend>&nbsp&nbsp Meter Details &nbsp&nbsp</legend>
             <table>
+
+
+              <tr>
+                <td class="col1"><label for="">Meter Type:</label></td>
+                <td><select style="width:70%;height:39px;">
+                    <option value="electricity">Electricity</option>
+                    <option value="chilledwater">Chilled Water</option>
+                    <option value="steam">Steam</option>
+                    <option value="hotwater">Hot Water</option>
+                  </select>
+                </td>
+              </tr>
+
+
+
               <tr>
                 <td class="col1"><label for="">Meter Reading:</label></td>
                 <td>
                   <div class="form_group">
                     <label>&nbsp&nbspFrom&nbsp&nbsp</label>
-                    <input type="number" name="meter_reading1" value="" placeholder="Meter reading">
+                    <input type="number" name="meter_reading1" value="" placeholder="Meter reading" step="any">
                   </div>
                 </td>
                 <td><div class="form_group">
                   <label>&nbsp&nbspTo&nbsp&nbsp</label>
-                  <input type="number" name="meter_reading2" value="" placeholder="Meter reading">
+                  <input type="number" name="meter_reading2" value="" placeholder="Meter reading" step="any">
                 </div></td>
               </tr>
-              <!-- <tr>
+
+
+              <tr>
                 <td class="col1"><label for="">Time Stamp:</label></td>
                 <td>
                   <div class="form_group">
@@ -72,7 +89,10 @@
                     <input type="datetime-local" name="" value="">
                   </div>
                 </td>
-              </tr> -->
+              </tr>
+
+
+
             </table>
           </fieldset>
         </div>
@@ -81,10 +101,11 @@
           <fieldset>
             <legend>&nbsp&nbsp Building Details &nbsp&nbsp </legend>
             <table>
-              <!-- <tr>
+
+              <tr>
                 <td class="col1"><label>Primary Use:</label></td>
                 <td>
-                  <input type="text" name="" value="" list="uses" placeholder="Primary use of Building">
+                  <input type="text" name="" list="uses" placeholder="Primary use of Building">
                   <datalist id="uses">
                       <option>Education</option>
                       <option>Entertainment/public assembly</option>
@@ -104,7 +125,8 @@
                       <option>Other</option>
                     </datalist>
                 </td>
-              </tr> -->
+              </tr>
+
               <tr>
                 <td class="col1"><label for="">Year Built:</label></td>
                 <td>
@@ -180,44 +202,44 @@
                 </td>
               </tr>
               <tr> -->
-                <td class="col1"><label for="">Air Temperature</label></td>
+                <td class="col1"><label for="">Air Temperature:</label></td>
                 <td>
                   <div class="form_group">
                     <label>&nbsp&nbspFrom&nbsp&nbsp</label>
-                    <input type="number" name="air_temperature1" value="" placeholder="Air Temperature">
+                    <input type="number" name="air_temperature1" value="" placeholder="Air Temperature" step="any">
                   </div>
                 </td><td>
                   <div class="form_group">
                     <label>&nbsp&nbspTo&nbsp&nbsp</label>
-                    <input type="number" name="air_temperature2" value="" placeholder="Air Temperature">
+                    <input type="number" name="air_temperature2" value="" placeholder="Air Temperature" step="any">
                   </div>
                 </td>
               </tr>
               <tr>
-                <td class="col1"><label for="">Dew Temperature</label></td>
+                <td class="col1"><label for="">Dew Temperature:</label></td>
                 <td>
                   <div class="form_group">
                     <label>&nbsp&nbspFrom&nbsp&nbsp</label>
-                    <input type="number" name="dew_teperature1" value="" placeholder="Dew Temperature">
+                    <input type="number" name="dew_teperature1" value="" placeholder="Dew Temperature" step="any">
                   </div>
                 </td><td>
                   <div class="form_group">
                     <label>&nbsp&nbspTo&nbsp&nbsp</label>
-                    <input type="number" name="dew_teperature2" value="" placeholder="Dew Temperature">
+                    <input type="number" name="dew_teperature2" value="" placeholder="Dew Temperature" step="any">
                   </div>
                 </td>
               </tr>
               <tr>
-                <td class="col1"><label for="">Precip depth for 1 hr</label></td>
+                <td class="col1"><label for="">Sea Level Pressure:</label></td>
                 <td>
                   <div class="form_group">
                     <label>&nbsp&nbspFrom&nbsp&nbsp</label>
-                    <input type="number" name="precip_depth1" value="" placeholder="Precip depth">
+                    <input type="number" name="sea_level1" value="" placeholder="Sea Level" step="any">
                   </div>
                 </td><td>
                   <div class="form_group">
                     <label>&nbsp&nbspTo&nbsp&nbsp</label>
-                    <input type="number" name="precip_depth1" value="" placeholder="Precip depth">
+                    <input type="number" name="sea_level2" value="" placeholder="Sea Level" step="any">
                   </div>
                 </td>
               </tr>

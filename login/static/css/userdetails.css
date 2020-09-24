@@ -10,7 +10,7 @@
   border-right: 1px solid black;
 }
 
-table tr, table td{
+.container table tr, .container table td{
   border-bottom: 1px solid black;
   height: 35px;
   text-align: center;
