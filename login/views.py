@@ -14,6 +14,7 @@ import os
 from datetime import datetime
 from django.contrib.auth import get_user_model
 from django.template.response import TemplateResponse
+from django.urls import reverse
 # Create your views here.
 
 id_first = -1
@@ -153,7 +154,8 @@ def predict(request):
 @login_required(login_url='/login')
 @customers_only
 def uploadfile(request):
-    if request.method=='POST' and  request.FILES['datafile']:
+    print("length",len(request.FILES))
+    if request.method=='POST' and len(request.FILES)>0 and  request.FILES['datafile']:
         myfile = request.FILES['datafile']
         fs = FileSystemStorage()
         fname = fs.save(myfile.name, myfile)
@@ -200,7 +202,7 @@ def uploadfile(request):
                                 floor_count=temp['floor_count'],
                                 meter_reading= scoreval)
                 obj.save()
-                print(temp)
+                print("temp",temp)
                 if(numberOfRows == 0):
                     global id_first
                     id_first = obj.id
@@ -208,10 +210,15 @@ def uploadfile(request):
         global id_last
         id_last = obj.id + numberOfRows
         fs.delete(fname)
-        context = {'a':1}
-        print(context['a'])
-        return TemplateResponse(request,'fileupload.html',context)
+        messages.success(request,'File uploaded successful')
+        # context = {'a':1}
+        # print(context['a'])
+        # return TemplateResponse(request,'fileupload.html',context)
         #return render(request, 'fileupload.html',{'a': 1,'aas':123})
+        return HttpResponse(reverse(fileupload))
+        # return redirect('/fileupload')
+    else:
+        return redirect('/fileupload')
 
 @login_required(login_url='/login')
 @customers_only
