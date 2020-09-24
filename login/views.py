@@ -22,7 +22,7 @@ from django.urls import reverse
 
 id_first = -1
 id_last = -1
-Pkl_Filename = './models/rf_model_final.sav'
+Pkl_Filename = './models/rf_model.sav'
 with open(Pkl_Filename,'rb') as f:
     reloadModel = pickle.load(f,encoding='latin1')
 
@@ -129,165 +129,22 @@ def predict(request):
         building_id = request.POST.get('building_id')
         temp['air_temperature'] = request.POST.get('air_temperature')
         temp['dew_temperature'] = request.POST.get('dew_temperature')
+        temp['precip_depth'] = request.POST.get('precip_depth')
         temp['building_size'] = request.POST.get('building_size')
         temp['year_built'] = request.POST.get('year_built')
         temp['floor_count'] = request.POST.get('floor_count')
-        primary_use = request.POST.get('primary_use')
-        meter_type = request.POST.get('meter_type')
-        if(meter_type == 'electricity'):
-            temp['meter is 0'] = 1
-            temp['meter is 1'] = 0
-            temp['meter is 2'] = 0
-            temp['meter is other'] = 0
-        elif(meter_type == 'chilledwater'):
-            temp['meter is 0'] = 0
-            temp['meter is 1'] = 1
-            temp['meter is 2'] = 0
-            temp['meter is other'] = 0
-        elif(meter_type == 'steam'):
-            temp['meter is 0'] = 0
-            temp['meter is 1'] = 0
-            temp['meter is 2'] = 1
-            temp['meter is other'] = 0
-        else:
-            temp['meter is 0'] = 0
-            temp['meter is 1'] = 0
-            temp['meter is 2'] = 0
-            temp['meter is other'] = 1
-        if(primary_use == 'Education'):
-            temp['primary_use is Education'] = 1
-            temp['primary_use is Lodging/residential'] = 0
-            temp['primary_use is Entertainment'] = 0
-            temp['primary_use is Other'] = 0
-            temp['primary_use is Parking'] = 0
-            temp['primary_use is Office'] = 0
-            temp['primary_use is Public services'] = 0
-            temp['primary_use is Utility'] = 0
-            temp['primary_use is Healtcare'] = 0
-            temp['primary_use is Retail'] = 0
-        elif(primary_use == 'Lodging/residential'):
-            temp['primary_use is Education'] = 0
-            temp['primary_use is Lodging/residential'] = 1
-            temp['primary_use is Entertainment'] = 0
-            temp['primary_use is Other'] = 0
-            temp['primary_use is Parking'] = 0
-            temp['primary_use is Office'] = 0
-            temp['primary_use is Public services'] = 0
-            temp['primary_use is Utility'] = 0
-            temp['primary_use is Healtcare'] = 0
-            temp['primary_use is Retail'] = 0
-        elif(primary_use == 'Entertainment/public assembly'):
-            temp['primary_use is Education'] = 0
-            temp['primary_use is Lodging/residential'] = 0
-            temp['primary_use is Entertainment'] = 1
-            temp['primary_use is Other'] = 0
-            temp['primary_use is Parking'] = 0
-            temp['primary_use is Office'] = 0
-            temp['primary_use is Public services'] = 0
-            temp['primary_use is Utility'] = 0
-            temp['primary_use is Healtcare'] = 0
-            temp['primary_use is Retail'] = 0
-        elif(primary_use == 'Parking'):
-            temp['primary_use is Education'] = 0
-            temp['primary_use is Lodging/residential'] = 0
-            temp['primary_use is Entertainment'] = 0
-            temp['primary_use is Other'] = 0
-            temp['primary_use is Parking'] = 1
-            temp['primary_use is Office'] = 0
-            temp['primary_use is Public services'] = 0
-            temp['primary_use is Utility'] = 0
-            temp['primary_use is Healtcare'] = 0
-            temp['primary_use is Retail'] = 0
-        elif(primary_use == 'Office'):
-            temp['primary_use is Education'] = 0
-            temp['primary_use is Lodging/residential'] = 0
-            temp['primary_use is Entertainment'] = 0
-            temp['primary_use is Other'] = 0
-            temp['primary_use is Parking'] = 0
-            temp['primary_use is Office'] = 1
-            temp['primary_use is Public services'] = 0
-            temp['primary_use is Utility'] = 0
-            temp['primary_use is Healtcare'] = 0
-            temp['primary_use is Retail'] = 0
-        elif(primary_use == 'Public services'):
-            temp['primary_use is Education'] = 0
-            temp['primary_use is Lodging/residential'] = 0
-            temp['primary_use is Entertainment'] = 0
-            temp['primary_use is Other'] = 0
-            temp['primary_use is Parking'] = 0
-            temp['primary_use is Office'] = 0
-            temp['primary_use is Public services'] = 1
-            temp['primary_use is Utility'] = 0
-            temp['primary_use is Healtcare'] = 0
-            temp['primary_use is Retail'] = 0
-        elif(primary_use == 'Utility'):
-            temp['primary_use is Education'] = 0
-            temp['primary_use is Lodging/residential'] = 0
-            temp['primary_use is Entertainment'] = 0
-            temp['primary_use is Other'] = 0
-            temp['primary_use is Parking'] = 0
-            temp['primary_use is Office'] = 0
-            temp['primary_use is Public services'] = 0
-            temp['primary_use is Utility'] = 1
-            temp['primary_use is Healtcare'] = 0
-            temp['primary_use is Retail'] = 0
-        elif(primary_use == 'Healthcare'):
-            temp['primary_use is Education'] = 0
-            temp['primary_use is Lodging/residential'] = 0
-            temp['primary_use is Entertainment'] = 0
-            temp['primary_use is Other'] = 0
-            temp['primary_use is Parking'] = 0
-            temp['primary_use is Office'] = 0
-            temp['primary_use is Public services'] = 0
-            temp['primary_use is Utility'] = 0
-            temp['primary_use is Healtcare'] = 1
-            temp['primary_use is Retail'] = 0
-        elif(primary_use == 'Retail'):
-            temp['primary_use is Education'] = 0
-            temp['primary_use is Lodging/residential'] = 0
-            temp['primary_use is Entertainment'] = 0
-            temp['primary_use is Other'] = 0
-            temp['primary_use is Parking'] = 0
-            temp['primary_use is Office'] = 0
-            temp['primary_use is Public services'] = 0
-            temp['primary_use is Utility'] = 0
-            temp['primary_use is Healtcare'] = 0
-            temp['primary_use is Retail'] = 1
-        else:
-            temp['primary_use is Education'] = 0
-            temp['primary_use is Lodging/residential'] = 0
-            temp['primary_use is Entertainment'] = 0
-            temp['primary_use is Other'] = 1
-            temp['primary_use is Parking'] = 0
-            temp['primary_use is Office'] = 0
-            temp['primary_use is Public services'] = 0
-            temp['primary_use is Utility'] = 0
-            temp['primary_use is Healtcare'] = 0
-            temp['primary_use is Retail'] = 0
-        
-        temp['sea_level_pressure'] = request.POST.get('sea_level_pressure')
-        date_in = request.POST.get('timestamp')
-        date_out = datetime(*[int(v) for v in date_in.replace('T', '-').replace(':', '-').split('-')])
-        print(date_out)
-        temp['timestamp'] = date_out.strftime("%m/%d/%Y %H:%M:%S")
-        print(temp)
         testdata = pd.DataFrame({'x':temp}).transpose()
-        print("&&&&&&&&&&&&&&")
         scoreval = reloadModel.predict(testdata)[0]
-        print("---------------")
         #scoreval = 1
         user = request.user
-        print("****************")
         obj = Energy_Data(username = user,
+                        building_id = building_id,
                         air_temeprature=temp['air_temperature'],
                         dew_temperature=temp['dew_temperature'],
+                        precip_depth = temp['precip_depth'],
                         building_size=temp['building_size'],
                         year_built=temp['year_built'],
                         floor_count=temp['floor_count'],
-                        primary_use=temp['primary_use'],
-                        meter=temp['meter'],
-                        sea_level_pressure=temp['sea_level_pressure'],
-                        timestamp=temp['timestamp'],
                         meter_reading = scoreval)
         obj.save()
         context = {'scoreval':scoreval}
@@ -297,7 +154,7 @@ def predict(request):
 
 @login_required(login_url='/login')
 def uploadfile(request):
-    if request.method=='POST' and len(request.FILES)>0 and request.FILES['datafile']:
+    if request.method=='POST' and  request.FILES['datafile']:
         myfile = request.FILES['datafile']
         fs = FileSystemStorage()
         fname = fs.save(myfile.name, myfile)
@@ -310,6 +167,10 @@ def uploadfile(request):
         df = pd.read_csv(uploaded_file_url)
         total_cols=len(df.axes[1])
         print(total_cols)
+        global id_first
+        global id_last
+        id_first = -1
+        id_last = -1
         with open(uploaded_file_url) as csv_file:
             csv_reader=csv.reader(csv_file,delimiter=',')
             next(csv_reader)
@@ -317,60 +178,50 @@ def uploadfile(request):
             for row in csv_reader:
                 print(row)
                 temp = {}
-                if total_cols == 10:
-                    temp['primary_use'] = row[1]
-                    temp['meter_type'] = row[2]
-                    temp['air_temperature'] = row[3]
-                    temp['dew_temperature'] = row[4]
+                if total_cols == 8:
+                    building_id = row[1]
+                    temp['air_temperature'] = row[2]
+                    temp['dew_temperature'] = row[3]
+                    temp['precip_depth'] = row[4]
                     temp['building_size'] = row[5]
                     temp['year_built'] = row[6]
                     temp['floor_count'] = row[7]
-                    temp['sea_level_pressure'] = row[8]
-                    temp['timestamp'] = row[9]
-                elif total_cols == 9:
-                    temp['primary_use'] = row[0]
-                    temp['meter_type'] = row[1]
-                    temp['air_temperature'] = row[2]
-                    temp['dew_temperature'] = row[3]
+                elif total_cols == 7:
+                    building_id = row[0]
+                    temp['air_temperature'] = row[1]
+                    temp['dew_temperature'] = row[2]
+                    temp['precip_depth'] = row[3]
                     temp['building_size'] = row[4]
                     temp['year_built'] = row[5]
                     temp['floor_count'] = row[6]
-                    temp['sea_level_pressure'] = row[7]
-                    temp['timestamp'] = row[8]
                 testdata = pd.DataFrame({'x':temp}).transpose()
                 scoreval = reloadModel.predict(testdata)[0]
                 #scoreval = 1
                 user = request.user
-                print("score",scoreval)
                 obj = Energy_Data(username = user,
-                        air_temeprature=temp['air_temperature'],
-                        dew_temperature=temp['dew_temperature'],
-                        building_size=temp['building_size'],
-                        year_built=temp['year_built'],
-                        floor_count=temp['floor_count'],
-                        primary_use=temp['primary_use'],
-                        meter_type=temp['meter_type'],
-                        sea_level_pressure=temp['sea_level_pressure'],
-                        timestamp=temp['timestamp'],
-                        meter_reading = scoreval)
+                                building_id = building_id,
+                                air_temeprature=temp['air_temperature'],
+                                dew_temperature=temp['dew_temperature'],
+                                precip_depth = temp['precip_depth'],
+                                building_size=temp['building_size'],
+                                year_built=temp['year_built'],
+                                floor_count=temp['floor_count'],
+                                meter_reading= scoreval)
                 obj.save()
-                print("temp",temp)
+                print(temp)
                 if(numberOfRows == 0):
-                    global id_first
                     id_first = obj.id
                 numberOfRows=numberOfRows+1
-        global id_last
         id_last = obj.id + numberOfRows
         fs.delete(fname)
         messages.success(request,'File uploaded successful')
-        context = {'a':1}
-        print(context['a'])
+        #return render(request, 'fileupload.html',{'a': 173687})
         #return TemplateResponse(request,'fileupload.html',context)
         #return render(request, 'fileupload.html',{'a': 1,'aas':123})
         return HttpResponse(reverse(fileupload))
-        #return redirect(fileupload)
-    else:
-        return redirect('/fileupload')
+        #return redirect('/fileupload')
+
+
 
 @login_required(login_url='/login')
 def export_csv(request):
@@ -378,38 +229,32 @@ def export_csv(request):
     response['Content-Disposition'] = 'attachment; filename=MeterReading'  + '.csv'
 
     writer = csv.writer(response)
-    writer.writerow(['SNo.','Air Temperature','Dew Temperature','Precip Depth','Building Size','Year Built','Floor_Count','Meter Reading'])
-
+    writer.writerow(['SNo.','Building Id','Air Temperature','Dew Temperature','Precip Depth','Building Size','Year Built','Floor_Count','Meter Reading'])
     global id_first
     global id_last
     filtered_data = Energy_Data.objects.filter(id__range = [id_first,id_last])
     print(id_first,id_last)
-    id_first = -1
-    id_second = -1
     print(filtered_data)
     x = 1
     for data in filtered_data:
         writer.writerow([x,
+                        data.building_id,
                         data.air_temeprature,
                         data.dew_temperature,
+                        data.precip_depth,
                         data.building_size,
                         data.year_built,
                         data.floor_count,
-                        data.primary_use,
-                        data.meter_type,
-                        data.sea_level_pressure,
-                        data.timestamp,
                         data.meter_reading])
         x = x + 1
     return response
-
-
 
 @login_required(login_url='/login')
 @admin_only
 def adminhome(request):
     if request.method == 'POST':
-        meter_reading = request.POST.get('meter_reading')
+        meter_reading1 = request.POST.get('meter_reading1')
+        meter_reading2 = request.POST.get('meter_reading2')
         year_built1 = request.POST.get('year_built1')
         year_built2 = request.POST.get('year_built2')
         building_size1 = request.POST.get('building_size1')
@@ -423,7 +268,7 @@ def adminhome(request):
         precip_depth1 = request.POST.get('precip_depth1')
         precip_depth2 = request.POST.get('precip_depth2')
 
-        print(meter_reading)
+        print(meter_reading1," ",meter_reading2)
         print(year_built1," ",year_built2)
         print(building_size2," ",building_size2)
         print(floor_count1," ",floor_count2)
@@ -433,8 +278,8 @@ def adminhome(request):
         #filtered_data = Energy_prediction_Data.objects.all()
         filtered_data = Energy_Data.objects.all()
         print(filtered_data)
-        if meter_reading:
-            filtered_data = filtered_data.filter(meter_reading=meter_reading)
+        if meter_reading1 and meter_reading2:
+            filtered_data = filtered_data.filter(meter_reading__range = [meter_reading1,meter_reading2])
         if year_built2 and year_built2:
             filtered_data = filtered_data.filter(year_built__range = [year_built1,year_built2])
         if building_size1 and building_size2:
@@ -447,10 +292,16 @@ def adminhome(request):
             filtered_data = filtered_data.filter(dew_temperature__range = [dew_temperature1,dew_temperature2])
         if precip_depth1 and precip_depth2:
             filtered_data = filtered_data.filter(precip_depth__range = [precip_depth1,precip_depth2])
+        # filtered_data = Energy_prediction_Data.objects.filter(prediction=meter_reading,
+        #                                                     year_built__range = [year_built1,year_built2],
+        #                                                     building_size__range = [building_size1,building_size2],
+        #                                                     floor_count__range = [floor_count1,floor_count2],
+        #                                                     air_temeprature__range = [air_temperature1,air_temperature2],
+        #                                                     dew_temperature__range = [dew_temperature1,dew_temperature2],
+        #                                                     precip_depth__range = [precip_depth1,precip_depth2])
         print(filtered_data)
-        #return render(request,'adminhome.html',{'filtered_data':filtered_data})
-    else:
-        return render(request, 'adminhome.html')
+        return render(request,'adminhome.html',{'filtered_data':filtered_data})
+    return render(request, 'adminhome.html')
 
 
 @login_required(login_url='/login')

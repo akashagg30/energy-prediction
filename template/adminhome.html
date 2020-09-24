@@ -278,7 +278,8 @@
       </tr>
     {% for data in filtered_data %}
         <tr class="body">
-          <td>{{data.id}}</td>
+          <td>{{forloop.counter}}</td>
+          <td>{{data.building_id}}</td>
           <td>{{data.username}}</td>
           <td>{{data.date_created}}</td>
           <td>{{data.air_temperature}}</td>
