@@ -14,48 +14,92 @@
 
 <script>
 
+    var cpu_value=[0,0,0,0,0,0,0,0,0,0]
+    var ram_value=[0,0,0,0,0,0,0,0,0,0]
 
-    function cpu() {
-        var ctx = document.getElementById('chart1').getContext('2d');
-
-        var chart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                // X axis
-                labels=["","","","","","","","","",""],
-                datasets: [{
-                    // Y label
-                    label: '',
-                    // Y axis
-                    // data: [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,100.0],
-                    data: [0,0,0,0,0,0,0,0,0,100],
-                }]
-            }
-        }) 
+    function utill(value) {
+        console.log(value)
+        var a = parseFloat(value.split(' ')[0])
+        var b = parseFloat(value.split(' ')[1])
+        for(var i=0;i<9;++i){
+            cpu_value[i]=cpu_value[i+1];
+        }
+        for(var i=0;i<9;++i){
+            ram_value[i]=ram_value[i+1];
+        }
+        cpu_value[9]=a;
+        ram_value[9]=b;
+        cpu();
+        memory();
     }
 
-    // function memory() {
-    //     var ctx = document.getElementById('chart2').getContext('2d');
+    function update(){
+        fetch("resources/get").then(function(data) {
+            data.text().then( text => utill(text) );
+        });
+    }
 
-    //     var chart = new Chart(ctx, {
-    //         type: 'doughnut',
-    //         data: {
-    //             // X axis
-    //             labels: ['used', 'free'],
-    //             datasets: [{
-    //                 // Y label
-    //                 label: 'memory',
-    //                 // Y axis
-    //                 data: {{ memory| safe}},
-    //                 }]
-    //             }
-    //         }) 
-    //     }
+    function cpu(){
+        var ctx= document.getElementById('chart1').getContext('2d');
+        var chart = new Chart(ctx,{
+            type : 'line',
+            data : {
+                // X axis
+                labels: ["","","","","","","","","",""],
+                datasets: [
+                    // dummy data to plot graph 
+                    {
+                        // Y label
+                        label: '',
+                        // Y axis
+                        data : [0,0,0,0,0,0,0,0,0,0,100],
+                    },
+                    {
+                        // Y label
+                        label: "My dataset",
+                        // Y axis
+                        data: cpu_value,
+                    }
+                ]
+            },
+            options : {
+                animation : false,
+            },
+        });
+    }
 
+    function memory(){
+        var ctx= document.getElementById('chart2').getContext('2d');
+        var chart = new Chart(ctx,{
+            type : 'line',
+            data : {
+                // X axis
+                labels: ["","","","","","","","","",""],
+                datasets: [
+                    // dummy data to plot graph 
+                    {
+                        // Y label
+                        label: '',
+                        // Y axis
+                        data : [0,0,0,0,0,0,0,0,0,0,100],
+                    },
+                    {
+                        // Y label
+                        label: "My dataset",
+                        // Y axis
+                        data: ram_value,
+                    }
+                ]
+            },
+            options : {
+                animation : false,
+            },
+        });
+    }
 
     
-    cpu();
-    // memory();
+    update();
+    window.setInterval(function(){update();},3000)
 </script>
 
 {% endblock content %}
