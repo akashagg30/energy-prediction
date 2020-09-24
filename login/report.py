@@ -92,7 +92,11 @@ def Report(request):
         temprature, electrictiy)
     X_Age_vs_electricity, Y_Age_vs_electricity = make_bars(
         age, electrictiy)
-
+    if request.user.is_authenticated:
+        user_id = request.user.id
+    print(user_id)
+    user_inputs = Energy_Data.objects.filter(username = user_id)
+    print(user_inputs)
     return render(request, 'insights.html', {
         'X_Area_vs_electricity': X_Area_vs_electricity,
         'Y_Area_vs_electricity': Y_Area_vs_electricity,
@@ -105,4 +109,6 @@ def Report(request):
 
         'X_Age_vs_electricity': X_Age_vs_electricity,
         'Y_Age_vs_electricity': Y_Age_vs_electricity,
+
+        'user_inputs':user_inputs
     })

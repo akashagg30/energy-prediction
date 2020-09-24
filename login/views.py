@@ -22,13 +22,7 @@ from django.urls import reverse
 
 id_first = -1
 id_last = -1
-<<<<<<< HEAD
 Pkl_Filename = './models/rf_model_final.sav'
-=======
-
-Pkl_Filename = './models/rf_model.sav'
-
->>>>>>> 02c674eec19c360c91529d0f5fa2c255dcceb32f
 with open(Pkl_Filename,'rb') as f:
     reloadModel = pickle.load(f,encoding='latin1')
 
@@ -306,12 +300,7 @@ def predict(request):
 @login_required(login_url='/login')
 @customers_only
 def uploadfile(request):
-<<<<<<< HEAD
     if request.method=='POST' and len(request.FILES)>0 and request.FILES['datafile']:
-=======
-    print("length",len(request.FILES))
-    if request.method=='POST' and len(request.FILES)>0 and  request.FILES['datafile']:
->>>>>>> 02c674eec19c360c91529d0f5fa2c255dcceb32f
         myfile = request.FILES['datafile']
         fs = FileSystemStorage()
         fname = fs.save(myfile.name, myfile)
@@ -377,7 +366,6 @@ def uploadfile(request):
         id_last = obj.id + numberOfRows
         fs.delete(fname)
         messages.success(request,'File uploaded successful')
-<<<<<<< HEAD
         context = {'a':1}
         print(context['a'])
         #return TemplateResponse(request,'fileupload.html',context)
@@ -386,17 +374,6 @@ def uploadfile(request):
         #return redirect(fileupload)
     else:
         return redirect('/fileupload')
-=======
-        # context = {'a':1}
-        # print(context['a'])
-        # return TemplateResponse(request,'fileupload.html',context)
-        #return render(request, 'fileupload.html',{'a': 1,'aas':123})
-        return HttpResponse(reverse(fileupload))
-        # return redirect('/fileupload')
-    else:
-        return redirect('/fileupload')
-
->>>>>>> 02c674eec19c360c91529d0f5fa2c255dcceb32f
 @login_required(login_url='/login')
 @customers_only
 def export_csv(request):
@@ -479,20 +456,11 @@ def adminhome(request):
         return render(request, 'adminhome.html')
 
 
-def insights(request):
-    return render(request, 'insights.html')
-
-def userdetails(request):
-    return render(request, 'userdetails.html')
-
+@login_required(login_url='/login')
+@admin_only
 def dashboard(request):
     return render(request, 'dashboard.html')
 
-def reset_password(request):
-    if request.method == 'POST':
-        email = request.POST['email']
-        print("HI")
-        print(email)
 
 @login_required(login_url='/login')
 @admin_only
@@ -502,16 +470,6 @@ def userdetails(request):
     print(user_data)
     return render(request,'userdetails.html',{'user_data':user_data})
 
-
-@login_required(login_url='/login')
-@customers_only
-def history(request):
-    if request.user.is_authenticated:
-        user_id = request.user.id
-    print(user_id)
-    user_inputs = Energy_Data.objects.filter(username = user_id)
-    print(user_inputs)
-    return render(request,'history.html',{'user_inputs':user_inputs})
 
 @login_required
 @customers_only

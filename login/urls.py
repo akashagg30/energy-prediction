@@ -36,7 +36,7 @@ urlpatterns = [
     path('fileupload',views.fileupload),
     path('input', views.input),
     path('home', views.home),
-    path('insights', views.insights),
+    path('insights', report.Report),
     path('about', views.about),
     #----------
     path('logout',views.logout),
@@ -47,10 +47,6 @@ urlpatterns = [
     path('dashboard', views.dashboard),
     path('exportcsv',views.export_csv),
     path('uploadfile',views.uploadfile),
-    # path('changepassword',view.changepassword),
-    # path('history',views.history),
-    # ------------ report ---------
-    path('report',report.Report),
     # ------------ system resource monitor --------
     path('resources',resources.system_resource_monitor),
     path('resources/get',resources.resource_info),
