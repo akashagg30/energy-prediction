@@ -121,11 +121,10 @@
             margin-left: 25%;
             font-size: 1.3em;
           }
-
-
+/*
           .rightTab{
             padding-top: 3%;
-          }
+          } */
 
 
     </style>
@@ -154,7 +153,7 @@
                       <ul id="navigation">
                         <li ><a style="opacity:0.7;font-weight: normal;" href="/home">Home</a></li>
                         <li class="active"><a  style="text-decoration: underline; font-weight:bold" href="/input">Single PEP</a></li>
-                        <li><a style="opacity:0.7;font-weight: normal;" href="/fileupload">File PEP</a></li>
+                        <li><a style="opacity:0.7;font-weight: normal;" href="/fileupload">Multi PEP</a></li>
                         <li><a style="opacity:0.7;font-weight: normal;" href="/about">About Us</a>
                         </li>
                         <li><a style="opacity:0.7" href="/insights">My Dashboard</a></li>
@@ -192,6 +191,10 @@
               <div class="tableContainer">
                 <div class="leftTab">
                   <table class="inputTable">
+                    <tr>
+                        <td class="col1"><label>Building Id<span style="color:red">&nbsp*</span></label></td>
+                        <td class="col2"><input type="number" name="building_id" required placeholder="Enter Building ID"></td>
+                    </tr>
                   <tr>
                     <td class="col1"><label>Meter Type:<span style="color:red">&nbsp*</span></label></td>
                     <td  class="col2"><select>
@@ -205,7 +208,7 @@
 
                   <tr>
                     <td class="col1"><label for="">Time Stamp:<span style="color:red">&nbsp*</span></label></td>
-                    <td  class="col2"><input type="datetime-local" name="" value="" required></td>
+                    <td  class="col2"><input type="datetime-local" name="time_stamp" value="" required></td>
                   </tr>
                   <tr>
                     <td class="col1"><label for="">Air Temperature:<span style="color:red">&nbsp*</span></label></td>
@@ -226,19 +229,20 @@
                     <td class="col1"><label for="">Precip depth for 1 hr:<span style="color:red">&nbsp*</span></label></td>
                     <td  class="col2"><input type="number" name = "precip_depth" value="precipdepth" placeholder="Enter Precip depth for 1 hr" required></td>
                   </tr> -->
-                  <tr>
-                    <td class="col1"><label for="">Sea level Pressure:<span style="color:red">&nbsp*</span></label></td>
-                    <td  class="col2"><input type="number" value="sealevelpressure" placeholder="Enter Sea level Pressure" required step="any"></td>
-                  </tr>
+
                 </table>
 
                 </div>
                 <div class="rightTab">
                   <table class="inputTable">
                     <tr>
+                      <td class="col1"><label for="">Sea level Pressure:<span style="color:red">&nbsp*</span></label></td>
+                      <td  class="col2"><input type="number" value="sealevelpressure" placeholder="Enter Sea level Pressure" required step="any"></td>
+                    </tr>
+                    <tr>
                       <td class="col1"><label for="">Primary Use:<span style="color:red">&nbsp*</span></label></td>
                       <td  class="col2">
-                        <input type="text" name="" value="" list="uses" placeholder="Primary use of Building">
+                        <input type="text" name="primary_use" value="" list="uses" placeholder="Primary use of Building">
                         <datalist id="uses">
                             <option>Education</option>
                             <option>Entertainment/public assembly</option>
