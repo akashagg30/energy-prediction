@@ -27,6 +27,7 @@
   <link rel="stylesheet" href="{% static 'css/nice-select.css' %}">
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="{% static 'css/userdetails.css' %}">
 
   <style media="screen">
   .virtusa{
@@ -102,6 +103,9 @@
     .submenu ul li a {
       font-weight: normal;
     }
+    .container{
+      margin-top: 5%;
+    }
   </style>
 
 </head>
@@ -167,10 +171,10 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
   
 
-    <div>
+    <div class = container>
       {% if user_inputs %}
-      <table>
-        <tr>
+      <table class = "userdetails">
+        <tr class = "head">
           <td>SNo.</td>
           <td>Date Created</td>
           <td>Air Temperature</td>
@@ -182,7 +186,7 @@
           <td>Meter Reading</td>
         </tr>
         {% for data in user_inputs %}
-          <tr>
+          <tr class="body">
             <td>{{forloop.counter}}</td>
             <td>{{data.date_created}}</td>
             <td>{{data.air_temperature}}</td>
