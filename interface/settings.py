@@ -146,6 +146,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'team07.neuralhack@gmail.com'
 EMAIL_HOST_PASSWORD = 'neuralhack'
+DEFAULT_FROM_MAIL = 'Team07NeuralHack <noreply@team07.neuralhack@gmail.com'
 
 
 DATETIME_FORMAT = '%d-%m-%Y-%H-%M-%S'

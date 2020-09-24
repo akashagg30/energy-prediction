@@ -94,12 +94,10 @@ def logout(request):
 
 # Added by Prasanna
 @login_required(login_url='/login')
-@customers_only
 def fileupload(request):
     return render(request,'fileupload.html')
 
 @login_required(login_url='/login')
-@customers_only
 def input(request):
     return render(request,'input.html')
 
@@ -110,21 +108,21 @@ def input(request):
 def home(request):
     return render(request,'index.html')
 
+def customerhome(request):
+    return render(request,'index.html')
+
 
 @login_required(login_url='/login')
-@customers_only
 def profile(request):
     return render(request,'profile.html')
 
 
 @login_required(login_url='/login')
-@customers_only
 def about(request):
     return render(request,'about.html')
 
 
 @login_required(login_url='/login')
-@customers_only
 def predict(request):
     if request.method == 'POST':
         temp = {}
@@ -298,7 +296,6 @@ def predict(request):
         return render(request, 'input.html',context)
 
 @login_required(login_url='/login')
-@customers_only
 def uploadfile(request):
     if request.method=='POST' and len(request.FILES)>0 and request.FILES['datafile']:
         myfile = request.FILES['datafile']
@@ -374,8 +371,8 @@ def uploadfile(request):
         #return redirect(fileupload)
     else:
         return redirect('/fileupload')
+
 @login_required(login_url='/login')
-@customers_only
 def export_csv(request):
     response = HttpResponse(content_type = 'text/csv')
     response['Content-Disposition'] = 'attachment; filename=MeterReading'  + '.csv'
@@ -472,7 +469,6 @@ def userdetails(request):
 
 
 @login_required
-@customers_only
 def password_changed(request):
   messages.success(request, 'Your password has been changed.')
   context = {'a' : 1}
