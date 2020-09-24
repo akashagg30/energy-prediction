@@ -1,0 +1,15 @@
+
+.loginContent h3{
+  font-size: 16px;
+  font-weight: 400;
+  overflow: hidden;
+  color: #82888c;
+}
+
+.backToLogin{
+  font-size: 1.2em;
+  font-weight: 400;
+  color: #82888c;
+  padding-left: 54%;
+  font-size: 1.2em;
+}
