@@ -29,11 +29,19 @@
 
       <div class="wrapper">
         <nav>
-          <ul>
+          <ul class="top">
             <li class="sub4"><a style="opacity:0.6" href="/adminhome">DataBase Search</a></li>
             <li class="sub3"><a style="opacity:0.6" href="/userdetails">User details</a></li>
             <li class="sub2"><a href="/dashboard">Dashboard</a></li>
-            <li class="sub1"><a href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i></a></li>
+            <!-- <li class="sub1"><a href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i></a></li> -->
+            <li class="user-avatar">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                <i class="fa fa-caret-down" aria-hidden="true"></i>
+                <ul class="submenu">
+                    <li><a class="sub" style="font-weight: normal;" href="/customerhome">Customer Pane</a></li><hr>
+                    <li><a class="sub" style="font-weight: normal;" href="/logout">Logout</a></li>
+                </ul>
+            </li>
           </ul>
 
         </nav>
@@ -46,6 +54,112 @@
 
 
   <div class="container">
+
+    {% block content %}
+    {% csrf_token %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <h1>System Resource Monitor</h1>
+    <div id="charts" style="width: 75%;">
+        <canvas id="chart1"></canvas>
+        <br>
+        <br>
+        <br>
+        <br>
+        <canvas id="chart2"></canvas>
+    </div>
+
+
+    <script>
+
+        var cpu_value=[0,0,0,0,0,0,0,0,0,0]
+        var ram_value=[0,0,0,0,0,0,0,0,0,0]
+
+        function utill(value) {
+            console.log(value)
+            var a = parseFloat(value.split(' ')[0])
+            var b = parseFloat(value.split(' ')[1])
+            for(var i=0;i<9;++i){
+                cpu_value[i]=cpu_value[i+1];
+            }
+            for(var i=0;i<9;++i){
+                ram_value[i]=ram_value[i+1];
+            }
+            cpu_value[9]=a;
+            ram_value[9]=b;
+            cpu();
+            memory();
+        }
+
+        function update(){
+            fetch("resources/get").then(function(data) {
+                data.text().then( text => utill(text) );
+            });
+        }
+
+        function cpu(){
+            var ctx= document.getElementById('chart1').getContext('2d');
+            var chart = new Chart(ctx,{
+                type : 'line',
+                data : {
+                    // X axis
+                    labels: ["","","","","","","","","",""],
+                    datasets: [
+                        // dummy data to plot graph
+                        {
+                            // Y label
+                            label: '',
+                            // Y axis
+                            data : [0,0,0,0,0,0,0,0,0,0,100],
+                        },
+                        {
+                            // Y label
+                            label: "My dataset",
+                            // Y axis
+                            data: cpu_value,
+                        }
+                    ]
+                },
+                options : {
+                    animation : false,
+                },
+            });
+        }
+
+        function memory(){
+            var ctx= document.getElementById('chart2').getContext('2d');
+            var chart = new Chart(ctx,{
+                type : 'line',
+                data : {
+                    // X axis
+                    labels: ["","","","","","","","","",""],
+                    datasets: [
+                        // dummy data to plot graph
+                        {
+                            // Y label
+                            label: '',
+                            // Y axis
+                            data : [0,0,0,0,0,0,0,0,0,0,100],
+                        },
+                        {
+                            // Y label
+                            label: "My dataset",
+                            // Y axis
+                            data: ram_value,
+                        }
+                    ]
+                },
+                options : {
+                    animation : false,
+                },
+            });
+        }
+
+
+        update();
+        window.setInterval(function(){update();},3000)
+    </script>
+
+    {% endblock content %}
 
 
   </div>

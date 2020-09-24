@@ -12,6 +12,7 @@
 
   <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}">
 
+
 </head>
 <body>
 
@@ -27,11 +28,19 @@
 
       <div class="wrapper">
         <nav>
-          <ul>
+          <ul class="top">
             <li class="sub4"><a style="opacity:0.6" href="/adminhome">DataBase Search</a></li>
             <li class="sub3"><a href="/userdetails">User details</a></li>
             <li class="sub2"><a style="opacity:0.6" href="/dashboard">Dashboard</a></li>
-            <li class="sub1"><a href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i></a></li>
+            <!-- <li class="sub1"><a href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i></a></li> -->
+            <li class="user-avatar">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                <i class="fa fa-caret-down" aria-hidden="true"></i>
+                <ul class="submenu">
+                    <li><a class="sub" style="font-weight: normal;" href="/customerhome">Customer Pane</a></li><hr>
+                    <li><a class="sub" style="font-weight: normal;" href="/logout">Logout</a></li>
+                </ul>
+            </li>
           </ul>
 
         </nav>
