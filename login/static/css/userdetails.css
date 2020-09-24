@@ -1,0 +1,32 @@
+.container{
+  margin-top: 7%;
+  margin-left: 9.5%;
+}
+
+.container table{
+  width: 89%;
+  border-collapse: collapse;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+}
+
+.container table tr, .container table td{
+  border-bottom: 1px solid black;
+  height: 35px;
+  text-align: center;
+}
+
+.head{
+  border-top: 1px solid black;
+  text-align: center;
+  background-color:  #D8EAF7 ;
+  color: #0F4970;
+  font-weight: bold;
+  font-size: 1em;
+  height: 40px;
+}
+
+.body:hover{
+  background-color: #F1F3D1;
+
+}

@@ -7,6 +7,17 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <link rel="stylesheet" href="{% static 'css/adminhome.css' %}">
+    <link rel="stylesheet" href="{% static 'css/userdetails.css' %}">
+
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}">
+    <style media="screen">
+    .container{
+      margin-top:2%;
+      margin-bottom: 17%;
+    }
+    </style>
+
+
   </head>
   <body>
 
@@ -18,9 +29,9 @@
         <div class="wrapper">
           <nav>
             <ul>
-              <li class="sub4"><a href="#">DataBase Search</a></li>
-              <li class="sub3"><a style="opacity:0.6" href="userdetails">User details</a></li>
-              <li class="sub2"><a style="opacity:0.6" href="#">Dashboard</a></li>
+              <li class="sub4"><a href="/adminhome">DataBase Search</a></li>
+              <li class="sub3"><a style="opacity:0.6" href="/userdetails">User details</a></li>
+              <li class="sub2"><a style="opacity:0.6" href="/dashboard">Dashboard</a></li>
               <li class="sub1"><a href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i></a></li>
             </ul>
           </nav>
@@ -35,10 +46,36 @@
           <fieldset>
             <legend>&nbsp&nbsp Meter Details &nbsp&nbsp</legend>
             <table>
+
+
+              <tr>
+                <td class="col1"><label for="">Meter Type:</label></td>
+                <td><select style="width:70%;height:39px;">
+                    <option value="electricity">Electricity</option>
+                    <option value="chilledwater">Chilled Water</option>
+                    <option value="steam">Steam</option>
+                    <option value="hotwater">Hot Water</option>
+                  </select>
+                </td>
+              </tr>
+
+
+
               <tr>
                 <td class="col1"><label for="">Meter Reading:</label></td>
-                <td><input type="number" name="meter_reading" value="" placeholder="Meter reading"></td>
+                <td>
+                  <div class="form_group">
+                    <label>&nbsp&nbspFrom&nbsp&nbsp</label>
+                    <input type="number" name="meter_reading1" value="" placeholder="Meter reading" step="any">
+                  </div>
+                </td>
+                <td><div class="form_group">
+                  <label>&nbsp&nbspTo&nbsp&nbsp</label>
+                  <input type="number" name="meter_reading2" value="" placeholder="Meter reading" step="any">
+                </div></td>
               </tr>
+
+
               <tr>
                 <td class="col1"><label for="">Time Stamp:</label></td>
                 <td>
@@ -53,6 +90,9 @@
                   </div>
                 </td>
               </tr>
+
+
+
             </table>
           </fieldset>
         </div>
@@ -61,10 +101,11 @@
           <fieldset>
             <legend>&nbsp&nbsp Building Details &nbsp&nbsp </legend>
             <table>
+
               <tr>
                 <td class="col1"><label>Primary Use:</label></td>
                 <td>
-                  <input type="text" name="" value="" list="uses" placeholder="Primary use of Building">
+                  <input type="text" name="" list="uses" placeholder="Primary use of Building">
                   <datalist id="uses">
                       <option>Education</option>
                       <option>Entertainment/public assembly</option>
@@ -85,6 +126,7 @@
                     </datalist>
                 </td>
               </tr>
+
               <tr>
                 <td class="col1"><label for="">Year Built:</label></td>
                 <td>
@@ -111,8 +153,8 @@
                 </td>
                 <td>
                   <div class="form_group">
-                    <label>&nbsp&nbspTO&nbsp&nbsp</label>
-                    <input type="number" name="building_size2" value="" placeholder="Building Size">
+                    <label>&nbsp&nbspTo&nbsp&nbsp</label>
+                    <input type="number" name="building_size2" value="" placeholder="Building Size" step="any">
                   </div></td>
               </tr>
               <tr>
@@ -137,9 +179,9 @@
           <fieldset>
             <legend>&nbsp&nbsp Weather Details &nbsp&nbsp</legend>
             <table>
-              <tr>
+              <!-- <tr>
                 <td class="col1"><label for="">Wind Speed</label></td>
-                <td><input type="number" name="" value="" placeholder="Wind Speed"></td>
+                <td><input type="number" placeholder="Wind Speed"></td>
               </tr>
               <tr>
                 <td class="col1"><label for="">Wind Direction</label></td>
@@ -159,45 +201,45 @@
                   </div>
                 </td>
               </tr>
-              <tr>
-                <td class="col1"><label for="">Air Temperature</label></td>
+              <tr> -->
+                <td class="col1"><label for="">Air Temperature:</label></td>
                 <td>
                   <div class="form_group">
                     <label>&nbsp&nbspFrom&nbsp&nbsp</label>
-                    <input type="number" name="air_temperature1" value="" placeholder="Air Temperature">
+                    <input type="number" name="air_temperature1" value="" placeholder="Air Temperature" step="any">
                   </div>
                 </td><td>
                   <div class="form_group">
                     <label>&nbsp&nbspTo&nbsp&nbsp</label>
-                    <input type="number" name="air_temperature2" value="" placeholder="Air Temperature">
+                    <input type="number" name="air_temperature2" value="" placeholder="Air Temperature" step="any">
                   </div>
                 </td>
               </tr>
               <tr>
-                <td class="col1"><label for="">Dew Temperature</label></td>
+                <td class="col1"><label for="">Dew Temperature:</label></td>
                 <td>
                   <div class="form_group">
                     <label>&nbsp&nbspFrom&nbsp&nbsp</label>
-                    <input type="number" name="dew_teperature1" value="" placeholder="Dew Temperature">
+                    <input type="number" name="dew_teperature1" value="" placeholder="Dew Temperature" step="any">
                   </div>
                 </td><td>
                   <div class="form_group">
                     <label>&nbsp&nbspTo&nbsp&nbsp</label>
-                    <input type="number" name="dew_temperature2" value="" placeholder="Dew Temperature">
+                    <input type="number" name="dew_teperature2" value="" placeholder="Dew Temperature" step="any">
                   </div>
                 </td>
               </tr>
               <tr>
-                <td class="col1"><label for="">Precip depth for 1 hr</label></td>
+                <td class="col1"><label for="">Sea Level Pressure:</label></td>
                 <td>
                   <div class="form_group">
                     <label>&nbsp&nbspFrom&nbsp&nbsp</label>
-                    <input type="number" name="precip_depth1" value="" placeholder="Precip depth">
+                    <input type="number" name="sea_level1" value="" placeholder="Sea Level" step="any">
                   </div>
                 </td><td>
                   <div class="form_group">
                     <label>&nbsp&nbspTo&nbsp&nbsp</label>
-                    <input type="number" name="precip_depth2" value="" placeholder="Precip depth">
+                    <input type="number" name="sea_level2" value="" placeholder="Sea Level" step="any">
                   </div>
                 </td>
               </tr>
@@ -210,48 +252,40 @@
       </form>
     </div>
     <br><br><br><br><br><br>
-
-
-    {% if filtered_data %}
-      <table>
-        <tr>
-          <td>Id</td>
-          <td>Username</td>
-          <td>Date Created</td>
-          <td>Air Temperature</td>
-          <td>Dew Temperature</td>
-          <td>Precip Depth</td>
-          <td>Building Size</td>
-          <td>Year Built</td>
-          <td>Floor Count</td>
-          <td>Meter Reading</td>
+<div class="container">
+  {% if filtered_data %}
+    <table class="userdetails">
+      <tr  class="head">
+        <td>Id</td>
+        <td>Username</td>
+        <td>Date Created</td>
+        <td>Air Temperature</td>
+        <td>Dew Temperature</td>
+        <td>Precip Depth</td>
+        <td>Building Size</td>
+        <td>Year Built</td>
+        <td>Floor Count</td>
+        <td>Meter Reading</td>
+      </tr>
+    {% for data in filtered_data %}
+        <tr class="body">
+          <td>{{data.id}}</td>
+          <td>{{data.username}}</td>
+          <td>{{data.date_created}}</td>
+          <td>{{data.air_temperature}}</td>
+          <td>{{data.dew_temperature}}</td>
+          <td>{{data.precip_depth}}</td>
+          <td>{{data.building_size}}</td>
+          <td>{{data.year_built}}</td>
+          <td>{{data.floor_count}}</td>
+          <td>{{data.meter_reading}}</td>
         </tr>
-      {% for data in filtered_data %}
-          <tr>
-            <td>{{data.id}}</td>
-            <td>{{data.username}}</td>
-            <td>{{data.date_created}}</td>
-            <td>{{data.air_temperature}}</td>
-            <td>{{data.dew_temperature}}</td>
-            <td>{{data.precip_depth}}</td>
-            <td>{{data.building_size}}</td>
-            <td>{{data.year_built}}</td>
-            <td>{{data.floor_count}}</td>
-            <td>{{data.meter_reading}}</td>
-          </tr>
-      {% endfor %}
-      </table>
-    {% endif %}
-        <!-- <script type="text/javascript">
-      $('.from input').on('focusin',function(){
-        $(this).parent().find('label').addClass('active');
-      });
-      $('.from input').on('focusin',function(){
-        if(!this.click){
-          $(this).parent().find('label').removeClass('active');
-        }
-      });
-    </script> -->
+    {% endfor %}
+    </table>
+  {% endif %}
+
+</div>
+
 
   </body>
 

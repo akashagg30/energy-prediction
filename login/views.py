@@ -6,7 +6,10 @@ from django.contrib.auth.models import Group
 from .decorators import unauthenticated_user, admin_only, customers_only
 from .models import Energy_Data
 from django.core.files.storage import FileSystemStorage
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
+from datetime import datetime
+
 import csv
 import pandas as pd
 import pickle
@@ -18,7 +21,7 @@ from django.template.response import TemplateResponse
 
 id_first = -1
 id_last = -1
-Pkl_Filename = './models/rf_model.sav'
+Pkl_Filename = './models/rf_model_final.sav'
 with open(Pkl_Filename,'rb') as f:
     reloadModel = pickle.load(f,encoding='latin1')
 #reloadModel = pickle.load(open('./models/model.pkl','rb'))
@@ -58,7 +61,7 @@ def signup(request):
             if User.objects.filter(username=username).exists():
                 messages.info(request,'Username Taken')
                 print('Username taken')
-                return redirect(signup)
+                return redirect('/signup')
             elif User.objects.filter(email=email).exists():
                 messages.info(request,'Email Taken')
                 print('Email taken')
@@ -117,24 +120,169 @@ def profile(request):
 def predict(request):
     if request.method == 'POST':
         temp = {}
+        building_id = request.POST.get('building_id')
         temp['air_temperature'] = request.POST.get('air_temperature')
         temp['dew_temperature'] = request.POST.get('dew_temperature')
-        temp['precip_depth'] = request.POST.get('precip_depth')
         temp['building_size'] = request.POST.get('building_size')
         temp['year_built'] = request.POST.get('year_built')
         temp['floor_count'] = request.POST.get('floor_count')
+        primary_use = request.POST.get('primary_use')
+        meter_type = request.POST.get('meter_type')
+        if(meter_type == 'electricity'):
+            temp['meter is 0'] = 1
+            temp['meter is 1'] = 0
+            temp['meter is 2'] = 0
+            temp['meter is other'] = 0
+        elif(meter_type == 'chilledwater'):
+            temp['meter is 0'] = 0
+            temp['meter is 1'] = 1
+            temp['meter is 2'] = 0
+            temp['meter is other'] = 0
+        elif(meter_type == 'steam'):
+            temp['meter is 0'] = 0
+            temp['meter is 1'] = 0
+            temp['meter is 2'] = 1
+            temp['meter is other'] = 0
+        else:
+            temp['meter is 0'] = 0
+            temp['meter is 1'] = 0
+            temp['meter is 2'] = 0
+            temp['meter is other'] = 1
+        if(primary_use == 'Education'):
+            temp['primary_use is Education'] = 1
+            temp['primary_use is Lodging/residential'] = 0
+            temp['primary_use is Entertainment'] = 0
+            temp['primary_use is Other'] = 0
+            temp['primary_use is Parking'] = 0
+            temp['primary_use is Office'] = 0
+            temp['primary_use is Public services'] = 0
+            temp['primary_use is Utility'] = 0
+            temp['primary_use is Healtcare'] = 0
+            temp['primary_use is Retail'] = 0
+        elif(primary_use == 'Lodging/residential'):
+            temp['primary_use is Education'] = 0
+            temp['primary_use is Lodging/residential'] = 1
+            temp['primary_use is Entertainment'] = 0
+            temp['primary_use is Other'] = 0
+            temp['primary_use is Parking'] = 0
+            temp['primary_use is Office'] = 0
+            temp['primary_use is Public services'] = 0
+            temp['primary_use is Utility'] = 0
+            temp['primary_use is Healtcare'] = 0
+            temp['primary_use is Retail'] = 0
+        elif(primary_use == 'Entertainment/public assembly'):
+            temp['primary_use is Education'] = 0
+            temp['primary_use is Lodging/residential'] = 0
+            temp['primary_use is Entertainment'] = 1
+            temp['primary_use is Other'] = 0
+            temp['primary_use is Parking'] = 0
+            temp['primary_use is Office'] = 0
+            temp['primary_use is Public services'] = 0
+            temp['primary_use is Utility'] = 0
+            temp['primary_use is Healtcare'] = 0
+            temp['primary_use is Retail'] = 0
+        elif(primary_use == 'Parking'):
+            temp['primary_use is Education'] = 0
+            temp['primary_use is Lodging/residential'] = 0
+            temp['primary_use is Entertainment'] = 0
+            temp['primary_use is Other'] = 0
+            temp['primary_use is Parking'] = 1
+            temp['primary_use is Office'] = 0
+            temp['primary_use is Public services'] = 0
+            temp['primary_use is Utility'] = 0
+            temp['primary_use is Healtcare'] = 0
+            temp['primary_use is Retail'] = 0
+        elif(primary_use == 'Office'):
+            temp['primary_use is Education'] = 0
+            temp['primary_use is Lodging/residential'] = 0
+            temp['primary_use is Entertainment'] = 0
+            temp['primary_use is Other'] = 0
+            temp['primary_use is Parking'] = 0
+            temp['primary_use is Office'] = 1
+            temp['primary_use is Public services'] = 0
+            temp['primary_use is Utility'] = 0
+            temp['primary_use is Healtcare'] = 0
+            temp['primary_use is Retail'] = 0
+        elif(primary_use == 'Public services'):
+            temp['primary_use is Education'] = 0
+            temp['primary_use is Lodging/residential'] = 0
+            temp['primary_use is Entertainment'] = 0
+            temp['primary_use is Other'] = 0
+            temp['primary_use is Parking'] = 0
+            temp['primary_use is Office'] = 0
+            temp['primary_use is Public services'] = 1
+            temp['primary_use is Utility'] = 0
+            temp['primary_use is Healtcare'] = 0
+            temp['primary_use is Retail'] = 0
+        elif(primary_use == 'Utility'):
+            temp['primary_use is Education'] = 0
+            temp['primary_use is Lodging/residential'] = 0
+            temp['primary_use is Entertainment'] = 0
+            temp['primary_use is Other'] = 0
+            temp['primary_use is Parking'] = 0
+            temp['primary_use is Office'] = 0
+            temp['primary_use is Public services'] = 0
+            temp['primary_use is Utility'] = 1
+            temp['primary_use is Healtcare'] = 0
+            temp['primary_use is Retail'] = 0
+        elif(primary_use == 'Healthcare'):
+            temp['primary_use is Education'] = 0
+            temp['primary_use is Lodging/residential'] = 0
+            temp['primary_use is Entertainment'] = 0
+            temp['primary_use is Other'] = 0
+            temp['primary_use is Parking'] = 0
+            temp['primary_use is Office'] = 0
+            temp['primary_use is Public services'] = 0
+            temp['primary_use is Utility'] = 0
+            temp['primary_use is Healtcare'] = 1
+            temp['primary_use is Retail'] = 0
+        elif(primary_use == 'Retail'):
+            temp['primary_use is Education'] = 0
+            temp['primary_use is Lodging/residential'] = 0
+            temp['primary_use is Entertainment'] = 0
+            temp['primary_use is Other'] = 0
+            temp['primary_use is Parking'] = 0
+            temp['primary_use is Office'] = 0
+            temp['primary_use is Public services'] = 0
+            temp['primary_use is Utility'] = 0
+            temp['primary_use is Healtcare'] = 0
+            temp['primary_use is Retail'] = 1
+        else:
+            temp['primary_use is Education'] = 0
+            temp['primary_use is Lodging/residential'] = 0
+            temp['primary_use is Entertainment'] = 0
+            temp['primary_use is Other'] = 1
+            temp['primary_use is Parking'] = 0
+            temp['primary_use is Office'] = 0
+            temp['primary_use is Public services'] = 0
+            temp['primary_use is Utility'] = 0
+            temp['primary_use is Healtcare'] = 0
+            temp['primary_use is Retail'] = 0
+        
+        temp['sea_level_pressure'] = request.POST.get('sea_level_pressure')
+        date_in = request.POST.get('timestamp')
+        date_out = datetime(*[int(v) for v in date_in.replace('T', '-').replace(':', '-').split('-')])
+        print(date_out)
+        temp['timestamp'] = date_out.strftime("%m/%d/%Y %H:%M:%S")
+        print(temp)
         testdata = pd.DataFrame({'x':temp}).transpose()
+        print("&&&&&&&&&&&&&&")
         scoreval = reloadModel.predict(testdata)[0]
+        print("---------------")
         #scoreval = 1
         user = request.user
+        print("****************")
         obj = Energy_Data(username = user,
-                                    air_temeprature=temp['air_temperature'],
-                                    dew_temperature=temp['dew_temperature'],
-                                    precip_depth = temp['precip_depth'],
-                                    building_size=temp['building_size'],
-                                    year_built=temp['year_built'],
-                                    floor_count=temp['floor_count'],
-                                    meter_reading = scoreval)
+                        air_temeprature=temp['air_temperature'],
+                        dew_temperature=temp['dew_temperature'],
+                        building_size=temp['building_size'],
+                        year_built=temp['year_built'],
+                        floor_count=temp['floor_count'],
+                        primary_use=temp['primary_use'],
+                        meter=temp['meter'],
+                        sea_level_pressure=temp['sea_level_pressure'],
+                        timestamp=temp['timestamp'],
+                        meter_reading = scoreval)
         obj.save()
         context = {'scoreval':scoreval}
         print(temp)
@@ -144,7 +292,7 @@ def predict(request):
 @login_required(login_url='/login')
 @customers_only
 def uploadfile(request):
-    if request.method=='POST' and  request.FILES['datafile']:
+    if request.method=='POST' and len(request.FILES)>0 and request.FILES['datafile']:
         myfile = request.FILES['datafile']
         fs = FileSystemStorage()
         fname = fs.save(myfile.name, myfile)
@@ -164,32 +312,42 @@ def uploadfile(request):
             for row in csv_reader:
                 print(row)
                 temp = {}
-                if total_cols == 7:
-                    temp['air_temperature'] = row[1]
-                    temp['dew_temperature'] = row[2]
-                    temp['precip_depth'] = row[3]
+                if total_cols == 10:
+                    temp['primary_use'] = row[1]
+                    temp['meter_type'] = row[2]
+                    temp['air_temperature'] = row[3]
+                    temp['dew_temperature'] = row[4]
+                    temp['building_size'] = row[5]
+                    temp['year_built'] = row[6]
+                    temp['floor_count'] = row[7]
+                    temp['sea_level_pressure'] = row[8]
+                    temp['timestamp'] = row[9]
+                elif total_cols == 9:
+                    temp['primary_use'] = row[0]
+                    temp['meter_type'] = row[1]
+                    temp['air_temperature'] = row[2]
+                    temp['dew_temperature'] = row[3]
                     temp['building_size'] = row[4]
                     temp['year_built'] = row[5]
                     temp['floor_count'] = row[6]
-                elif total_cols == 6:
-                    temp['air_temperature'] = row[0]
-                    temp['dew_temperature'] = row[1]
-                    temp['precip_depth'] = row[2]
-                    temp['building_size'] = row[3]
-                    temp['year_built'] = row[4]
-                    temp['floor_count'] = row[5]
+                    temp['sea_level_pressure'] = row[7]
+                    temp['timestamp'] = row[8]
                 testdata = pd.DataFrame({'x':temp}).transpose()
                 scoreval = reloadModel.predict(testdata)[0]
                 #scoreval = 1
                 user = request.user
+                print("score",scoreval)
                 obj = Energy_Data(username = user,
-                                air_temeprature=temp['air_temperature'],
-                                dew_temperature=temp['dew_temperature'],
-                                precip_depth = temp['precip_depth'],
-                                building_size=temp['building_size'],
-                                year_built=temp['year_built'],
-                                floor_count=temp['floor_count'],
-                                meter_reading= scoreval)
+                        air_temeprature=temp['air_temperature'],
+                        dew_temperature=temp['dew_temperature'],
+                        building_size=temp['building_size'],
+                        year_built=temp['year_built'],
+                        floor_count=temp['floor_count'],
+                        primary_use=temp['primary_use'],
+                        meter_type=temp['meter_type'],
+                        sea_level_pressure=temp['sea_level_pressure'],
+                        timestamp=temp['timestamp'],
+                        meter_reading = scoreval)
                 obj.save()
                 print(temp)
                 if(numberOfRows == 0):
@@ -199,11 +357,15 @@ def uploadfile(request):
         global id_last
         id_last = obj.id + numberOfRows
         fs.delete(fname)
+        messages.success(request,'File uploaded successful')
         context = {'a':1}
         print(context['a'])
-        return TemplateResponse(request,'fileupload.html',context)
+        #return TemplateResponse(request,'fileupload.html',context)
         #return render(request, 'fileupload.html',{'a': 1,'aas':123})
-
+        return HttpResponse(reverse(fileupload))
+        #return redirect(fileupload)
+    else:
+        return redirect('/fileupload')
 @login_required(login_url='/login')
 @customers_only
 def export_csv(request):
@@ -225,10 +387,13 @@ def export_csv(request):
         writer.writerow([x,
                         data.air_temeprature,
                         data.dew_temperature,
-                        data.precip_depth,
                         data.building_size,
                         data.year_built,
                         data.floor_count,
+                        data.primary_use,
+                        data.meter_type,
+                        data.sea_level_pressure,
+                        data.timestamp,
                         data.meter_reading])
         x = x + 1
     return response

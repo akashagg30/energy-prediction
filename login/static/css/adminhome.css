@@ -1,5 +1,10 @@
 body{
   margin: 0;
+  font-family:Helvetica;
+  /* background-image:url(../img/hero/b3.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center */
 }
 
 .headcontainer{
@@ -7,8 +12,12 @@ body{
   display: flex;
   justify-content: space-between;
   padding: 2%;
-  padding-top: 2.3%;
+  padding-top: 1%;
   padding-bottom: 0;
+}
+
+legend{
+  color: #0F4970;
 }
 
 .headcontainer .logo{
@@ -30,12 +39,14 @@ body{
 .wrapper ul{
   display: flex;
   margin: 0;
-  margin-bottom: 1em;
+  /* margin-top: 1em; */
+  margin-bottom: 0.6em;
+  padding-top: 1%;
   padding-right: 5%;
 }
 
 .wrapper a{
-  font-size: 1.4em;
+  font-size: 1.2em;
   text-decoration:none;
   color: #fff;
 }
@@ -70,6 +81,7 @@ body{
 }
 
 .content{
+
   width: 75%;
   margin-left: 12%;
   margin-top: 2%;
@@ -99,8 +111,12 @@ body{
 }
 
 .content .meterdetails .col1{
-  width: 15%;
+  width: 18%;
   /* padding-right:  100%; */
+}
+
+.content .meterdetails .form_group input{
+  width: 90%;
 }
 
 .content .col1{
@@ -114,7 +130,7 @@ body{
 
 }
 
-.content table td label{
+.content table .col1 label{
   font-size: 1.2em;
 }
 
@@ -124,7 +140,7 @@ body{
   height: 35px;
   border: none;
   font-size: 1em;
-  background-color: black;
+  background-color: #0F4970;
   color: #fff;
   border-radius: 5px;
   font-weight: bold;
@@ -134,13 +150,14 @@ body{
   background-color: #fff;
   color: black;
   cursor: pointer;
-  border: 2px solid black;
+  border: 2px solid #0F4970;
 }
 
 .form_group{
   position: relative;
 }
-.form_group label{
+.content .form_group label{
+  font-size: 0.9em;
   position:absolute;
   top:-10px;
   left:10px;

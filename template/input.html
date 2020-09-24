@@ -7,7 +7,7 @@
     <title>Input</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="manifest" href="site.webmanifest">
+    <!-- <link rel="manifest" href="site.webmanifest"> -->
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}">
 
     <!-- CSS here -->
@@ -28,33 +28,63 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <style media="screen">
-
-      .logo img{
-        width: 75%;
+      .virtusa{
+        width: 60%;
       }
-      .sticky-bar{
-        height: 13%;
-      }
+       .sticky-bar {
+        height: 10%;
 
+      }
+      .sticky-bar .logo{
+        margin-top: 11%;
+      }
+      .main-header .main-menu ul li a{
+        padding-top: 20%;
+      }
       .tabContainer{
-        margin-top: 10%;
+        padding-top: 6%;
+      }
+
+      .tabContainer .text{
+        margin-left: 30%;
+        font-size: 2em;
+        margin-top: 1%;
+      }
+
+      .buttons{
+        margin-top: 1%;
+        margin-left: 42%;
+      }
+
+      .buttons .tabshifts:hover{
+        cursor: pointer;
       }
 
       .footer{
-        position: absolute;
+        position: fixed;
         bottom: 0;
         width: 100%;
-        height: 4em;
-        background-color: #515456;
+        height: 3em;
+        background-color: #CCD1D1  ;
         padding-right: 5%;
-        padding-left: 8%;
-        padding-top: 0.5%;
+        padding-left: 5%;
+        /* padding-top: 0.5%; */
         margin-bottom: 0;
-        color: #fff;
+        margin-top: 0;
+        color: black;
       }
 
+      .fcontact{
+        margin-top: 1%;
+      }
+
+      .fcontact b{
+        font-size: 1.2em;
+      }
+
+
       .fcontent ul{
-        padding-top: 10px;
+        margin-top: 3%;
         width: 75%;
       }
 
@@ -64,14 +94,13 @@
 
       .fcontent a{
         font-size: 25px;
+        color: #10285d;;
       }
 
       .fcontent span{
         padding-top: 2px;
         font-size: 20px;
       }
-
-
           .main-header .main-menu ul ul.submenu>li>.sub1{
             font-size: 20px;
             color: black;
@@ -85,7 +114,17 @@
 
           .submenu ul li a{
             font-weight: normal;
+
           }
+
+          .output{
+            margin-left: 25%;
+            font-size: 1.3em;
+          }
+/*
+          .rightTab{
+            padding-top: 3%;
+          } */
 
 
     </style>
@@ -99,25 +138,25 @@
       <div class="main-header ">
         <div  class="header-bottom sticky-bar">
           <div  class="container-fluid">
-            <div class="row align-items-center">
+            <div class="row">
               <!-- Logo -->
-              <div class="col-xl-2 col-lg-2">
+              <div class="col-xl-2 col-lg-2" >
                 <div class="logo">
-                  <a href="/index"><img src="{% static 'img/logo/virtusa-footer-logo.png' %}" alt=""></a>
+                  <a href="/index"><img class="virtusa" src="{% static 'img/logo/virtusa-footer-logo.png' %}" alt=""></a>
                 </div>
               </div>
-              <div class="col-xl-10 col-lg-10">
-                <div class="menu-wrapper d-flex align-items-center justify-content-end">
+              <div class="col-xl-10 col-lg-10" >
+                <div class="menu-wrapper d-flex justify-content-end" >
                   <!-- Main-menu -->
-                  <div class="main-menu d-none d-lg-block">
+                  <div class="main-menu d-none d-lg-block" >
                     <nav>
                       <ul id="navigation">
                         <li ><a style="opacity:0.7;font-weight: normal;" href="/home">Home</a></li>
-                        <li class="active"><a  style="text-decoration: underline; font-weight:bold" href="/input">Input</a></li>
-                        <li><a style="opacity:0.7;font-weight: normal;" href="/fileupload">FileUpload</a></li>
-                        <li><a style="opacity:0.7;font-weight: normal;" href="#">About</a>
+                        <li class="active"><a  style="text-decoration: underline; font-weight:bold" href="/input">Single PEP</a></li>
+                        <li><a style="opacity:0.7;font-weight: normal;" href="/fileupload">Multi PEP</a></li>
+                        <li><a style="opacity:0.7;font-weight: normal;" href="/about">About Us</a>
                         </li>
-                        <li><a style="opacity:0.7" href="/report">Insights</a></li>
+                        <li><a style="opacity:0.7" href="/insights">My Dashboard</a></li>
                         <!-- Changes -->
                         <li class="user-avatar">
                             <i class="far fa-user"></i>
@@ -125,7 +164,7 @@
                             <ul class="submenu">
                                 <li><a class="sub1" href="#">{{user.username}}</a></li><br><hr>
                                 <li><a class="sub" style="font-weight: normal;" href="/profile">Profile</a></li><hr>
-                                <li><a class="sub" style="font-weight: normal;" href="/changepassword">Change Password</a></li><hr>
+                                <li><a class="sub" style="font-weight: normal;" href="/change_password">Change Password</a></li><hr>
                                 <li><a class="sub" style="font-weight: normal;" href="/logout">Logout</a></li>
                             </ul>
                         </li>
@@ -146,29 +185,34 @@
     <main>
 
         <div class="tabContainer">
+          <p class="text">Please provide below inputs for prediction</p>
             <form class="inputForm" action="predict" enctype="multipart/form-data" method="post" style="margin-top:4%;margin-left:10%">
               {% csrf_token %}
               <div class="tableContainer">
                 <div class="leftTab">
                   <table class="inputTable">
-                  <!-- <tr>
+                    <tr>
+                        <td class="col1"><label>Building Id<span style="color:red">&nbsp*</span></label></td>
+                        <td class="col2"><input type="number" name="building_id" required placeholder="Enter Building ID"></td>
+                    </tr>
+                  <tr>
                     <td class="col1"><label>Meter Type:<span style="color:red">&nbsp*</span></label></td>
-                    <td  class="col2"><select>
+                    <td  class="col2"><select name = "meter_type">
                         <option value="electricity">Electricity</option>
                         <option value="chilledwater">Chilled Water</option>
                         <option value="steam">Steam</option>
                         <option value="hotwater">Hot Water</option>
                       </select>
                     </td>
-                  </tr> -->
+                  </tr>
 
-                  <!-- <tr>
+                  <tr>
                     <td class="col1"><label for="">Time Stamp:<span style="color:red">&nbsp*</span></label></td>
-                    <td  class="col2"><input type="datetime-local" name="" value="" required></td>
-                  </tr> -->
+                    <td  class="col2"><input type="datetime-local" name="timestamp" value="" required></td>
+                  </tr>
                   <tr>
                     <td class="col1"><label for="">Air Temperature:<span style="color:red">&nbsp*</span></label></td>
-                    <td  class="col2"><input type="number" name = "air_temperature" value="airtemperature" placeholder="Enter temperature of Air" required></td>
+                    <td  class="col2"><input type="number" name = "air_temperature" value="airtemperature" placeholder="Enter temperature of Air" required step="any"></td>
                   </tr>
 
                   <!-- <tr>
@@ -178,55 +222,56 @@
 
                   <tr>
                     <td class="col1"><label for="">Dew Temperature:<span style="color:red">&nbsp*</span></label></td>
-                    <td  class="col2"><input type="number" name = "dew_temperature" value="dewtemperature" placeholder="Enter temperature Dew" required></td>
+                    <td  class="col2"><input type="number"  name = "dew_temperature" value="dewtemperature" placeholder="Enter temperature Dew" required step="any"></td>
                   </tr>
 
-                  <tr>
+                  <!-- <tr>
                     <td class="col1"><label for="">Precip depth for 1 hr:<span style="color:red">&nbsp*</span></label></td>
                     <td  class="col2"><input type="number" name = "precip_depth" value="precipdepth" placeholder="Enter Precip depth for 1 hr" required></td>
-                  </tr>
-                  <!-- <tr>
-                    <td class="col1"><label for="">Sea level Pressure:<span style="color:red">&nbsp*</span></label></td>
-                    <td  class="col2"><input type="number" value="sealevelpressure" placeholder="Enter Sea level Pressure" required></td>
                   </tr> -->
+
                 </table>
 
                 </div>
                 <div class="rightTab">
                   <table class="inputTable">
-                    <!-- <tr>
+                    <tr>
+                      <td class="col1"><label for="">Sea level Pressure:<span style="color:red">&nbsp*</span></label></td>
+                      <td  class="col2"><input type="number" name = "sea_level_pressure" value="sealevelpressure" placeholder="Enter Sea level Pressure" required step="any"></td>
+                    </tr>
+                    <tr>
                       <td class="col1"><label for="">Primary Use:<span style="color:red">&nbsp*</span></label></td>
                       <td  class="col2">
-                        <input type="text" name="" value="" list="uses" placeholder="Primary use of Building">
+                        <input type="text" name="primary_use" value="" list="uses" placeholder="Primary use of Building">
                         <datalist id="uses">
-                            <option>Education</option>
-                            <option>Entertainment/public assembly</option>
-                            <option>Food sales and service</option>
-                            <option>Healthcare</option>
-                            <option>Lodging/residential</option>
-                            <option>Manufacturing/industrial</option>
-                            <option>Office</option>
-                            <option>Parking</option>
-                            <option>Public services</option>
-                            <option>Religious worship</option>
-                            <option >Retail</option>
-                            <option>Services</option>
-                            <option>Technology/science</option>
-                            <option >Utility</option>
-                            <option>Warehouse/storage</option>
-                            <option>Other</option>
+                            <option value ="Education" >Education</option>
+                            <option value = "Entertainment/public assembly">Entertainment/public assembly</option>
+                            <option value ="Food sales and service">Food sales and service</option>
+                            <option value="Healthcare">Healthcare</option>
+                            <option value= "Lodging/residential">Lodging/residential</option>
+                            <option value="Manufacturing/industrial">Manufacturing/industrial</option>
+                            <option value="Office">Office</option>
+                            <option value="Parking">Parking</option>
+                            <option value="Public services">Public services</option>
+                            <option value="Religious worship">Religious worship</option>
+                            <option value="Retail">Retail</option>
+                            <option value="Services">Services</option>
+                            <option value="Technology/science">Technology/science</option>
+                            <option value="Utility">Utility</option>
+                            <option value="Warehouse/storage">Warehouse/storage</option>
+                            <option value="Other">Other</option>
                           </datalist>
                       </td>
                     </tr>
-                    <tr>
+                    <!-- <tr>
                       <td class="col1"><label for="">Wind Direction:<span style="color:red">&nbsp*</span></label></td>
                       <td  class="col2"><input type="number" value="wind_direction" placeholder="Enter Wind Direction" required></td>
-                    </tr>
+                    </tr> -->
 
-                    <tr>
+                    <!-- <tr>
                       <td class="col1"><label for="">Wind Speed:<span style="color:red">&nbsp*</span></label></td>
                       <td  class="col2"><input type="number" value="wind_spped" placeholder="Enter Wind Speed" required></td>
-                    </tr>-->
+                    </tr> -->
 
 
 
@@ -238,7 +283,7 @@
 
                     <tr>
                       <td class="col1"><label for="">Year Built:<span style="color:red">&nbsp*</span></label></td>
-                      <td  class="col2"><input type="number" name="year_built" value="" placeholder="YYYY" required></td>
+                      <td  class="col2"><input type="number" name="year_built" value="" placeholder="YYYY" required main="1000" max="2020"></td>
                     </tr>
                     <tr>
                       <td class="col1"><label for="">Floor Count:<span style="color:red">&nbsp*</span></label></td>
@@ -255,24 +300,15 @@
           </div>
 
           {% if scoreval %}
-            <h3>{{scoreval}}</h3>
+            <h3 class="output">Your Property would consume <b>{{scoreval}}</b>  units of power for every hour </h3>
           {% endif %}
     </main>
     <footer>
 
       <div class="footer">
         <div class="fcontainer" style="display:flex;justify-content:space-between;">
-          <div style="width:60%;" class="logo">
-            <table>
-              <tr>
-                <td>Email: </td>
-                <td style="padding-left:4%;">sample@gmail.com</td>
-              </tr>
-              <tr>
-                <td>Phone: </td>
-                <td style="padding-left:4%;">+91 xxxxx xxxxx</td>
-              </tr>
-            </table>
+          <div class="fcontact" >
+            <p><b>Contact Us&nbsp&nbsp</b> <i class="fa fa-envelope" aria-hidden="true"></i> <strong>Email:&nbsp&nbsp</strong> sample@gmail.com &nbsp&nbsp <i class="fa fa-phone" aria-hidden="true"></i> <strong>Phone No:&nbsp&nbsp</strong>+91 xxxxx xxxxx </p>
           </div>
           <div style="width:30%;" class="fcontent">
             <div class="main-menu d-none d-lg-block">
