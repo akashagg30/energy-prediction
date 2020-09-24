@@ -47,6 +47,7 @@ urlpatterns = [
     path('dashboard', views.dashboard),
     path('exportcsv',views.export_csv),
     path('uploadfile',views.uploadfile),
+    # path('changepassword',view.changepassword),
     # path('history',views.history),
     # ------------ report ---------
     path('report',report.Report),
