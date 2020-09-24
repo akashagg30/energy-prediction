@@ -1,7 +1,22 @@
 body{
   height: 100%;
   margin: 0;
+  /* background-image: url(../img/hero/b5.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center; */
+
 }
+
+/* .mainContainer::before{
+  content: "";
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  background-color: rgba(0,0,0,0.3);
+} */
 
 .mainContainer{
   display: flex;
@@ -11,17 +26,18 @@ body{
 }
 
 .logo img{
-  width: 15%;
-  margin-top: 5%;
-  margin-left: 6%;
+  width: 20%;
+  margin-top: 8%;
+  margin-left: 5%;
 }
 
 .content{
-  height: 100vh;
+  height: 105vh;
   width: 70%;
 }
+
 .loginContent{
-  margin-top: 2%;
+  margin-top: 10%;
   margin-left: 25%;
 }
 
@@ -64,6 +80,13 @@ body{
   display: inline-block;
   text-decoration: none;
   border: 1px solid #2b2b2b;
+  transition: border-color 0.5s ease-in-out, background-color 0.5s ease-in-out, background-image 0.5s ease-in-out;
+}
+
+.submit:hover{
+  cursor: pointer;
+  color: #2b2b2b;
+  background-color: #ffffff;
 }
 
 .haveAccount{
@@ -73,19 +96,34 @@ body{
 }
 
 .banner{
-  height: 100vh;
+  position: relative;
+  height: 105vh;
   /* min-width: 500px; */
-  background-color: #e8edf1;
-  background-image: linear-gradient(to right, violet, #6666ff);
+  /* background-color: #e8edf1; */
+  background-image: url(../img/hero/b7.jpeg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  /* background-image: linear-gradient(to right, violet, #6666ff); */
   display: flex;
   justify-content: space-between;
   flex-direction: column;
   overflow: hidden;
-  width: 45%;
+  width: 65%;
+}
+
+.banner::before{
+  content: "";
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  background-color: rgba(255,255,255,0.2);
 }
 
 
-.banner .text {
+/* .banner .text {
     align-self: center;
     text-align: center;
     display: flex;
@@ -96,12 +134,12 @@ body{
 }
 
 
-.banner .text1{
+.banner .text .text1{
   color: white;
   font-weight: bold;
   font-size: 25px;
   max-width: 320px;
-  margin: 60px auto 0 30px;
+  margin: 80px auto 0 50px;
 }
 
 .banner .text2{
@@ -110,7 +148,7 @@ body{
   font-size: 20px;
   max-width: 400px;
   margin-top: 40px;
-  margin-left: 20px;
+  margin-left: 15px;
   line-height: 24px;
 }
 
@@ -133,4 +171,4 @@ body{
 .readMore:hover{
   color: #ffffff;
   background-color: black;
-}
+} */

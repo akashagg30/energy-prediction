@@ -5,22 +5,29 @@
     <meta charset="utf-8">
     <title>Login</title>
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}">
   </head>
   <body>
 
     <div class="mainContainer">
       <div class="content">
         <div class="logo">
-          <img src="{% static 'img/logo/logo_ashrae.png' %}" alt="">
+          <img src="{% static 'img/logo/virtusa-logo.png' %}" alt="">
         </div>
         <div class="loginContainer">
           <div class="loginContent">
             <h1 class="title">Log in to your</h1>
             <h2 class="tag">Energy Prediction Account</h2>
             <form class="" action="login" method="post">
-              {% csrf_token %} 
+              {% csrf_token %}
+              <div>
+                {% for message in messages %}
+                  <h3 style="color:red"> {{message}} </h3>
+                  <br>
+                {% endfor %}
+              </div>
               <div class="temp">
-                <input type="text" name="username" value="" placeholder="Username" required>  <!-- changed a bit -->
+                <input type="text" name="username" value="" placeholder="Username" required autocomplete="off">
               </div><br>
               <div class="temp">
                 <input type="password" name="password" value="" placeholder="Password" required>
@@ -33,17 +40,6 @@
               <p class="haveAccount">Don't have an Account?&nbsp;&nbsp;
                 <a href="/signup">Sign Up!</a>
               </p>
-
-              <!-- Added Sunidhi-->
-              <div>
-                {% for message in messages %}
-                  <h3> {{message}} </h3>
-                  <br>
-                {% endfor %}
-              </div>
-              <!--end-->
-
-
           </div>
 
         </div>
@@ -51,17 +47,17 @@
       </div>
       <div class="banner">
         <div class="text">
-          <div>
-            <p class="text1">ASHRAE - Great Energy Predictor </p>
+          <!-- <div>
+            <p class="text1">VIRTUSA - Great Energy Predictor </p>
           </div>
 
           <div>
-            <p class="text2">How much energy will a building consume?</p>
-          </div>
+            <p class="text2">Login to Know how much energy will a building consume.</p>
+          </div> -->
 
-          <div>
+          <!-- <div>
             <a class="readMore" target="_blank" href="https://www.ashrae.org">Read More</a>
-          </div>
+          </div> -->
 
         </div>
 

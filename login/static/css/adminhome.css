@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 body{
   margin: 0;
   font-family:Helvetica;
@@ -164,3 +165,171 @@ legend{
   color: black;
   background-color:white;
 }
+=======
+body{
+  margin: 0;
+  font-family:Helvetica;
+  /* background-image:url(../img/hero/b3.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center */
+}
+
+.headcontainer{
+  background-color: #0F4970;
+  display: flex;
+  justify-content: space-between;
+  padding: 2%;
+  padding-top: 1%;
+  padding-bottom: 0;
+}
+
+legend{
+  color: #0F4970;
+}
+
+.headcontainer .logo{
+  width: 10%;
+}
+
+.headcontainer .logo img{
+  width: 100%;
+}
+
+.headcontainer .wrapper{
+  width: 55%;
+}
+
+.wrapper nav{
+  margin-top: 0;
+}
+
+.wrapper ul{
+  display: flex;
+  margin: 0;
+  /* margin-top: 1em; */
+  margin-bottom: 0.6em;
+  padding-top: 1%;
+  padding-right: 5%;
+}
+
+.wrapper a{
+  font-size: 1.2em;
+  text-decoration:none;
+  color: #fff;
+}
+
+.wrapper li{
+  list-style-type:  none;
+  /* width: 70%; */
+  align-items: center;
+}
+
+.wrapper .sub4{
+  padding-left: 18%;
+  width: 35%;
+}
+
+.wrapper .sub3{
+  width: 29%;
+}
+
+.wrapper .sub2{
+  width: 27%;
+}
+
+.wrapper .sub1{
+  width: 5%;
+}
+
+
+.wrapper li .fa{
+  font-size: 1.5em;
+  padding-left: 50%;
+}
+
+.content{
+
+  width: 75%;
+  margin-left: 12%;
+  margin-top: 2%;
+}
+
+.content legend{
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+
+.content fieldset{
+  padding: 2%;
+}
+
+.content table{
+  margin-left: 10%;
+  width: 80%;
+
+}
+
+
+.content table td{
+  /* border: 1px solid black; */
+  width: 20%;
+  padding: 10px;
+}
+
+.content .meterdetails .col1{
+  width: 18%;
+  /* padding-right:  100%; */
+}
+
+.content .meterdetails .form_group input{
+  width: 90%;
+}
+
+.content .col1{
+  width: 10%;
+}
+
+.content table input{
+  height: 39px;
+  padding-left: 5%;
+  width: 90%
+
+}
+
+.content table .col1 label{
+  font-size: 1.2em;
+}
+
+.search{
+  margin-left: 32%;
+  width: 30%;
+  height: 35px;
+  border: none;
+  font-size: 1em;
+  background-color: #0F4970;
+  color: #fff;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.search:hover{
+  background-color: #fff;
+  color: black;
+  cursor: pointer;
+  border: 2px solid #0F4970;
+}
+
+.form_group{
+  position: relative;
+}
+.content .form_group label{
+  font-size: 0.9em;
+  position:absolute;
+  top:-10px;
+  left:10px;
+  color: black;
+  background-color:white;
+}
+>>>>>>> 02c674eec19c360c91529d0f5fa2c255dcceb32f

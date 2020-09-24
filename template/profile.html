@@ -26,6 +26,39 @@
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <link rel="stylesheet" href="{% static 'css/profile.css' %}">
 
+  <style media="screen">
+  .logo img{
+    width: 60%;
+  }
+  .sticky-bar .logo{
+    margin-top: 11%;
+  }
+   .sticky-bar {
+    height: 10%;
+
+  }
+
+  .main-header .main-menu ul li a{
+    padding-top: 20%;
+  }
+
+    .submenu ul li a{
+      font-weight: normal;
+    }
+        .main-header .main-menu ul ul.submenu>li>.sub1{
+          font-size: 20px;
+          color: black;
+        }
+
+        .main-header .main-menu ul ul.submenu>li>.sub:hover {
+          color: #C86FFF;
+          background: none;
+          padding-left: 13px !important
+        }
+
+  </style>
+
+
 </head>
 <body style="background-color:#f5f5f5;">
 
@@ -33,13 +66,13 @@
     <!-- Header Start -->
     <div class="header-area header-transparent">
       <div class="main-header ">
-        <div class="header-bottom  header-sticky sticky-bar">
+        <div class="header-bottom sticky-bar">
           <div class="container-fluid">
-            <div class="row align-items-center">
+            <div class="row ">
               <!-- Logo -->
               <div class="col-xl-2 col-lg-2">
                 <div class="logo">
-                  <a href="/home"><img src="{% static 'img/logo/logo.png' %}" alt=""></a>
+                  <a href="/home"><img src="{% static 'img/logo/virtusa-footer-logo.png' %}" alt=""></a>
                 </div>
               </div>
               <div class="col-xl-10 col-lg-10">
@@ -48,21 +81,21 @@
                   <div class="main-menu d-none d-lg-block">
                     <nav>
                       <ul id="navigation">
-                        <li class="active"><a href="/home">Home</a></li>
-                        <li><a href="/input">Input</a></li>
-                        <li><a href="/fileupload">FileUpload</a></li>
-                        <li><a href="about.html">About</a>
-                        </li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li class="active"><a style="opacity:0.7" href="/home">Home</a></li>
+                        <li><a style="opacity:0.7" href="/input">Single PEP</a></li>
+                        <li><a style="opacity:0.7" href="/fileupload">Multi PEP</a></li>
+                        <li><a style="opacity:0.7" href="/about">About Us</a></li>
+                        <li><a style="opacity:0.7" href="/insights">My Dashboard</a></li>
                         <!-- Changes -->
                         <li class="user-avatar">
                             <i class="far fa-user"></i>
                             <i class="fas fa-sort-down"></i>
                           <ul class="submenu">
-                              <li><a href="">{{user.username}}</a></li><br><hr>
-                              <li><a href="/profile">Profile</a></li><hr>
-                              <li><a href="/change_password">Change Password</a></li><hr>
-                              <li><a href="/logout">Logout</a></li>
+                              <li><a class="sub1" href="#">{{user.username}}</a></li><br><hr>
+                              <li><a class="sub" style="font-weight: normal;" href="/profile">Profile</a></li><hr>
+                              <li><a class="sub" style="font-weight: normal;" href="/change_password">Change Password</a></li><hr>
+                              <!-- <li><a class="sub" style="font-weight: normal;" </li> -->
+                              <li><a class="sub" style="font-weight: normal;" href="/logout">Logout</a></li>
                           </ul>
                         </li>
                         <!-- end -->

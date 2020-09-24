@@ -11,7 +11,7 @@
   background-color: white;
   border-radius: 7px;
   box-shadow: 0 0 4px #999;
-  height: 54vh;
+  /* height: 54vh; */
 }
 
 .left .leftContent{
@@ -55,7 +55,8 @@
   background-color: white;
   border-radius: 7px;
   box-shadow: 0 0 4px #999;
-  height: 30vh;
+  /* height: 30vh; */
+  height: 50%;
 }
 
 .profContainer .options{

@@ -24,6 +24,7 @@ urlpatterns = [
     path('',views.login),
     path('signup',views.signup),
     # path('reset_password',views.reset_password),
+    # ------------- user ------------------
     path('login',views.login),
     path('reset_password',auth_views.PasswordResetView.as_view(template_name = 'password_reset.html',form_class = EmailValidationOnForgotPassword), name="reset_password"),
     path('reset_password_sent',auth_views.PasswordResetDoneView.as_view(template_name = 'password_reset_sent.html'), name= "password_reset_done"),
@@ -31,21 +32,26 @@ urlpatterns = [
     path('reset_password_complete',auth_views.PasswordResetCompleteView.as_view(template_name = 'password_reset_done.html'), name = "password_reset_complete"),
     path('change_password',auth_views.PasswordChangeView.as_view(template_name = 'password_change_form.html',success_url ='/password_changed'),name = 'password_change'),
     path('password_changed',views.password_changed),
-    # Added by Prasanna
+
     path('fileupload',views.fileupload),
     path('input', views.input),
     path('home', views.home),
+    path('insights', views.insights),
+    path('about', views.about),
     #----------
     path('logout',views.logout),
     path('profile',views.profile),
     path('predict',views.predict),
-    path('uploadfile',views.uploadfile),
     path('adminhome',views.adminhome),
-    path('exportcsv',views.export_csv),
     path('userdetails',views.userdetails),
-    path('history',views.history),
+    path('dashboard', views.dashboard),
+    path('exportcsv',views.export_csv),
+    path('uploadfile',views.uploadfile),
+    # path('changepassword',view.changepassword),
+    # path('history',views.history),
     # ------------ report ---------
     path('report',report.Report),
     # ------------ system resource monitor --------
-    path('resources',resources.system_resource_monitor)
+    path('resources',resources.system_resource_monitor),
+    path('resources/get',resources.resource_info),
     ]

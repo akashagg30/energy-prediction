@@ -17,14 +17,22 @@ import os
 from datetime import datetime
 from django.contrib.auth import get_user_model
 from django.template.response import TemplateResponse
+from django.urls import reverse
 # Create your views here.
 
 id_first = -1
 id_last = -1
+<<<<<<< HEAD
 Pkl_Filename = './models/rf_model_final.sav'
+=======
+
+Pkl_Filename = './models/rf_model.sav'
+
+>>>>>>> 02c674eec19c360c91529d0f5fa2c255dcceb32f
 with open(Pkl_Filename,'rb') as f:
     reloadModel = pickle.load(f,encoding='latin1')
-#reloadModel = pickle.load(open('./models/model.pkl','rb'))
+
+
 @unauthenticated_user
 def login(request):
     if request.method == 'POST':
@@ -75,7 +83,7 @@ def signup(request):
                 print('user created')
                 auth.login(request,user)
                 return redirect('/home')
-                
+
         else:
             messages.info(request,'password not matchedUsername Taken')
             print('password not matched')
@@ -113,6 +121,12 @@ def home(request):
 @customers_only
 def profile(request):
     return render(request,'profile.html')
+
+
+@login_required(login_url='/login')
+@customers_only
+def about(request):
+    return render(request,'about.html')
 
 
 @login_required(login_url='/login')
@@ -292,7 +306,12 @@ def predict(request):
 @login_required(login_url='/login')
 @customers_only
 def uploadfile(request):
+<<<<<<< HEAD
     if request.method=='POST' and len(request.FILES)>0 and request.FILES['datafile']:
+=======
+    print("length",len(request.FILES))
+    if request.method=='POST' and len(request.FILES)>0 and  request.FILES['datafile']:
+>>>>>>> 02c674eec19c360c91529d0f5fa2c255dcceb32f
         myfile = request.FILES['datafile']
         fs = FileSystemStorage()
         fname = fs.save(myfile.name, myfile)
@@ -349,15 +368,16 @@ def uploadfile(request):
                         timestamp=temp['timestamp'],
                         meter_reading = scoreval)
                 obj.save()
-                print(temp)
+                print("temp",temp)
                 if(numberOfRows == 0):
-                    global id_first 
+                    global id_first
                     id_first = obj.id
                 numberOfRows=numberOfRows+1
         global id_last
         id_last = obj.id + numberOfRows
         fs.delete(fname)
         messages.success(request,'File uploaded successful')
+<<<<<<< HEAD
         context = {'a':1}
         print(context['a'])
         #return TemplateResponse(request,'fileupload.html',context)
@@ -366,6 +386,17 @@ def uploadfile(request):
         #return redirect(fileupload)
     else:
         return redirect('/fileupload')
+=======
+        # context = {'a':1}
+        # print(context['a'])
+        # return TemplateResponse(request,'fileupload.html',context)
+        #return render(request, 'fileupload.html',{'a': 1,'aas':123})
+        return HttpResponse(reverse(fileupload))
+        # return redirect('/fileupload')
+    else:
+        return redirect('/fileupload')
+
+>>>>>>> 02c674eec19c360c91529d0f5fa2c255dcceb32f
 @login_required(login_url='/login')
 @customers_only
 def export_csv(request):
@@ -448,6 +479,20 @@ def adminhome(request):
         return render(request, 'adminhome.html')
 
 
+def insights(request):
+    return render(request, 'insights.html')
+
+def userdetails(request):
+    return render(request, 'userdetails.html')
+
+def dashboard(request):
+    return render(request, 'dashboard.html')
+
+def reset_password(request):
+    if request.method == 'POST':
+        email = request.POST['email']
+        print("HI")
+        print(email)
 
 @login_required(login_url='/login')
 @admin_only
@@ -474,3 +519,6 @@ def password_changed(request):
   messages.success(request, 'Your password has been changed.')
   context = {'a' : 1}
   return render(request,'password_change_form.html',context)
+    #return render(request,'password_reset.html')
+# def reset_password_sent(request):
+#     return render(request,'password_reset_sent.html')

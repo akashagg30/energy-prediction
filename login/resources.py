@@ -3,12 +3,20 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .decorators import unauthenticated_user
 
+from django.http import HttpResponse
 from subprocess import Popen, PIPE
+from json import dump
+from django.views.decorators.csrf import csrf_protect
+
 
 # user name
 
 
 def system_resource_monitor(request):
+    return render(request, 'resource_monitor.html')
+
+@csrf_protect
+def resource_info(request):
     user = "team07"
 
     ps = Popen(['ps', 'aux'], stdout=PIPE)
@@ -23,7 +31,4 @@ def system_resource_monitor(request):
         if(len(x) > 1):
             cpu += float(info[2])
             memory += float(info[3])
-    return render(request, 'resource_monitor.html', {
-        'cpu': [cpu, 100.0-cpu],
-        'memory': [memory, 100-memory]
-    })
+    return HttpResponse(str(cpu)+" "+str(memory))
