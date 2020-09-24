@@ -52,6 +52,7 @@ urlpatterns = [
     # ------------ report ---------
     path('report',report.Report),
     # ------------ system resource monitor --------
+
     path('resources',resources.system_resource_monitor),
     path('resources/get',resources.resource_info),
     ]

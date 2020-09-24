@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
     <link rel="stylesheet" href="{% static 'css/fontawesome-all.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/themify-icons.css' %}">
-  <link rel="stylesheet" href="{% static 'css/slick.css' %}">
+    <link rel="stylesheet" href="{% static 'css/slick.css' %}">
     <link rel="stylesheet" href="{% static 'css/nice-select.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/fileupload.css' %}">
@@ -56,71 +56,28 @@
       padding-left: 13px !important
     }
 
-
-
-    /* .sub:hover{
-      font-weight: bold;
-      padding-left: 4px;
-      color: black
-    } */
-
     .maincontainer{
       margin-top: 7%;
     }
 
-    /* footer{
-      position: relative;
-      bottom: 0
-    } */
-
-    /* html, body{
-      position: relative;
-    } */
-    /* footer{
-      background-color: black;
-      width: 100%;
-      display: block;
-    } */
-
     .footer{
-  position: absolute;
-  bottom: -10%;
-  width: 100%;
-  height: 4em;
-  background-color: #CCD1D1  ;
-  padding-right: 5%;
-  padding-left: 5%;
-  margin-bottom: 0;
-  padding-bottom: 0;
-  /* margin-left: 0; */
-  left: 0;
-  /* margin-top: %; */
-  color: black;
-}
+      position: absolute;
+      bottom: -30%;
+      width: 100%;
+      height: 4em;
+      background-color: #CCD1D1  ;
+      padding-right: 5%;
+      padding-left: 5%;
+      margin-bottom: 0;
+      padding-bottom: 0;
+      left: 0;
+      color: black;
+    }
 
-
-          /* .footer{
-            width: 100%;
-            position: absolute;
-            bottom: 0;
-            height: 4em;
-            background-color: #515456;
-            padding-right: 5%;
-            padding-left: 8%;
-            padding-top: 0.5%;
-            margin-bottom: 0;
-            color: #fff;
-          } */
-
-          .fcontact p{
-      /* margin-top: 1%; */
-        }
 
     .fcontact{
       margin-top: 1%;
       height: 2em;
-      /* background-color: black */
-
     }
 
     .fcontact b{
@@ -151,25 +108,20 @@
       font-size: 20px;
     }
 
-
-
       body {
         font-family: Roboto, sans-serif;
         color: #0f3c4b;
         background-color: #e5edf1;
-        /* height: 100vh; */
       }
 
       .container {
         width: 40%;
         max-width: 680px;
         text-align: center;
-        /* margin: 0 auto; */
       }
 
       .box {
         font-size: 1.8rem;
-        /* 20 */
         background-color: #c8dadf;
         position: relative;
         padding: 80px 20px;
@@ -178,8 +130,6 @@
       .box.has-advanced-upload {
         outline: 2px dashed #92b0b3;
         outline-offset: -10px;
-
-        -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
         transition: outline-offset .15s ease-in-out, background-color .15s linear;
       }
 
@@ -293,11 +243,6 @@
         outline: -webkit-focus-ring-color auto 5px;
       }
 
-      .js .box__file+label * {
-        /* pointer-events: none; */
-        /* in case of FastClick lib use */
-      }
-
       .no-js .box__file+label {
         display: none;
       }
@@ -323,9 +268,51 @@
         cursor: pointer;
       }
 
-      .btncontainer{
-        /* margin-bottom: 35%; */
+      .maincontainer p, .message p{
+        font-family: "Mulish", sans-serif;
+        color: #10285d;
+        font-size: 1.3em;
+        line-height: 30px;
+        margin-top: 8%;
+        margin-left: 15%;
+        margin-bottom: 3%;
       }
+
+      .message{
+        /* margin-left: 35%; */
+        text-align: center;
+      }
+
+      .message p{
+        margin-left: auto;
+        margin-bottom: 1%;
+        margin-top: 4%;
+      }
+      .btncontainer{
+        margin-left: 0;
+      }
+
+      .topcontainer{
+        display: flex;
+        justify-content: space-around;
+        padding-left: 30%;
+        padding-right: 30%;
+      }
+
+      .btncontainer .box__button{
+        background-color: #0f3c4b;
+        color: white;
+      }
+
+      .btncontainer .box__button:hover{
+        background-color: #e5edf1;
+        color: #0f3c4b;
+        border: 1px solid #0f3c4b;
+        cursor: pointer;
+      }
+
+
+
     </style>
 
     <script type="3cd7fb7b551279af64cc515d-text/javascript">
@@ -391,37 +378,7 @@
   <main>
 
     <div class="maincontainer">
-      <!-- <p>Upload the weather data file which is taken per hour</p> -->
-      <!-- <form class="filesform" action="predict" enctype="multipart/form-data" method="post" >
-        {% csrf_token %}
-        <table class="filestable">
-          <tr>
-            <td style="text-align:center"><label for="">Upload train data file:</label></td>
-            <td>
-              <input type="file" name="file" class="filesupload" id="inputfile1" onchange="upload1(this)">
-              <label for="file" id="fileBtn1" onclick="getFile1()">Choose a file</label>
-            </td>
-          </tr>
-          <tr>
-            <td style="text-align:center"><label for="">Upload Weather data file:</label></td>
-            <td>
-              <input type="file" name="file" class="filesupload" id="inputfile2" onchange="upload2(this)">
-              <label for="file" id="fileBtn2" onclick="getFile2()">Choose a file</label>
-            </td>
-          </tr>
-          <tr>
-            <td style="text-align:center"><label for="">Upload Building data file:</label></td>
-            <td>
-              <input type="file" name="file" class="filesupload" id="inputfile3" onchange="upload3(this)">
-              <label for="file" id="fileBtn3" onclick="getFile3()">Choose a file</label>
-            </td>
-          </tr>
-          <tr>
-            <td style="padding-left:30%" colspan="2"><input class="tabshifts" type="submit" name="Submit" value="Submit" style="color:white"></td>
-          </tr>
-        </table>
-      </form> -->
-      <p>Please upload csv format file below for Predicting Energy Consumption of all the properties</p>
+      <p>Please upload CSV format file below for Predicting Energy Consumption of all the properties</p>
       <div class="container" role="main">
         <form method="post" action="uploadfile" enctype="multipart/form-data" novalidate class="box">
           {% csrf_token %}
@@ -438,39 +395,36 @@
           <!-- <div class="box__success">Done! <a href="" class="box__restart" role="button">Upload more?</a></div> -->
           <div class="box__error">Error! <span></span>. <a href="" class="box__restart" role="button">Try again!</a></div>
         </form>
+      </div>
+    </div>
+    <div class="message">
+      {% for message in messages %}
+        <p> {{message}} </p>
+      {% endfor %}
 
-        <div>
-          {% for message in messages %}
-            <h3> {{message}} </h3>
-            <br>
-          {% endfor %}
-        </div>
-        <!--end-->
-        {% if messages %}
-          <div class="btncontainer">
-            <p>Please find the predictions and analyzed solutions below</p>
+      {% if messages %}
+        <div class="btncontainer">
+          <div class="topcontainer">
             <a href="/exportcsv">
-              <button class="btn" type="button" name="button">Download</button>
+              <button class="box__button" type="button" name="button">Download File</button>
             </a>
 
             <a href="/insights">
-              <button class="btn" type="button" name="button">Summary</button>
+              <button class="box__button" type="button" name="button">Summary</button>
             </a>
 
             <a href="/home">
-              <button class="btn" type="button" name="button">Back to Home</button>
+              <button class="box__button" type="button" name="button">Back to Home</button>
             </a>
-<br><br><br><br><br><br>
           </div>
-        {% endif %}
 
+        </div>
+      {% endif %}
 
-
-      </div>
-      <!-- Added Sunidhi-->
     </div>
+    <!--end-->
+
   </main>
-  <br><br><br><br><br><br>
   <footer>
     <div class="footer">
       <div class="fcontainer" style="display:flex;justify-content:space-between;">

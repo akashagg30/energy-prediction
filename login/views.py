@@ -210,7 +210,7 @@ def uploadfile(request):
         global id_last
         id_last = obj.id + numberOfRows
         fs.delete(fname)
-        messages.success(request,'File uploaded successful')
+        messages.success(request,'Please find the predictions and analyzed solutions below')
         # context = {'a':1}
         # print(context['a'])
         # return TemplateResponse(request,'fileupload.html',context)
