@@ -20,7 +20,6 @@ from login import views,report,resources
 from login.forms import EmailValidationOnForgotPassword
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('',views.login),
     path('signup',views.signup),
     # path('reset_password',views.reset_password),
