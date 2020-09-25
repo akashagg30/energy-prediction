@@ -26,16 +26,20 @@ def IQR(data):
 
 # for bar plot
 def make_bins(X, Y):
-    X, Y = sort_list(X, Y)
-    # calculating bin size
-    h = int(2*IQR(X)*len(X)**(-1/3))
-    left = min(X)
-    right = left+h
     # temp data
     new_X = []
     new_Y = []
     n = 0
     sum = 0
+
+    if len(X)==0:
+        return (new_X,new_Y)
+
+    X, Y = sort_list(X, Y)
+    # calculating bin size
+    h = int(2*IQR(X)*len(X)**(-1/3))
+    left = min(X)
+    right = left+h
     # generating bins
     for x, y in zip(X, Y):
         if x <= right:
@@ -60,16 +64,18 @@ def make_bins(X, Y):
 
 # for line plot
 def make_bars(X, Y):
-    # dictionary having floors as key and [sum_of_electricity,count] as value for calculating mean
+    new_X = []
+    new_Y = []
     
+    if len(X)==0: return (new_X,new_Y)
+
+    # dictionary having floors as key and [sum_of_electricity,count] as value for calculating mean
     floor = {}
     for x, y in zip(X, Y):
         if x not in floor:
             floor[x] = [0, 0]
         floor[x][0] += y
         floor[x][1] += 1
-    new_X = []
-    new_Y = []
     for x in sorted(floor):
         new_X.append(x)
         new_Y.append(floor[x][0]/floor[x][1])

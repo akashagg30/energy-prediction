@@ -47,15 +47,11 @@
     .tabContainer {
       margin-top: 10%;
     }
-
-
-
-
     .footer{
       position: fixed;
       bottom: 0;
       width: 100%;
-      height: 3em;
+      height: 3.5em;
       background-color: #CCD1D1  ;
       padding-right: 5%;
       padding-left: 5%;
@@ -204,118 +200,126 @@
     {% endif %}
     </div>
 <div class="reports">
-  <h1 onclick=toggle('charts')>Reports</h1>
-  <div id="charts">
-    <div class="chartscontianer">
-      <div class="left">
-        <canvas id="chart1"></canvas><br><br>
-        <canvas id="chart2"></canvas>
-      </div>
-      <div class="right">
-        <canvas id="chart3"></canvas><br><br>
-        <canvas id="chart4"></canvas>
+  <h1 onclick=toggle("charts")>Reports</h1>
+  {% if X_Area_vs_electricity|length > 1 %}
+    <div id="charts" style="width: 100%;">
+        <div class="left">
+          <canvas id="chart1"></canvas><br><br>
+          <canvas id="chart2"></canvas>
 
-      </div>
+        </div>
+        <div class="right">
+          <canvas id="chart3"></canvas><br><br>
+          <canvas id="chart4"></canvas>
+
+        </div>
+
+
     </div>
-  </div>
+  {% else %}
+    <p>no data available</p>
+  {% endif %}
 
 </div><br><br><br><br>
 
-    <!-- for toggeling view -->
-    <script>
-      function toggle(id) {
-        var x = document.getElementById(id);
-        if (x.style.display === "none") {
-          x.style.display = "block";
-        } else {
-          x.style.display = "none";
-        }
+  <!-- for toggeling view -->
+  <script>
+    function toggle(id) {
+      var x = document.getElementById(id);
+      console.log(x);
+      if (x.style.display === "none") {
+        x.style.display = "block";
+      } else {
+        x.style.display = "none";
       }
+    }
 
-      toggle('history')
-      toggle('charts')
-    </script>
+    toggle('history')
+    toggle('charts')
+  </script>
+
+  <script>
+    {% if X_Area_vs_electricity|length > 1 %}
+      function area_vs_electricity(){
+          var ctx= document.getElementById('chart1').getContext('2d');
+
+          var chart = new Chart(ctx,{
+              type : 'bar',
+              data : {
+                  // X axis
+                  labels: {{X_Area_vs_electricity|safe}},
+                  datasets: [{
+                      // Y label
+                      label: 'Mean Meter Reading',
+                      // Y axis
+                      data : {{Y_Area_vs_electricity|safe}},
+                  }]
+              }
+          })
+      }
+      area_vs_electricity();
 
 
-    <script>
-        function area_vs_electricity(){
-            var ctx= document.getElementById('chart1').getContext('2d');
+    function floorcount_vs_electricity(){
+        var ctx= document.getElementById('chart2').getContext('2d');
 
-            var chart = new Chart(ctx,{
-                type : 'bar',
-                data : {
-                    // X axis
-                    labels: {{X_Area_vs_electricity|safe}},
-                    datasets: [{
-                        // Y label
-                        label: 'Mean Meter Reading',
-                        // Y axis
-                        data : {{Y_Area_vs_electricity|safe}},
-                    }]
-                }
-            })
-        }
+        var chart = new Chart(ctx,{
+            type : 'line',
+            data : {
+                // X axis
+                labels: {{X_Floorcount_vs_electricity|safe}},
+                datasets: [{
+                    // Y label
+                    label: 'Mean Meter Reading',
+                    // Y axis
+                    data : {{Y_Floorcount_vs_electricity|safe}},
+                }]
+            }
+        })
+    }
 
-        function floorcount_vs_electricity(){
-            var ctx= document.getElementById('chart2').getContext('2d');
+    function temprature_vs_electricity(){
+        var ctx= document.getElementById('chart3').getContext('2d');
 
-            var chart = new Chart(ctx,{
-                type : 'line',
-                data : {
-                    // X axis
-                    labels: {{X_Floorcount_vs_electricity|safe}},
-                    datasets: [{
-                        // Y label
-                        label: 'Mean Meter Reading',
-                        // Y axis
-                        data : {{Y_Floorcount_vs_electricity|safe}},
-                    }]
-                }
-            })
-        }
+        var chart = new Chart(ctx,{
+            type : 'line',
+            data : {
+                // X axis
+                labels: {{X_Temperature_vs_electricity|safe}},
+                datasets: [{
+                    // Y label
+                    label: 'Mean Meter Reading',
+                    // Y axis
+                    data : {{Y_Temperature_vs_electricity|safe}},
+                }]
+            }
+        })
+    }
 
-        function temprature_vs_electricity(){
-            var ctx= document.getElementById('chart3').getContext('2d');
+    function age_vs_electricity(){
+        var ctx= document.getElementById('chart4').getContext('2d');
 
-            var chart = new Chart(ctx,{
-                type : 'line',
-                data : {
-                    // X axis
-                    labels: {{X_Temperature_vs_electricity|safe}},
-                    datasets: [{
-                        // Y label
-                        label: 'Mean Meter Reading',
-                        // Y axis
-                        data : {{Y_Temperature_vs_electricity|safe}},
-                    }]
-                }
-            })
-        }
+        var chart = new Chart(ctx,{
+            type : 'bar',
+            data : {
+                // X axis
+                labels: {{X_Age_vs_electricity|safe}},
+                datasets: [{
+                    // Y label
+                    label: 'Mean Meter Reading',
+                    // Y axis
+                    data : {{Y_Age_vs_electricity|safe}},
+                }]
+            }
+        })
+    }
 
-        function age_vs_electricity(){
-            var ctx= document.getElementById('chart4').getContext('2d');
-
-            var chart = new Chart(ctx,{
-                type : 'bar',
-                data : {
-                    // X axis
-                    labels: {{X_Age_vs_electricity|safe}},
-                    datasets: [{
-                        // Y label
-                        label: 'Mean Meter Reading',
-                        // Y axis
-                        data : {{Y_Age_vs_electricity|safe}},
-                    }]
-                }
-            })
-        }
-
-        area_vs_electricity();
-        floorcount_vs_electricity();
-        temprature_vs_electricity();
-        age_vs_electricity();
-    </script>
-  </main>
+    floorcount_vs_electricity();
+    temprature_vs_electricity();
+    age_vs_electricity();
+  {% endif %}
+</script>
+</main>
 
   <footer>
     <div class="footer">
