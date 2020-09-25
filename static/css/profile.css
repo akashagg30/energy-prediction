@@ -1,0 +1,102 @@
+.profContainer{
+  margin-top: 13%;
+  display: flex;
+  justify-content: space-between;
+  margin-left: 5%;
+  margin-right: 6%;
+}
+
+.profContainer .left{
+  width: 70%;
+  background-color: white;
+  border-radius: 7px;
+  box-shadow: 0 0 4px #999;
+  /* height: 54vh; */
+}
+
+.left .leftContent{
+  padding-left: 5%;
+  padding-top: 5%;
+}
+
+.left .leftContent h1{
+  font-weight: bold;
+}
+
+.left .leftContent table{
+  /* border: 1px solid black; */
+  /* margin-top: 3%; */
+  margin-left: 10%;
+  font-size: 20px;
+  width: 90%;
+}
+
+.left .leftContent table tr td{
+  /* border: 1px solid black; */
+  padding-top: 3%;
+}
+
+.left .leftContent table .col1{
+  float: right;
+  padding-top: 14%;
+  padding-right: 10%;
+  font-weight: bold;
+}
+
+.left .leftContent table .col2{
+  padding-left: 4%;
+  /* padding-bottom: 2%; */
+  /* border: 1px solid black; */
+}
+
+
+.profContainer .right{
+  width: 25%;
+  background-color: white;
+  border-radius: 7px;
+  box-shadow: 0 0 4px #999;
+  /* height: 30vh; */
+  height: 50%;
+}
+
+.profContainer .options{
+  padding: 1.5em;
+}
+
+.profContainer .options li{
+  padding-top: 5%;
+  padding-left: 4%;
+  height: 3em;
+}
+
+.profContainer .options .uname{
+  /* height: 3em; */
+  padding-top: 1%;
+  padding-left: 2%;
+  font-size: 1.3em;
+  font-weight: 500;
+}
+
+.options a{
+  color: black;
+}
+
+.profContainer .options .profile{
+  border-radius: 5px;
+  background-color: #1384F5;
+  font-weight: bold;
+}
+
+.profContainer .options .cpwd:hover{
+  border-radius: 5px;
+  background-color: #F0F4F8;
+}
+
+.options .cpwd a{
+  color: #4885C0;
+  font-weight: bold;
+}
+
+.options .profile a{
+  color: white;
+}

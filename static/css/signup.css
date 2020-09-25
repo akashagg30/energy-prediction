@@ -1,0 +1,6 @@
+.passwords{
+  display: flex;
+}
+.passwords input{
+  width: 80%;
+}
