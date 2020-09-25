@@ -42,7 +42,7 @@
         padding-top: 20%;
       }
       .tabContainer{
-        padding-top: 6%;
+        padding-top: 7%;
       }
 
       .tabContainer .text{
@@ -121,6 +121,20 @@
             margin-left: 25%;
             font-size: 1.3em;
           }
+
+          body{
+            font-family: Roboto, sans-serif;
+            color: #0f3c4b;
+            background-color: #e5edf1;
+
+          }
+
+          .inputTable input{
+            background-color: #e5edf1;
+            border-radius: 5px;
+          }
+
+
     </style>
 
 </head>
@@ -189,9 +203,9 @@
                         <td class="col1"><label>Building No<span style="color:red">&nbsp*</span></label></td>
                         <td class="col2"><input type="number" name="building_id" required placeholder="Enter Building Number"></td>
                     </tr>
-                  <tr>
+                  <!-- <tr>
                     <td class="col1"><label>Meter Type:<span style="color:red">&nbsp*</span></label></td>
-                    <td  class="col2"><select>
+                    <td  class="col2"><select name = "meter_type">
                         <option value="electricity">Electricity</option>
                         <option value="chilledwater">Chilled Water</option>
                         <option value="steam">Steam</option>
@@ -202,8 +216,8 @@
 
                   <tr>
                     <td class="col1"><label for="">Time Stamp:<span style="color:red">&nbsp*</span></label></td>
-                    <td  class="col2"><input type="datetime-local" name="time_stamp" value="" required></td>
-                  </tr>
+                    <td  class="col2"><input type="datetime-local" name="timestamp" value="" required></td>
+                  </tr> -->
                   <tr>
                     <td class="col1"><label for="">Air Temperature:<span style="color:red">&nbsp*</span></label></td>
                     <td  class="col2"><input type="number" name = "air_temperature" value="airtemperature" placeholder="Enter temperature of Air" required step="any"></td>
@@ -219,44 +233,44 @@
                     <td  class="col2"><input type="number"  name = "dew_temperature" value="dewtemperature" placeholder="Enter temperature Dew" required step="any"></td>
                   </tr>
 
-                  <!-- <tr>
+                  <tr>
                     <td class="col1"><label for="">Precip depth for 1 hr:<span style="color:red">&nbsp*</span></label></td>
                     <td  class="col2"><input type="number" name = "precip_depth" value="precipdepth" placeholder="Enter Precip depth for 1 hr" required></td>
-                  </tr> -->
+                  </tr>
 
                 </table>
 
                 </div>
                 <div class="rightTab">
                   <table class="inputTable">
-                    <tr>
+                    <!-- <tr>
                       <td class="col1"><label for="">Sea level Pressure:<span style="color:red">&nbsp*</span></label></td>
-                      <td  class="col2"><input type="number" value="sealevelpressure" placeholder="Enter Sea level Pressure" required step="any"></td>
+                      <td  class="col2"><input type="number" name = "sea_level_pressure" value="sealevelpressure" placeholder="Enter Sea level Pressure" required step="any"></td>
                     </tr>
                     <tr>
                       <td class="col1"><label for="">Primary Use:<span style="color:red">&nbsp*</span></label></td>
                       <td  class="col2">
                         <input type="text" name="primary_use" value="" list="uses" placeholder="Primary use of Building">
                         <datalist id="uses">
-                            <option>Education</option>
-                            <option>Entertainment/public assembly</option>
-                            <option>Food sales and service</option>
-                            <option>Healthcare</option>
-                            <option>Lodging/residential</option>
-                            <option>Manufacturing/industrial</option>
-                            <option>Office</option>
-                            <option>Parking</option>
-                            <option>Public services</option>
-                            <option>Religious worship</option>
-                            <option >Retail</option>
-                            <option>Services</option>
-                            <option>Technology/science</option>
-                            <option >Utility</option>
-                            <option>Warehouse/storage</option>
-                            <option>Other</option>
+                            <option value ="Education" >Education</option>
+                            <option value = "Entertainment/public assembly">Entertainment/public assembly</option>
+                            <option value ="Food sales and service">Food sales and service</option>
+                            <option value="Healthcare">Healthcare</option>
+                            <option value= "Lodging/residential">Lodging/residential</option>
+                            <option value="Manufacturing/industrial">Manufacturing/industrial</option>
+                            <option value="Office">Office</option>
+                            <option value="Parking">Parking</option>
+                            <option value="Public services">Public services</option>
+                            <option value="Religious worship">Religious worship</option>
+                            <option value="Retail">Retail</option>
+                            <option value="Services">Services</option>
+                            <option value="Technology/science">Technology/science</option>
+                            <option value="Utility">Utility</option>
+                            <option value="Warehouse/storage">Warehouse/storage</option>
+                            <option value="Other">Other</option>
                           </datalist>
                       </td>
-                    </tr>
+                    </tr> -->
                     <!-- <tr>
                       <td class="col1"><label for="">Wind Direction:<span style="color:red">&nbsp*</span></label></td>
                       <td  class="col2"><input type="number" value="wind_direction" placeholder="Enter Wind Direction" required></td>
@@ -297,7 +311,7 @@
             <h3 class="output">Your Property would consume <b>{{scoreval}}</b>  units of power for every hour </h3>
           {% endif %}
     </main>
-    <footer>
+
 
       <div class="footer">
         <div class="fcontainer" style="display:flex;justify-content:space-between;">
@@ -321,7 +335,7 @@
 
       </div>
 
-    </footer>
+
       <!-- Scroll Up -->
       <!-- <div id="back-top" >
         <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>

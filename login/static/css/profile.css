@@ -6,11 +6,21 @@
   margin-right: 6%;
 }
 
+body{
+  color: #0f3c4b;
+  background-color: #e5edf1;
+}
+
+/* .left{
+
+} */
+
 .profContainer .left{
   width: 70%;
   background-color: white;
   border-radius: 7px;
   box-shadow: 0 0 4px #999;
+  padding-bottom: 4%;
   /* height: 54vh; */
 }
 

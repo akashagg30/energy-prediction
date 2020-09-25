@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 from .decorators import unauthenticated_user
 from .models import *
-from .decorators import unauthenticated_user, admin_only, customers_only
+from .decorators import unauthenticated_user, admin_only
 
 
 import numpy as np
@@ -76,7 +76,6 @@ def make_bars(X, Y):
     return (new_X, new_Y)
 
 @login_required(login_url='/login')
-@customers_only
 def Report(request):
     area = [100, 200, 300, 250, 400]
     floorcount = [2, 2, 3, 2, 3]
@@ -92,7 +91,11 @@ def Report(request):
         temprature, electrictiy)
     X_Age_vs_electricity, Y_Age_vs_electricity = make_bars(
         age, electrictiy)
-
+    if request.user.is_authenticated:
+        user_id = request.user.id
+    print(user_id)
+    user_inputs = Energy_Data.objects.filter(username = user_id)
+    print(user_inputs)
     return render(request, 'insights.html', {
         'X_Area_vs_electricity': X_Area_vs_electricity,
         'Y_Area_vs_electricity': Y_Area_vs_electricity,
@@ -105,4 +108,6 @@ def Report(request):
 
         'X_Age_vs_electricity': X_Age_vs_electricity,
         'Y_Age_vs_electricity': Y_Age_vs_electricity,
+
+        'user_inputs':user_inputs
     })

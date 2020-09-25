@@ -27,6 +27,8 @@
   <link rel="stylesheet" href="{% static 'css/nice-select.css' %}">
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="{% static 'css/userdetails.css' %}">
+  <link rel="stylesheet" href="{% static 'css/mydashboard.css' %}">
 
   <style media="screen">
   .virtusa{
@@ -102,6 +104,9 @@
     .submenu ul li a {
       font-weight: normal;
     }
+    .container{
+      margin-top: 5%;
+    }
   </style>
 
 </head>
@@ -165,9 +170,42 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+
+    <div class = container>
+      {% if user_inputs %}
+      <table class = "userdetails">
+        <tr class = "head">
+          <td>SNo.</td>
+          <td>Date Created</td>
+          <td>Air Temperature</td>
+          <td>Dew Temperature</td>
+          <td>Precip Depth</td>
+          <td>Building Size</td>
+          <td>Year Built</td>
+          <td>Floor Count</td>
+          <td>Meter Reading</td>
+        </tr>
+        {% for data in user_inputs %}
+          <tr class="body">
+            <td>{{forloop.counter}}</td>
+            <td>{{data.date_created}}</td>
+            <td>{{data.air_temperature}}</td>
+            <td>{{data.dew_temperature}}</td>
+            <td>{{data.precip_depth}}</td>
+            <td>{{data.building_size}}</td>
+            <td>{{data.year_built}}</td>
+            <td>{{data.floor_count}}</td>
+            <td>{{data.meter_reading}}</td>
+          </tr>
+        {% endfor %}
+      </table>
+    {% endif %}
+    </div>
+
     <h1>Report</h1>
     <div id="charts" style="width: 75%;">
-        <canvas id="chart1"></canvas>
+        <canvas id="chart1" style="width:100px;height:100px"></canvas>
         <br>
         <br>
         <br>
@@ -184,8 +222,6 @@
         <br>
         <canvas id="chart4"></canvas>
     </div>
-
-
     <script>
         function area_vs_electricity(){
             var ctx= document.getElementById('chart1').getContext('2d');

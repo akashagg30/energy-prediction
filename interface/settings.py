@@ -26,7 +26,8 @@ SECRET_KEY = 'd*ybp#u#x)!rf75-er9s!o8ee@a=#gz0#36r($)5z-!w5psw%^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['85a008cf3671.ngrok.io', '127.0.0.1']
+#ALLOWED_HOSTS = ['85a008cf3671.ngrok.io', '127.0.0.1']
+ALLOWED_HOSTS = []
 
 # if DEBUG:
 #     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # During development only
@@ -145,6 +146,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'team07.neuralhack@gmail.com'
 EMAIL_HOST_PASSWORD = 'neuralhack'
+DEFAULT_FROM_MAIL = 'Team07NeuralHack <noreply@team07.neuralhack@gmail.com'
 
 
 DATETIME_FORMAT = '%d-%m-%Y-%H-%M-%S'
