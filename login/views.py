@@ -154,7 +154,11 @@ def predict(request):
 
 @login_required(login_url='/login')
 def uploadfile(request):
-    if request.method=='POST' and len(request.FILES['datafile']) == 1  and  request.FILES['datafile']:
+    print("upload")
+    print(request.FILES)
+    print(len(request.FILES))
+    if request.method=='POST' and len(request.FILES) == 1  and  request.FILES['datafile']:
+        print("inside upload")
         myfile = request.FILES['datafile']
         fs = FileSystemStorage()
         fname = fs.save(myfile.name, myfile)

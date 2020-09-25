@@ -578,6 +578,7 @@
 
         if (isAdvancedUpload) // ajax file upload for modern browsers
         {
+          console.log("entered");
           e.preventDefault();
 
           // gathering the form data
@@ -597,7 +598,7 @@
             form.classList.remove('is-uploading');
 
             if (ajax.status >= 200 && ajax.status < 400) {
-
+              console.log("entered");
               location.reload();
               // console.log("hii");
               // console.log(form.classList);

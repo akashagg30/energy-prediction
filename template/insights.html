@@ -28,7 +28,7 @@
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="{% static 'css/userdetails.css' %}">
-  <!-- <link rel="stylesheet" href="{% static 'css/mydashboard.css' %}"> -->
+  <link rel="stylesheet" href="{% static 'css/mydashboard.css' %}">
 
   <style media="screen">
   .virtusa{
@@ -48,10 +48,10 @@
       margin-top: 10%;
     }
     .footer{
-      position: fixed;
+      position: relative;
       bottom: 0;
       width: 100%;
-      height: 3em;
+      height: 3.5em;
       background-color: #CCD1D1  ;
       padding-right: 5%;
       padding-left: 5%;
@@ -104,9 +104,7 @@
     .submenu ul li a {
       font-weight: normal;
     }
-    .container{
-      margin-top: 5%;
-    }
+
   </style>
 
 </head>
@@ -168,11 +166,10 @@
   <main>
 
 
-
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
-
     <div class = container>
+      <h1>Prediction History</h1>
       {% if user_inputs %}
       <table class = "userdetails">
         <tr class = "head">
@@ -202,26 +199,25 @@
       </table>
     {% endif %}
     </div>
+<div class="reports">
+  <h1>Reports</h1>
+  <div id="charts" style="width: 100%;">
+    <div class="left">
+      <canvas id="chart1"></canvas><br><br>
+      <canvas id="chart2"></canvas>
 
-    <h1>Report</h1>
-    <div id="charts" style="width: 75%;">
-        <canvas id="chart1" style="width:100px;height:100px"></canvas>
-        <br>
-        <br>
-        <br>
-        <br>
-        <canvas id="chart2"></canvas>
-        <br>
-        <br>
-        <br>
-        <br>
-        <canvas id="chart3"></canvas>
-        <br>
-        <br>
-        <br>
-        <br>
-        <canvas id="chart4"></canvas>
     </div>
+    <div class="right">
+      <canvas id="chart3"></canvas><br><br>
+      <canvas id="chart4"></canvas>
+
+    </div>
+
+
+  </div>
+
+</div><br><br><br><br>
+
     <script>
         function area_vs_electricity(){
             var ctx= document.getElementById('chart1').getContext('2d');
@@ -294,7 +290,6 @@
                 }
             })
         }
-
 
         area_vs_electricity();
         floorcount_vs_electricity();
