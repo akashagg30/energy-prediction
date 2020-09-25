@@ -349,7 +349,7 @@ hr {
   background: #FF9F67;
   font-family: "Josefin Sans", sans-serif;
   text-transform: capitalize;
-  padding: 25px 38px !important;
+  /* padding: 25px 38px !important; */
   color: #fff;
   cursor: pointer;
   display: inline-blockc !important;
@@ -362,7 +362,7 @@ hr {
   line-height: 0;
   margin-bottom: 0;
   cursor: pointer;
-  transition: color 0.4s linear;
+  /* transition: color 0.4s linear; */
   position: relative;
   z-index: 1;
   border: 0;
@@ -394,7 +394,7 @@ hr {
 }
 
 .btn:hover::before {
-  transform: scaleX(1);
+  /* transform: scaleX(1); */
   color: #fff !important;
   z-index: -1
 }

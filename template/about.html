@@ -162,6 +162,60 @@
       color: white
     }
 
+    .imgtop{
+      margin-top: 8%;
+      margin-left: 10%;
+      display: flex;
+      width: 90%;
+      margin-bottom: 0;
+      /* height: 70%; */
+      justify-content: space-between;
+      /* margin-right: 5%; */
+
+    }
+
+    .imgtop .topleft{
+      margin-left: 2%;
+      width: 40%;
+      padding-top: 6%;
+    }
+    .imgtop .topleft h1{
+      font-size: 2em;
+      animation-name: fadeInLeft;
+      animation-duration: 0.7s;
+      animation-delay: 0.2s;
+    }
+
+
+    @keyframes fadeInLeft {
+      0% {
+        opacity: 0;
+        -webkit-transform: translate3d(-100%, 0, 0);
+        transform: translate3d(-100%, 0, 0)
+      }
+
+      to {
+        opacity: 1;
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0)
+      }
+    }
+
+
+    .imgtop .topleft h3{
+      color: #BA4A00 ;
+      font-size: 1.2em;
+    }
+
+    .imgtop .topright{
+      width: 60%;
+    }
+
+    .gallery{
+      width: 80%;
+      height: 85%;
+    }
+
 
 
   </style>
@@ -224,7 +278,28 @@
   <!-- Header End -->
   <main class="imgcontainer">
 
-    <img class="topimg" src="{% static 'img/about1.jpeg' %}">
+    <div class="imgtop">
+
+      <div class="topleft">
+
+        <h1 data-delay="0.2s">Virtusa Great Energy Prediction is an efficient AI solution to predict energy consumption of a property or building.</h1>
+        <br>
+        <h3>The solution used Machine Learning Algorithm for prediction with superior Accuracy.</h3>
+        <!-- <br> -->
+        <h3>Accurate predictions provide two-fold benefits:</h3>
+        <!-- <br> -->
+        <h3>First, managers gain key indights into factors affecting their building's energy demand, providing opportunities to address them and improve energy efficiency.</h3>
+        <!-- <br> -->
+        <h3>Secondly, forecasts provide a benchmark to single out anomalously high/low energy consumption and alert managers to faults within the building.</h3>
+
+      </div>
+      <div class="topright">
+        <img class="gallery" src="{% static 'img/aboutus.jpeg' %}">
+      </div>
+
+    </div>
+
+
 
     <!-- <img class="img2" src="{% static 'img/about2.png' %}" > -->
     <div class="services">

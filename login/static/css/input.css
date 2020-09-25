@@ -1,0 +1,140 @@
+body{
+  position: relative;
+  margin-top:10%;
+  background-image: url(../img/hero/inputbg.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  
+  color: white;
+}
+
+body::before{
+  content: "";
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  background-color: rgba(0,0,0,0.7);
+}
+
+.virtusa{
+  width: 60%;
+}
+ .sticky-bar {
+  height: 10%;
+
+}
+.sticky-bar .logo{
+  margin-top: 11%;
+}
+.main-header .main-menu ul li a{
+  padding-top: 20%;
+}
+.tabContainer{
+  /* padding-top: 5%; */
+  margin-top: 5%;
+}
+
+.tabContainer .text{
+  margin-left: 15%;
+  font-size: 1.6em;
+  margin-top: 1%;
+  text-align: center;
+  color: white
+}
+.inputForm{
+   margin-top:3%;
+   margin-left:10%
+}
+.buttons{
+  margin-top: 1%;
+  margin-left: 42%;
+}
+
+.buttons .tabshifts:hover{
+  cursor: pointer;
+}
+
+.footer{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 3em;
+  background-color: #CCD1D1  ;
+  padding-right: 5%;
+  padding-left: 5%;
+  /* padding-top: 0.5%; */
+  margin-bottom: 0;
+  margin-top: 0;
+  color: black;
+}
+
+.fcontact{
+  margin-top: 1%;
+}
+
+.fcontact b{
+  font-size: 1.2em;
+}
+
+
+.fcontent ul{
+  margin-top: 3%;
+  width: 75%;
+}
+
+.fcontent li{
+  height: 50px;
+}
+
+.fcontent a{
+  font-size: 25px;
+  color: #10285d;;
+}
+
+.fcontent span{
+  padding-top: 2px;
+  font-size: 20px;
+}
+    .main-header .main-menu ul ul.submenu>li>.sub1{
+      font-size: 20px;
+      color: black;
+    }
+
+    .main-header .main-menu ul ul.submenu>li>.sub:hover {
+      color: #C86FFF;
+      background: none;
+      padding-left: 13px !important
+    }
+
+    .submenu ul li a{
+      font-weight: normal;
+
+    }
+
+    .output{
+      margin-left: 25%;
+      font-size: 1.3em;
+      color: white;
+    }
+
+    body{
+      /* font-family: Roboto, sans-serif;
+      color: #0f3c4b;
+      background-color: #e5edf1; */
+
+    }
+
+    /* .inputTable input{
+      background-color: #e5edf1;
+      border-radius: 10px;
+    } */
+
+
+    .inputTable input{
+      /* background-color: #e5edf1; */
+      background-color: white;
+      border-radius: 10px;
+    }

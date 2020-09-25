@@ -26,8 +26,8 @@
     <link rel="stylesheet" href="{% static 'css/nice-select.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <style media="screen">
+<link rel="stylesheet" href="{% static 'css/input.css' %}">
+    <!-- <style media="screen">
       .virtusa{
         width: 60%;
       }
@@ -46,11 +46,15 @@
       }
 
       .tabContainer .text{
-        margin-left: 30%;
-        font-size: 2em;
+        margin-left: 15%;
+        font-size: 1.6em;
         margin-top: 1%;
+        text-align: center;
       }
-
+      .inputForm{
+         margin-top:3%;
+         margin-left:10%
+      }
       .buttons{
         margin-top: 1%;
         margin-left: 42%;
@@ -61,14 +65,13 @@
       }
 
       .footer{
-        position: fixed;
+        position: relative;
         bottom: 0;
         width: 100%;
-        height: 3em;
+        height: 4em;
         background-color: #CCD1D1  ;
         padding-right: 5%;
         padding-left: 5%;
-        /* padding-top: 0.5%; */
         margin-bottom: 0;
         margin-top: 0;
         color: black;
@@ -135,7 +138,7 @@
           }
 
 
-    </style>
+    </style> -->
 
 </head>
 
@@ -194,39 +197,41 @@
 
         <div class="tabContainer">
           <p class="text">Please provide below inputs for prediction</p>
-            <form class="inputForm" action="predict" enctype="multipart/form-data" method="post" style="margin-top:4%;margin-left:10%">
+            <form class="inputForm" action="predict" enctype="multipart/form-data" method="post">
               {% csrf_token %}
               <div class="tableContainer">
                 <div class="leftTab">
                   <table class="inputTable">
                     <tr>
-                        <td class="col1"><label>Building No<span style="color:red">&nbsp*</span></label></td>
+                        <td class="col1"><label>Building Number:<span style="color:red">&nbsp*</span></label></td>
                         <td class="col2"><input type="number" name="building_id" required placeholder="Enter Building Number"></td>
                     </tr>
-                  <!-- <tr>
+                  <tr>
                     <td class="col1"><label>Meter Type:<span style="color:red">&nbsp*</span></label></td>
-                    <td  class="col2"><select name = "meter_type">
-                        <option value="electricity">Electricity</option>
-                        <option value="chilledwater">Chilled Water</option>
-                        <option value="steam">Steam</option>
-                        <option value="hotwater">Hot Water</option>
-                      </select>
+                    <td  class="col2">
+                      <input type="text" name="meter_type" value="" list="type" placeholder="Select a meter type">
+                      <datalist id="type">
+                        <option value="Electricity">Electricity</option>
+                        <option value="Chilled Water">Chilled Water</option>
+                        <option value="Steam">Steam</option>
+                        <option value="Hot Water">Hot Water</option>
+                        </datalist>
                     </td>
-                  </tr> -->
+                  </tr>
 
-                  <!-- <tr>
+                  <tr>
                     <td class="col1"><label for="">Time Stamp:<span style="color:red">&nbsp*</span></label></td>
-                    <td  class="col2"><input type="datetime-local" name="timestamp" value="" required></td>
-                  </tr> -->
+                    <td  class="col2"><input type="datetime-local" name="time_stamp" value="" required></td>
+                  </tr>
                   <tr>
                     <td class="col1"><label for="">Air Temperature:<span style="color:red">&nbsp*</span></label></td>
                     <td  class="col2"><input type="number" name = "air_temperature" value="airtemperature" placeholder="Enter temperature of Air" required step="any"></td>
                   </tr>
 
-                  <!-- <tr>
+                  <tr>
                     <td class="col1"><label for="">Cloud Coverage:<span style="color:red">&nbsp*</span></label></td>
-                    <td  class="col2"><input type="number" value="cloudcoverage" placeholder="Enter Cloud Coverage" required></td>
-                  </tr> -->
+                    <td  class="col2"><input type="number" value="cloud_coverage" placeholder="Enter Cloud Coverage" required></td>
+                  </tr>
 
                   <tr>
                     <td class="col1"><label for="">Dew Temperature:<span style="color:red">&nbsp*</span></label></td>
@@ -243,14 +248,11 @@
                 </div>
                 <div class="rightTab">
                   <table class="inputTable">
-                    <!-- <tr>
+                    <tr>
                       <td class="col1"><label for="">Sea level Pressure:<span style="color:red">&nbsp*</span></label></td>
+                      <td class="col2"><input type="number" name = "sea_pressure" value="precipdepth" placeholder="Enter Sea Level Pressure" required step="any"></td>
                     </tr>
                     <tr>
-
-                    </tr> -->
-                    <!-- <tr>
-
                       <td class="col1"><label for="">Primary Use:<span style="color:red">&nbsp*</span></label></td>
                       <td  class="col2">
                         <input type="text" name="primary_use" value="" list="uses" placeholder="Primary use of Building">
@@ -273,16 +275,16 @@
                             <option value="Other">Other</option>
                           </datalist>
                       </td>
-                    </tr> -->
-                    <!-- <tr>
+                    </tr>
+                    <tr>
                       <td class="col1"><label for="">Wind Direction:<span style="color:red">&nbsp*</span></label></td>
                       <td  class="col2"><input type="number" value="wind_direction" placeholder="Enter Wind Direction" required></td>
-                    </tr> -->
+                    </tr>
 
-                    <!-- <tr>
+                    <tr>
                       <td class="col1"><label for="">Wind Speed:<span style="color:red">&nbsp*</span></label></td>
-                      <td  class="col2"><input type="number" value="wind_spped" placeholder="Enter Wind Speed" required></td>
-                    </tr> -->
+                      <td  class="col2"><input type="number" value="wind_speed" placeholder="Enter Wind Speed" required step="any"></td>
+                    </tr>
 
 
 
@@ -296,6 +298,7 @@
                       <td class="col1"><label for="">Year Built:<span style="color:red">&nbsp*</span></label></td>
                       <td  class="col2"><input type="number" name="year_built" value="" placeholder="YYYY" required main="1000" max="2020"></td>
                     </tr>
+
                     <tr>
                       <td class="col1"><label for="">Floor Count:<span style="color:red">&nbsp*</span></label></td>
                       <td  class="col2"><input type="number" name="floor_count" value="" placeholder="No of floors in building" required></td>
@@ -308,15 +311,17 @@
             </div>
 
           </form>
+          <h3 class="output">Your Property would consume</h3>
           </div>
 
-          {% if scoreval %}
+
+          <!-- {% if scoreval %} -->
             <h3 class="output">Your Property would consume <b>{{scoreval}}</b>  units of power for every hour </h3>
-          {% endif %}
+          <!-- {% endif %} -->
     </main>
 
 
-      <div class="footer">
+      <!-- <div class="footer">
         <div class="fcontainer" style="display:flex;justify-content:space-between;">
           <div class="fcontact" >
             <p><b>Contact Us&nbsp&nbsp</b> <i class="fa fa-envelope" aria-hidden="true"></i> <strong>Email:&nbsp&nbsp</strong> sample@gmail.com &nbsp&nbsp <i class="fa fa-phone" aria-hidden="true"></i> <strong>Phone No:&nbsp&nbsp</strong>+91 xxxxx xxxxx </p>
@@ -336,7 +341,7 @@
           </div>
         </div>
 
-      </div>
+      </div> -->
 
 
       <!-- Scroll Up -->
