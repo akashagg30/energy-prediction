@@ -168,36 +168,41 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
-    <div class = container>
+    <div class = "container">
       <h1 onclick=toggle('history')>Prediction History</h1>
-      <table id='history' class = "userdetails">
-        {% if user_inputs %}
-          <tr class = "head">
-            <td>SNo.</td>
-            <td>Date Created</td>
-            <td>Air Temperature</td>
-            <td>Dew Temperature</td>
-            <td>Precip Depth</td>
-            <td>Building Size</td>
-            <td>Year Built</td>
-            <td>Floor Count</td>
-            <td>Meter Reading</td>
-          </tr>
-          {% for data in user_inputs %}
-            <tr class="body">
-              <td>{{forloop.counter}}</td>
-              <td>{{data.date_created}}</td>
-              <td>{{data.air_temperature}}</td>
-              <td>{{data.dew_temperature}}</td>
-              <td>{{data.precip_depth}}</td>
-              <td>{{data.building_size}}</td>
-              <td>{{data.year_built}}</td>
-              <td>{{data.floor_count}}</td>
-              <td>{{data.meter_reading}}</td>
+      <div id="history">
+
+        <table class = "userdetails">
+          {% if user_inputs %}
+            <tr class = "head">
+              <td>SNo.</td>
+              <td>Date Created</td>
+              <td>Air Temperature</td>
+              <td>Dew Temperature</td>
+              <td>Precip Depth</td>
+              <td>Building Size</td>
+              <td>Year Built</td>
+              <td>Floor Count</td>
+              <td>Meter Reading</td>
             </tr>
-          {% endfor %}
-        {% endif %}
-      </table>
+            {% for data in user_inputs %}
+              <tr class="body">
+                <td>{{forloop.counter}}</td>
+                <td>{{data.date_created}}</td>
+                <td>{{data.air_temperature}}</td>
+                <td>{{data.dew_temperature}}</td>
+                <td>{{data.precip_depth}}</td>
+                <td>{{data.building_size}}</td>
+                <td>{{data.year_built}}</td>
+                <td>{{data.floor_count}}</td>
+                <td>{{data.meter_reading}}</td>
+              </tr>
+            {% endfor %}
+          {% endif %}
+        </table>
+
+      </div>
+
     </div>
 <div class="reports">
   <h1 onclick=toggle("charts")>Reports</h1>
