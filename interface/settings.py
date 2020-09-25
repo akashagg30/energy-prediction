@@ -27,7 +27,7 @@ SECRET_KEY = 'd*ybp#u#x)!rf75-er9s!o8ee@a=#gz0#36r($)5z-!w5psw%^'
 DEBUG = True
 
 #ALLOWED_HOSTS = ['85a008cf3671.ngrok.io', '127.0.0.1']
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['85a008cf3671.ngrok.io',]
 
 # if DEBUG:
 #     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # During development only
