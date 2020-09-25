@@ -169,9 +169,9 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
     <div class = container>
-      <h1>Prediction History</h1>
+      <h1 onclick=toggle('history')>Prediction History</h1>
       {% if user_inputs %}
-      <table class = "userdetails">
+      <table id='history', class = "userdetails">
         <tr class = "head">
           <td>SNo.</td>
           <td>Date Created</td>
@@ -200,23 +200,39 @@
     {% endif %}
     </div>
 <div class="reports">
-  <h1>Reports</h1>
+  <h1 onclick=toggle('charts')>Reports</h1>
   <div id="charts" style="width: 100%;">
-    <div class="left">
-      <canvas id="chart1"></canvas><br><br>
-      <canvas id="chart2"></canvas>
+      <div class="left">
+        <canvas id="chart1"></canvas><br><br>
+        <canvas id="chart2"></canvas>
 
-    </div>
-    <div class="right">
-      <canvas id="chart3"></canvas><br><br>
-      <canvas id="chart4"></canvas>
+      </div>
+      <div class="right">
+        <canvas id="chart3"></canvas><br><br>
+        <canvas id="chart4"></canvas>
 
-    </div>
+      </div>
 
 
   </div>
 
 </div><br><br><br><br>
+
+    <!-- for toggeling view -->
+    <script>
+      function toggle(id) {
+        var x = document.getElementById(id);
+        if (x.style.display === "none") {
+          x.style.display = "block";
+        } else {
+          x.style.display = "none";
+        }
+      } 
+
+      toggle('history')
+      toggle('charts')
+    </script>
+
 
     <script>
         function area_vs_electricity(){
@@ -254,7 +270,7 @@
                 }
             })
         }
-
+        
         function temprature_vs_electricity(){
             var ctx= document.getElementById('chart3').getContext('2d');
 
@@ -262,12 +278,12 @@
                 type : 'line',
                 data : {
                     // X axis
-                    labels: {{X_Temprature_vs_electricity|safe}},
+                    labels: {{X_Temperature_vs_electricity|safe}},
                     datasets: [{
                         // Y label
                         label: 'Mean Meter Reading',
                         // Y axis
-                        data : {{Y_Temprature_vs_electricity|safe}},
+                        data : {{Y_Temperature_vs_electricity|safe}},
                     }]
                 }
             })
@@ -293,7 +309,7 @@
 
         area_vs_electricity();
         floorcount_vs_electricity();
-        temprature_vs_electricity();
+        temprature_vs_electricity();  
         age_vs_electricity();
     </script>
   </main>
