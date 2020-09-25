@@ -78,11 +78,6 @@ def make_bars(X, Y):
 @login_required(login_url='/login')
 def Report(request):
     data = db.objects.filter(username=request.user.id).values()
-    area = [100, 200, 300, 250, 400]
-    floorcount = [2, 2, 3, 2, 3]
-    age = [5, 6, 7, 2, 2]
-    temperature = [40.1, 42.1, 23.0, 32.8, 27.4]
-    electrictiy = [20, 27, 32, 24, 35]
 
     area=[]
     floorcount=[]
