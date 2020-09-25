@@ -26,16 +26,20 @@ def IQR(data):
 
 # for bar plot
 def make_bins(X, Y):
-    X, Y = sort_list(X, Y)
-    # calculating bin size
-    h = int(2*IQR(X)*len(X)**(-1/3))
-    left = min(X)
-    right = left+h
     # temp data
     new_X = []
     new_Y = []
     n = 0
     sum = 0
+
+    if len(X)==0:
+        return (new_X,new_Y)
+
+    X, Y = sort_list(X, Y)
+    # calculating bin size
+    h = int(2*IQR(X)*len(X)**(-1/3))
+    left = min(X)
+    right = left+h
     # generating bins
     for x, y in zip(X, Y):
         if x <= right:
@@ -60,16 +64,18 @@ def make_bins(X, Y):
 
 # for line plot
 def make_bars(X, Y):
-    # dictionary having floors as key and [sum_of_electricity,count] as value for calculating mean
+    new_X = []
+    new_Y = []
     
+    if len(X)==0: return (new_X,new_Y)
+
+    # dictionary having floors as key and [sum_of_electricity,count] as value for calculating mean
     floor = {}
     for x, y in zip(X, Y):
         if x not in floor:
             floor[x] = [0, 0]
         floor[x][0] += y
         floor[x][1] += 1
-    new_X = []
-    new_Y = []
     for x in sorted(floor):
         new_X.append(x)
         new_Y.append(floor[x][0]/floor[x][1])
@@ -78,11 +84,6 @@ def make_bars(X, Y):
 @login_required(login_url='/login')
 def Report(request):
     data = db.objects.filter(username=request.user.id).values()
-    area = [100, 200, 300, 250, 400]
-    floorcount = [2, 2, 3, 2, 3]
-    age = [5, 6, 7, 2, 2]
-    temperature = [40.1, 42.1, 23.0, 32.8, 27.4]
-    electrictiy = [20, 27, 32, 24, 35]
 
     area=[]
     floorcount=[]

@@ -25,7 +25,9 @@
   <link rel="stylesheet" href="{% static 'css/slick.css' %}">
   <link rel="stylesheet" href="{% static 'css/nice-select.css' %}">
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
-  <link rel="stylesheet" href="{% static 'css/slideshow.css' %}">
+  <link rel="stylesheet" href="{% static 'css/index.css' %}">
+
+
 
   <style media="screen">
 
@@ -52,6 +54,7 @@
       .sticky-bar{
         height: 13%;
       }
+
 
 
   </style>
@@ -83,7 +86,7 @@
                         <li><a style="opacity:0.7;font-weight: normal;"  href="/fileupload">Multi PEP</a></li>
                         <li><a style="opacity:0.7;font-weight: normal;"  href="/about">About Us</a>
                         </li>
-                        <li><a style="opacity:0.7" href="/insights">My Dashboard</a></li>
+                        <li><a style="opacity:0.7;font-weight: normal;" href="/insights">My Dashboard</a></li>
                         <!-- Changes -->
                         <li class="user-avatar">
                             <i class="far fa-user"></i>
@@ -109,6 +112,7 @@
     <!-- Header End -->
   </header>
   <main>
+
     <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
 <df-messenger
   chat-title="PEP_Assist"
@@ -116,9 +120,145 @@
   language-code="en"
 ></df-messenger>
 
-<section class="slider-area">
+
+<div class="slideshow-container">
+
+<div class="mySlides pass">
+  <!-- <div class="numbertext">1 / 3</div> -->
+    <img class="slideimg" src="{% static 'img/hero/b4.jpg' %}" >
+
+  <div class="textcontainer">
+    <div class="row">
+        <div class="hero__caption">
+          <h1 data-animation="fadeInLeft" data-delay="0.2s">Great Energy Predictor</h1><br><br><br>
+          <p data-animation="fadeInLeft" data-delay="0.4s">How much energy will a <br> building consume?</p>
+          <a href="/about" class="btn knowmore" data-animation="fadeInLeft" data-delay="0.7s">Know More</a>
+        </div>
+    </div>
+  </div>
+
+  <!-- <div class="text">
+    <div style="text-align:center">
+      <span class="dot" onclick="currentSlide(1)"></span>
+      <span class="dot" onclick="currentSlide(2)"></span>
+      <span class="dot" onclick="currentSlide(3)"></span>
+    </div>
+  </div> -->
+</div>
+
+<div class="mySlides pass">
+  <!-- <div class="numbertext">2 / 3</div> -->
+  <img class="slideimg" src="{% static 'img/hero/slide2.jpeg' %}">
+  <div class="textcontainer">
+    <div class="row">
+        <div class="hero__caption">
+          <h1 data-animation="fadeInLeft" data-delay="0.2s">Single Property Energy  <br> Prediction (PEP)</h1><br>
+          <p data-animation="fadeInLeft" data-delay="0.4s">Best way to identify you energy consumption of your building</p>
+          <a href="/input" class="btn knowmore" data-animation="fadeInLeft" data-delay="0.7s">Lets Predict!</a>
+        </div>
+    </div>
+  </div>
+  <!-- <div class="text">
+    <div style="text-align:center">
+      <span class="dot" onclick="currentSlide(1)"></span>
+      <span class="dot" onclick="currentSlide(2)"></span>
+      <span class="dot" onclick="currentSlide(3)"></span>
+    </div>
+  </div> -->
+  <!-- <div class="text">Caption Two</div> -->
+</div>
+
+<div class="mySlides pass">
+  <!-- <div class="numbertext">3 / 3</div> -->
+  <img class="slideimg" src="{% static 'img/hero/slide3.jpeg' %}">
+  <div class="textcontainer">
+    <div class="row">
+        <div class="hero__caption">
+          <h1 data-animation="fadeInLeft" data-delay="0.2s">Multi Property Energy  <br> Prediction (PEP)</h1><br>
+          <p data-animation="fadeInLeft" data-delay="0.4s">Effective way to Manage you power consumption costs of your property</p>
+          <a href="/fileupload" class="btn knowmore" data-animation="fadeInLeft" data-delay="0.7s">Lets Predict!</a>
+        </div>
+    </div>
+  </div>
+
+  <!-- <div class="text">
+    <div style="text-align:center">
+      <span class="dot" onclick="currentSlide(1)"></span>
+      <span class="dot" onclick="currentSlide(2)"></span>
+      <span class="dot" onclick="currentSlide(3)"></span>
+    </div>
+  </div> -->
+  <!-- <div class="text">Caption Three</div> -->
+</div>
+<div class="text">
+  <div style="text-align:center">
+    <span class="dot" onclick="currentSlide(1)"></span>
+    <span class="dot" onclick="currentSlide(2)"></span>
+    <span class="dot" onclick="currentSlide(3)"></span>
+  </div>
+</div>
+
+
+<a class="prev" onclick="plusSlides(-1)"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+<a class="next" onclick="plusSlides(1)"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+
+</div>
+
+
+
+<script>
+var slideIndex = 1;
+showSlides(slideIndex);
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  var dots = document.getElementsByClassName("dot");
+  if (n > slides.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+  }
+  for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" activeslide", "");
+  }
+  slides[slideIndex-1].style.display = "block";
+  dots[slideIndex-1].className += " activeslide";
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div id="slide1_container" class="shadow">
+<div id="slide1_images">
+<img src="{% static 'img/hero/b1.jpg' %}">
+<img src="{% static 'img/hero/b2.jpg' %}">
+<img src="{% static 'img/hero/b3.jpg' %}">
+</div>
+</div>
+
+Image 1Image 2Image 3Image 4 -->
+
+<!-- <section class="slider-area">
   <div class="slider-active">
-    <!-- Single Slider -->
       <div class="single-slider slider-height d-flex align-items-center">
         <div class="container">
           <div class="row">
@@ -133,7 +273,10 @@
         </div>
       </div>
   </div>
-</section>
+</section> -->
+
+
+
     <!--? slider Area Start-->
     <!-- <div class="slideshow-container"> -->
       <!-- <div onclick="plusSlides(-1)" class="nextPrevBtn leftArrow"><span class="arrow arrowLeft"></span></div>
@@ -249,7 +392,7 @@
       </div>
     </div> -->
     <!-- Courses area start -->
-    <div class="courses-area section-padding40 fix">
+    <!-- <div class="courses-area section-padding40 fix">
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-xl-7 col-lg-8">
@@ -259,7 +402,6 @@
           </div>
         </div>
         <div class="courses-actives">
-          <!-- Single -->
           <div class="properties pb-20">
             <div class="properties__card">
               <div class="properties__img overlay1">
@@ -291,8 +433,6 @@
 
             </div>
           </div>
-          <!-- Single -->
-          <!-- Single -->
           <div class="properties pb-20">
             <div class="properties__card">
               <div class="properties__img overlay1">
@@ -321,18 +461,16 @@
                 <a href="#" class="border-btn border-btn2">Find out more</a>
               </div>
             </div>
-          </div>
+          </div> -->
   </main>
-  <footer>
+  <!-- <footer>
     <div class="footer-wrappper footer-bg">
-      <!-- Footer Start-->
       <div class="footer-area footer-padding">
         <div class="container">
           <div class="row justify-content-between">
             <div class="col-xl-4 col-lg-5 col-md-4 col-sm-6">
               <div class="single-footer-caption mb-50">
                 <div class="single-footer-caption mb-30">
-                  <!-- logo -->
                   <div class="footer-logo mb-25">
                     <a href="index.html"><img src="assets/img/logo/logo2_footer.png" alt=""></a>
                   </div>
@@ -341,7 +479,6 @@
                       <p>The automated process starts as soon as your clothes go into the machine.</p>
                     </div>
                   </div>
-                  <!-- social -->
                   <div class="footer-social">
                     <a href="#"><i class="fab fa-twitter"></i></a>
                     <a href="https://bit.ly/sai4ull"><i class="fab fa-facebook-f"></i></a>
@@ -394,7 +531,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
       <!-- footer-bottom area -->
       <!-- <div class="footer-bottom-area">
         <div class="container">
@@ -416,8 +553,8 @@
         </div>
       </div> -->
       <!-- Footer End-->
-    </div>
-  </footer>
+    <!-- </div>
+  </footer> -->
   <!-- Scroll Up -->
   <!-- <div id="back-top">
     <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
@@ -465,8 +602,18 @@
   <script src="{% static 'js/plugins.js' %}"></script>
   <script src="{% static 'js/main.js' %}"></script>
 
-  <script src="{% static 'js/slideshow.js' %}"></script>
+  <!-- <script src="{% static 'js/slideshow.js' %}"></script> -->
 
+  <!-- <script>
+
+  $(document).ready(function() {
+  $('#slide1_controls').on('click', 'span', function(){
+  $("#slide1_images").css("transform","translateX("+$(this).index() * -450+"px)");
+  $("#slide1_controls span").removeClass("selected");
+  $(this).addClass("selected");
+  });
+  });
+  </script> -->
 
 
 </body>

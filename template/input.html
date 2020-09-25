@@ -26,8 +26,8 @@
     <link rel="stylesheet" href="{% static 'css/nice-select.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <style media="screen">
+    <link rel="stylesheet" href="{% static 'css/input.css' %}">
+    <!-- <style media="screen">
       .virtusa{
         width: 60%;
       }
@@ -72,7 +72,6 @@
         background-color: #CCD1D1  ;
         padding-right: 5%;
         padding-left: 5%;
-        /* padding-top: 0.5%; */
         margin-bottom: 0;
         margin-top: 0;
         color: black;
@@ -139,7 +138,7 @@
           }
 
 
-    </style>
+    </style> -->
 
 </head>
 
@@ -312,11 +311,13 @@
             </div>
 
           </form>
-          </div>
-
+          <br><br><br>
           {% if scoreval %}
             <h3 class="output">Your Property would consume <b>{{scoreval}}</b>  units of power for every hour </h3>
           {% endif %}
+
+          <br>
+          </div>
     </main>
 
 

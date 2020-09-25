@@ -8,7 +8,7 @@
       font-size: 3.5em;
     }
 
-    #charts{
+    #charts .chartscontianer{
       padding-left: 10%;
       padding-right: 10%;
       display: flex;
@@ -22,13 +22,29 @@
   .container{
     margin-top: 8%;
     text-align: center;
+    /* margin-left: 0; */
     align-items: center;
   }
   .container h1{
     font-size: 3em;
+    width: 33%;
+    margin-left: 30%;
+  }
+
+  .container h1:hover{
+    cursor: pointer;
   }
 
   .container .userdetails{
     margin-top: 2%;
-    margin-left: 5%;
+    margin-left: 2%;
   }
+
+.reports h1{
+  width: 20%;
+  margin-left: 40%;
+}
+
+.reports h1:hover{
+  cursor: pointer;
+}
