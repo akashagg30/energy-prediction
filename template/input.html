@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="{% static 'css/nice-select.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="{% static 'css/input.css' %}">
+    <link rel="stylesheet" href="{% static 'css/input.css' %}">
     <!-- <style media="screen">
       .virtusa{
         width: 60%;
@@ -311,17 +311,17 @@
             </div>
 
           </form>
-          <h3 class="output">Your Property would consume</h3>
-          </div>
-
-
-          <!-- {% if scoreval %} -->
+          <br><br><br>
+          {% if scoreval %}
             <h3 class="output">Your Property would consume <b>{{scoreval}}</b>  units of power for every hour </h3>
-          <!-- {% endif %} -->
+          {% endif %}
+
+          <br>
+          </div>
     </main>
 
 
-      <!-- <div class="footer">
+      <div class="footer">
         <div class="fcontainer" style="display:flex;justify-content:space-between;">
           <div class="fcontact" >
             <p><b>Contact Us&nbsp&nbsp</b> <i class="fa fa-envelope" aria-hidden="true"></i> <strong>Email:&nbsp&nbsp</strong> sample@gmail.com &nbsp&nbsp <i class="fa fa-phone" aria-hidden="true"></i> <strong>Phone No:&nbsp&nbsp</strong>+91 xxxxx xxxxx </p>
@@ -341,7 +341,7 @@
           </div>
         </div>
 
-      </div> -->
+      </div>
 
 
       <!-- Scroll Up -->

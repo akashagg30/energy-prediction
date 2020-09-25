@@ -7,7 +7,7 @@ from .decorators import unauthenticated_user
 from .models import *
 from .decorators import unauthenticated_user, admin_only
 
-
+from login.models import Energy_Data as db
 import numpy as np
 # def extract
 
@@ -77,25 +77,39 @@ def make_bars(X, Y):
 
 @login_required(login_url='/login')
 def Report(request):
-    area = [100, 200, 300, 250, 400]
-    floorcount = [2, 2, 3, 2, 3]
-    age = [5, 6, 7, 2, 2]
-    temprature = [40.1, 42.1, 23.0, 32.8, 27.4]
-    electrictiy = [20, 27, 32, 24, 35]
+    data = db.objects.filter(username=request.user.id).values()
+
+    area=[]
+    floorcount=[]
+    age=[]
+    temperature=[]
+    electrictiy=[]
+
+    for x in data:
+        area.append(x['building_size'])
+        floorcount.append(x['floor_count'])
+        age.append(x['year_built'])
+        temperature.append(x['air_temeprature'])
+        electrictiy.append(x['meter_reading'])
 
     # generating data for sending to charts to renger them
     X_Area_vs_electricity, Y_Area_vs_electricity = make_bins(area, electrictiy)
     X_Floorcount_vs_electricity, Y_Floorcount_vs_electricity = make_bars(
         floorcount, electrictiy)
-    X_Temprature_vs_electricity, Y_Temprature_vs_electricity = make_bars(
-        temprature, electrictiy)
+    X_Temperature_vs_electricity, Y_Temperature_vs_electricity = make_bars(
+        temperature, electrictiy)
     X_Age_vs_electricity, Y_Age_vs_electricity = make_bars(
         age, electrictiy)
+
+    print(X_Temperature_vs_electricity)
+
+
     if request.user.is_authenticated:
         user_id = request.user.id
-    print(user_id)
+    # print(user_id)
     user_inputs = Energy_Data.objects.filter(username = user_id)
-    print(user_inputs)
+    # print(user_inputs)
+
     return render(request, 'insights.html', {
         'X_Area_vs_electricity': X_Area_vs_electricity,
         'Y_Area_vs_electricity': Y_Area_vs_electricity,
@@ -103,8 +117,8 @@ def Report(request):
         'X_Floorcount_vs_electricity': X_Floorcount_vs_electricity,
         'Y_Floorcount_vs_electricity': Y_Floorcount_vs_electricity,
 
-        'X_Temprature_vs_electricity': X_Temprature_vs_electricity,
-        'Y_Temprature_vs_electricity': Y_Temprature_vs_electricity,
+        'X_Temperature_vs_electricity': X_Temperature_vs_electricity,
+        'Y_Temperature_vs_electricity': Y_Temperature_vs_electricity,
 
         'X_Age_vs_electricity': X_Age_vs_electricity,
         'Y_Age_vs_electricity': Y_Age_vs_electricity,

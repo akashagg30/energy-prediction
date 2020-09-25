@@ -34,7 +34,7 @@
         }
 
         function update(){
-            fetch("resources/get").then(function(data) {
+            fetch("/resources/get").then(function(data) {
                 data.text().then( text => utill(text) );
             });
         }

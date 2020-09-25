@@ -1,11 +1,11 @@
 body{
   position: relative;
-  margin-top:10%;
+  margin-top:6%;
   background-image: url(../img/hero/inputbg.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
-  
+
   color: white;
 }
 
@@ -58,10 +58,10 @@ body::before{
 }
 
 .footer{
-  position: fixed;
+  position: relative;
   bottom: 0;
   width: 100%;
-  height: 3em;
+  height: 4em;
   background-color: #CCD1D1  ;
   padding-right: 5%;
   padding-left: 5%;
