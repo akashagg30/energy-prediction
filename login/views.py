@@ -22,7 +22,7 @@ from django.urls import reverse
 
 id_first = -1
 id_last = -1
-Pkl_Filename = './models/rf_model.sav'
+Pkl_Filename = './models/rf_model3.sav'
 with open(Pkl_Filename,'rb') as f:
     reloadModel = pickle.load(f,encoding='latin1')
 
@@ -134,17 +134,18 @@ def predict(request):
         date_out = datetime(*[int(v) for v in date_in.replace('T', '-').replace(':', '-').split('-')])
         print(date_out)
         print(type(date_out))
-        print(date_out.month)
+        month = date_out.month
 
         temp['air_temperature'] = request.POST.get('air_temperature')
         temp['cloud_coverage'] = request.POST.get('cloud_coverage')
         temp['dew_temperature'] = request.POST.get('dew_temperature')
-        temp['precip_depth'] = request.POST.get('precip_depth')
+        temp['precip_depth_1_hr'] = request.POST.get('precip_depth')
         temp['sea_level_pressure'] = request.POST.get('sea_level_pressure')
         primary_use = request.POST.get('primary_use').lower()
+        print(primary_use)
         temp['wind_speed'] = request.POST.get('wind_speed')
         temp['wind_direction'] = request.POST.get('wind_direction')
-        temp['building_size'] = request.POST.get('building_size')
+        temp['square_feet'] = request.POST.get('building_size')
         temp['year_built'] = request.POST.get('year_built')
         temp['floor_count'] = request.POST.get('floor_count')
 
@@ -167,7 +168,7 @@ def predict(request):
             temp['meter is 2'] = 1
             temp['meter is other'] = 0
             temp['meter is N/A'] = 0
-        elif(meter_type == 'na' or meter_type == 'n/a'):
+        elif(meter_type == 'na' or meter_type == 'n/a' or meter_type is None):
             temp['meter is 0'] = 0
             temp['meter is 1'] = 0
             temp['meter is 2'] = 0
@@ -187,7 +188,7 @@ def predict(request):
             temp['primary_use is Entertainment/public assembly'] = 0
             temp['primary_use is Public services'] = 0
             temp['primary_use is Parking'] = 0
-            temp['primary_use is Healtcare'] = 0
+            temp['primary_use is Healthcare'] = 0
             temp['primary_use is Retail'] = 0
             temp['primary_use is Manufacturing/industrial'] = 0
             temp['primary_use is Warehouse/storage'] = 0
@@ -205,7 +206,7 @@ def predict(request):
             temp['primary_use is Entertainment/public assembly'] = 0
             temp['primary_use is Public services'] = 0
             temp['primary_use is Parking'] = 0
-            temp['primary_use is Healtcare'] = 0
+            temp['primary_use is Healthcare'] = 0
             temp['primary_use is Retail'] = 0
             temp['primary_use is Manufacturing/industrial'] = 0
             temp['primary_use is Warehouse/storage'] = 0
@@ -223,7 +224,7 @@ def predict(request):
             temp['primary_use is Entertainment/public assembly'] = 0
             temp['primary_use is Public services'] = 0
             temp['primary_use is Parking'] = 0
-            temp['primary_use is Healtcare'] = 0
+            temp['primary_use is Healthcare'] = 0
             temp['primary_use is Retail'] = 0
             temp['primary_use is Manufacturing/industrial'] = 0
             temp['primary_use is Warehouse/storage'] = 0
@@ -241,7 +242,7 @@ def predict(request):
             temp['primary_use is Entertainment/public assembly'] = 1
             temp['primary_use is Public services'] = 0
             temp['primary_use is Parking'] = 0
-            temp['primary_use is Healtcare'] = 0
+            temp['primary_use is Healthcare'] = 0
             temp['primary_use is Retail'] = 0
             temp['primary_use is Manufacturing/industrial'] = 0
             temp['primary_use is Warehouse/storage'] = 0
@@ -259,7 +260,7 @@ def predict(request):
             temp['primary_use is Entertainment/public assembly'] = 0
             temp['primary_use is Public services'] = 1
             temp['primary_use is Parking'] = 0
-            temp['primary_use is Healtcare'] = 0
+            temp['primary_use is Healthcare'] = 0
             temp['primary_use is Retail'] = 0
             temp['primary_use is Manufacturing/industrial'] = 0
             temp['primary_use is Warehouse/storage'] = 0
@@ -277,7 +278,7 @@ def predict(request):
             temp['primary_use is Entertainment/public assembly'] = 0
             temp['primary_use is Public services'] = 0
             temp['primary_use is Parking'] = 1
-            temp['primary_use is Healtcare'] = 0
+            temp['primary_use is Healthcare'] = 0
             temp['primary_use is Retail'] = 0
             temp['primary_use is Manufacturing/industrial'] = 0
             temp['primary_use is Warehouse/storage'] = 0
@@ -288,14 +289,14 @@ def predict(request):
             temp['primary_use is Religious worship'] = 0
             temp['primary_use is N/A'] = 0
             temp['primary_use is other'] = 0
-        elif(primary_use == 'healtcare'):
+        elif(primary_use == 'healthcare'):
             temp['primary_use is Education'] = 0
             temp['primary_use is Office'] = 0
             temp['primary_use is Lodging/residential'] = 0
             temp['primary_use is Entertainment/public assembly'] = 0
             temp['primary_use is Public services'] = 0
             temp['primary_use is Parking'] = 0
-            temp['primary_use is Healtcare'] = 1
+            temp['primary_use is Healthcare'] = 1
             temp['primary_use is Retail'] = 0
             temp['primary_use is Manufacturing/industrial'] = 0
             temp['primary_use is Warehouse/storage'] = 0
@@ -313,7 +314,7 @@ def predict(request):
             temp['primary_use is Entertainment/public assembly'] = 0
             temp['primary_use is Public services'] = 0
             temp['primary_use is Parking'] = 0
-            temp['primary_use is Healtcare'] = 0
+            temp['primary_use is Healthcare'] = 0
             temp['primary_use is Retail'] = 1
             temp['primary_use is Manufacturing/industrial'] = 0
             temp['primary_use is Warehouse/storage'] = 0
@@ -331,7 +332,7 @@ def predict(request):
             temp['primary_use is Entertainment/public assembly'] = 0
             temp['primary_use is Public services'] = 0
             temp['primary_use is Parking'] = 0
-            temp['primary_use is Healtcare'] = 0
+            temp['primary_use is Healthcare'] = 0
             temp['primary_use is Retail'] = 0
             temp['primary_use is Manufacturing/industrial'] = 1
             temp['primary_use is Warehouse/storage'] = 0
@@ -349,7 +350,7 @@ def predict(request):
             temp['primary_use is Entertainment/public assembly'] = 0
             temp['primary_use is Public services'] = 0
             temp['primary_use is Parking'] = 0
-            temp['primary_use is Healtcare'] = 0
+            temp['primary_use is Healthcare'] = 0
             temp['primary_use is Retail'] = 0
             temp['primary_use is Manufacturing/industrial'] = 0
             temp['primary_use is Warehouse/storage'] = 1
@@ -367,7 +368,7 @@ def predict(request):
             temp['primary_use is Entertainment/public assembly'] = 0
             temp['primary_use is Public services'] = 0
             temp['primary_use is Parking'] = 0
-            temp['primary_use is Healtcare'] = 0
+            temp['primary_use is Healthcare'] = 0
             temp['primary_use is Retail'] = 0
             temp['primary_use is Manufacturing/industrial'] = 0
             temp['primary_use is Warehouse/storage'] = 0
@@ -385,7 +386,7 @@ def predict(request):
             temp['primary_use is Entertainment/public assembly'] = 0
             temp['primary_use is Public services'] = 0
             temp['primary_use is Parking'] = 0
-            temp['primary_use is Healtcare'] = 0
+            temp['primary_use is Healthcare'] = 0
             temp['primary_use is Retail'] = 0
             temp['primary_use is Manufacturing/industrial'] = 0
             temp['primary_use is Warehouse/storage'] = 0
@@ -403,7 +404,7 @@ def predict(request):
             temp['primary_use is Entertainment/public assembly'] = 0
             temp['primary_use is Public services'] = 0
             temp['primary_use is Parking'] = 0
-            temp['primary_use is Healtcare'] = 0
+            temp['primary_use is Healthcare'] = 0
             temp['primary_use is Retail'] = 0
             temp['primary_use is Manufacturing/industrial'] = 0
             temp['primary_use is Warehouse/storage'] = 0
@@ -421,7 +422,7 @@ def predict(request):
             temp['primary_use is Entertainment/public assembly'] = 0
             temp['primary_use is Public services'] = 0
             temp['primary_use is Parking'] = 0
-            temp['primary_use is Healtcare'] = 0
+            temp['primary_use is Healthcare'] = 0
             temp['primary_use is Retail'] = 0
             temp['primary_use is Manufacturing/industrial'] = 0
             temp['primary_use is Warehouse/storage'] = 0
@@ -439,7 +440,7 @@ def predict(request):
             temp['primary_use is Entertainment/public assembly'] = 0
             temp['primary_use is Public services'] = 0
             temp['primary_use is Parking'] = 0
-            temp['primary_use is Healtcare'] = 0
+            temp['primary_use is Healthcare'] = 0
             temp['primary_use is Retail'] = 0
             temp['primary_use is Manufacturing/industrial'] = 0
             temp['primary_use is Warehouse/storage'] = 0
@@ -450,14 +451,14 @@ def predict(request):
             temp['primary_use is Religious worship'] = 1
             temp['primary_use is N/A'] = 0
             temp['primary_use is other'] = 0
-        elif(primary_use == 'na' or primary_use == 'n/a'):
+        elif(primary_use == 'na' or primary_use == 'n/a' or primary_use is None):
             temp['primary_use is Education'] = 0
             temp['primary_use is Office'] = 0
             temp['primary_use is Lodging/residential'] = 0
             temp['primary_use is Entertainment/public assembly'] = 0
             temp['primary_use is Public services'] = 0
             temp['primary_use is Parking'] = 0
-            temp['primary_use is Healtcare'] = 0
+            temp['primary_use is Healthcare'] = 0
             temp['primary_use is Retail'] = 0
             temp['primary_use is Manufacturing/industrial'] = 0
             temp['primary_use is Warehouse/storage'] = 0
@@ -475,7 +476,7 @@ def predict(request):
             temp['primary_use is Entertainment/public assembly'] = 0
             temp['primary_use is Public services'] = 0
             temp['primary_use is Parking'] = 0
-            temp['primary_use is Healtcare'] = 0
+            temp['primary_use is Healthcare'] = 0
             temp['primary_use is Retail'] = 0
             temp['primary_use is Manufacturing/industrial'] = 0
             temp['primary_use is Warehouse/storage'] = 0
@@ -487,20 +488,208 @@ def predict(request):
             temp['primary_use is N/A'] = 0
             temp['primary_use is other'] = 1
 
-
-
+        if (month == 1):
+            temp['timestamp_parsed_month is 1'] = 1
+            temp['timestamp_parsed_month is 3'] = 0
+            temp['timestamp_parsed_month is 4'] = 0
+            temp['timestamp_parsed_month is 5'] = 0
+            temp['timestamp_parsed_month is 6'] = 0
+            temp['timestamp_parsed_month is 7'] = 0
+            temp['timestamp_parsed_month is 8'] = 0
+            temp['timestamp_parsed_month is 9'] = 0
+            temp['timestamp_parsed_month is 10'] = 0
+            temp['timestamp_parsed_month is 11'] = 0
+            temp['timestamp_parsed_month is 12'] = 0
+            temp['timestamp_parsed_month is N/A'] = 0
+            temp['timestamp_parsed_month is other'] = 0
+        elif (month == 3):
+            temp['timestamp_parsed_month is 1'] = 0
+            temp['timestamp_parsed_month is 3'] = 1
+            temp['timestamp_parsed_month is 4'] = 0
+            temp['timestamp_parsed_month is 5'] = 0
+            temp['timestamp_parsed_month is 6'] = 0
+            temp['timestamp_parsed_month is 7'] = 0
+            temp['timestamp_parsed_month is 8'] = 0
+            temp['timestamp_parsed_month is 9'] = 0
+            temp['timestamp_parsed_month is 10'] = 0
+            temp['timestamp_parsed_month is 11'] = 0
+            temp['timestamp_parsed_month is 12'] = 0
+            temp['timestamp_parsed_month is N/A'] = 0
+            temp['timestamp_parsed_month is other'] = 0
+        elif (month == 4):
+            temp['timestamp_parsed_month is 1'] = 0
+            temp['timestamp_parsed_month is 3'] = 0
+            temp['timestamp_parsed_month is 4'] = 1
+            temp['timestamp_parsed_month is 5'] = 0
+            temp['timestamp_parsed_month is 6'] = 0
+            temp['timestamp_parsed_month is 7'] = 0
+            temp['timestamp_parsed_month is 8'] = 0
+            temp['timestamp_parsed_month is 9'] = 0
+            temp['timestamp_parsed_month is 10'] = 0
+            temp['timestamp_parsed_month is 11'] = 0
+            temp['timestamp_parsed_month is 12'] = 0
+            temp['timestamp_parsed_month is N/A'] = 0
+            temp['timestamp_parsed_month is other'] = 0
+        elif (month == 5):
+            temp['timestamp_parsed_month is 1'] = 0
+            temp['timestamp_parsed_month is 3'] = 0
+            temp['timestamp_parsed_month is 4'] = 0
+            temp['timestamp_parsed_month is 5'] = 1
+            temp['timestamp_parsed_month is 6'] = 0
+            temp['timestamp_parsed_month is 7'] = 0
+            temp['timestamp_parsed_month is 8'] = 0
+            temp['timestamp_parsed_month is 9'] = 0
+            temp['timestamp_parsed_month is 10'] = 0
+            temp['timestamp_parsed_month is 11'] = 0
+            temp['timestamp_parsed_month is 12'] = 0
+            temp['timestamp_parsed_month is N/A'] = 0
+            temp['timestamp_parsed_month is other'] = 0
+        elif (month == 6):
+            temp['timestamp_parsed_month is 1'] = 0
+            temp['timestamp_parsed_month is 3'] = 0
+            temp['timestamp_parsed_month is 4'] = 0
+            temp['timestamp_parsed_month is 5'] = 0
+            temp['timestamp_parsed_month is 6'] = 1
+            temp['timestamp_parsed_month is 7'] = 0
+            temp['timestamp_parsed_month is 8'] = 0
+            temp['timestamp_parsed_month is 9'] = 0
+            temp['timestamp_parsed_month is 10'] = 0
+            temp['timestamp_parsed_month is 11'] = 0
+            temp['timestamp_parsed_month is 12'] = 0
+            temp['timestamp_parsed_month is N/A'] = 0
+            temp['timestamp_parsed_month is other'] = 0
+        elif (month == 7):
+            temp['timestamp_parsed_month is 1'] = 0
+            temp['timestamp_parsed_month is 3'] = 0
+            temp['timestamp_parsed_month is 4'] = 0
+            temp['timestamp_parsed_month is 5'] = 0
+            temp['timestamp_parsed_month is 6'] = 0
+            temp['timestamp_parsed_month is 7'] = 1
+            temp['timestamp_parsed_month is 8'] = 0
+            temp['timestamp_parsed_month is 9'] = 0
+            temp['timestamp_parsed_month is 10'] = 0
+            temp['timestamp_parsed_month is 11'] = 0
+            temp['timestamp_parsed_month is 12'] = 0
+            temp['timestamp_parsed_month is N/A'] = 0
+            temp['timestamp_parsed_month is other'] = 0
+        elif (month == 8):
+            temp['timestamp_parsed_month is 1'] = 0
+            temp['timestamp_parsed_month is 3'] = 0
+            temp['timestamp_parsed_month is 4'] = 0
+            temp['timestamp_parsed_month is 5'] = 0
+            temp['timestamp_parsed_month is 6'] = 0
+            temp['timestamp_parsed_month is 7'] = 0
+            temp['timestamp_parsed_month is 8'] = 1
+            temp['timestamp_parsed_month is 9'] = 0
+            temp['timestamp_parsed_month is 10'] = 0
+            temp['timestamp_parsed_month is 11'] = 0
+            temp['timestamp_parsed_month is 12'] = 0
+            temp['timestamp_parsed_month is N/A'] = 0
+            temp['timestamp_parsed_month is other'] = 0
+        elif (month == 9):
+            temp['timestamp_parsed_month is 1'] = 0
+            temp['timestamp_parsed_month is 3'] = 0
+            temp['timestamp_parsed_month is 4'] = 0
+            temp['timestamp_parsed_month is 5'] = 0
+            temp['timestamp_parsed_month is 6'] = 0
+            temp['timestamp_parsed_month is 7'] = 0
+            temp['timestamp_parsed_month is 8'] = 0
+            temp['timestamp_parsed_month is 9'] = 1
+            temp['timestamp_parsed_month is 10'] = 0
+            temp['timestamp_parsed_month is 11'] = 0
+            temp['timestamp_parsed_month is 12'] = 0
+            temp['timestamp_parsed_month is N/A'] = 0
+            temp['timestamp_parsed_month is other'] = 0
+        elif (month == 10):
+            temp['timestamp_parsed_month is 1'] = 0
+            temp['timestamp_parsed_month is 3'] = 0
+            temp['timestamp_parsed_month is 4'] = 0
+            temp['timestamp_parsed_month is 5'] = 0
+            temp['timestamp_parsed_month is 6'] = 0
+            temp['timestamp_parsed_month is 7'] = 0
+            temp['timestamp_parsed_month is 8'] = 0
+            temp['timestamp_parsed_month is 9'] = 0
+            temp['timestamp_parsed_month is 10'] = 1
+            temp['timestamp_parsed_month is 11'] = 0
+            temp['timestamp_parsed_month is 12'] = 0
+            temp['timestamp_parsed_month is N/A'] = 0
+            temp['timestamp_parsed_month is other'] = 0
+        elif (month == 11):
+            temp['timestamp_parsed_month is 1'] = 0
+            temp['timestamp_parsed_month is 3'] = 0
+            temp['timestamp_parsed_month is 4'] = 0
+            temp['timestamp_parsed_month is 5'] = 0
+            temp['timestamp_parsed_month is 6'] = 0
+            temp['timestamp_parsed_month is 7'] = 0
+            temp['timestamp_parsed_month is 8'] = 0
+            temp['timestamp_parsed_month is 9'] = 0
+            temp['timestamp_parsed_month is 10'] = 0
+            temp['timestamp_parsed_month is 11'] = 1
+            temp['timestamp_parsed_month is 12'] = 0
+            temp['timestamp_parsed_month is N/A'] = 0
+            temp['timestamp_parsed_month is other'] = 0
+        elif (month == 12):
+            temp['timestamp_parsed_month is 1'] = 0
+            temp['timestamp_parsed_month is 3'] = 0
+            temp['timestamp_parsed_month is 4'] = 0
+            temp['timestamp_parsed_month is 5'] = 0
+            temp['timestamp_parsed_month is 6'] = 0
+            temp['timestamp_parsed_month is 7'] = 0
+            temp['timestamp_parsed_month is 8'] = 0
+            temp['timestamp_parsed_month is 9'] = 0
+            temp['timestamp_parsed_month is 10'] = 0
+            temp['timestamp_parsed_month is 11'] = 0
+            temp['timestamp_parsed_month is 12'] = 1
+            temp['timestamp_parsed_month is N/A'] = 0
+            temp['timestamp_parsed_month is other'] = 0
+        elif (month == 2):
+            temp['timestamp_parsed_month is 1'] = 0
+            temp['timestamp_parsed_month is 3'] = 0
+            temp['timestamp_parsed_month is 4'] = 0
+            temp['timestamp_parsed_month is 5'] = 0
+            temp['timestamp_parsed_month is 6'] = 0
+            temp['timestamp_parsed_month is 7'] = 0
+            temp['timestamp_parsed_month is 8'] = 0
+            temp['timestamp_parsed_month is 9'] = 0
+            temp['timestamp_parsed_month is 10'] = 0
+            temp['timestamp_parsed_month is 11'] = 0
+            temp['timestamp_parsed_month is 12'] = 0
+            temp['timestamp_parsed_month is N/A'] = 0
+            temp['timestamp_parsed_month is other'] = 1
+        else:
+            temp['timestamp_parsed_month is 1'] = 0
+            temp['timestamp_parsed_month is 3'] = 1
+            temp['timestamp_parsed_month is 4'] = 0
+            temp['timestamp_parsed_month is 5'] = 0
+            temp['timestamp_parsed_month is 6'] = 0
+            temp['timestamp_parsed_month is 7'] = 0
+            temp['timestamp_parsed_month is 8'] = 0
+            temp['timestamp_parsed_month is 9'] = 0
+            temp['timestamp_parsed_month is 10'] = 0
+            temp['timestamp_parsed_month is 11'] = 0
+            temp['timestamp_parsed_month is 12'] = 0
+            temp['timestamp_parsed_month is N/A'] = 1
+            temp['timestamp_parsed_month is other'] = 0
+        print(temp)
         testdata = pd.DataFrame({'x':temp}).transpose()
         scoreval = reloadModel.predict(testdata)[0]
         #scoreval = 1
         user = request.user
         obj = Energy_Data(username = user,
                         building_id = building_id,
-                        air_temeprature=temp['air_temperature'],
-                        dew_temperature=temp['dew_temperature'],
-                        precip_depth = temp['precip_depth'],
-                        building_size=temp['building_size'],
-                        year_built=temp['year_built'],
-                        floor_count=temp['floor_count'],
+                        air_temperature = temp['air_temperature'],
+                        cloud_coverage = temp['cloud_coverage'],
+                        dew_temperature = temp['dew_temperature'],
+                        floor_count = temp['floor_count'],
+                        precip_depth_1_hr = temp['precip_depth_1_hr'],
+                        sea_level_pressure = temp['sea_level_pressure'],
+                        building_size = temp['square_feet'],
+                        wind_direction = temp['wind_direction'],
+                        wind_speed = temp['wind_speed'],
+                        year_built = temp['year_built'],
+                        primary_use = primary_use,
+                        timestamp = date_out,
+                        meter_type = meter_type,
                         meter_reading = scoreval)
         obj.save()
         context = {'scoreval':scoreval}
@@ -510,7 +699,11 @@ def predict(request):
 
 @login_required(login_url='/login')
 def uploadfile(request):
-    if request.method=='POST' and len(request.FILES['datafile']) == 1  and  request.FILES['datafile']:
+    print("upload")
+    print(request.FILES)
+    print(len(request.FILES))
+    if request.method=='POST' and len(request.FILES) == 1  and  request.FILES['datafile']:
+        print("inside upload")
         myfile = request.FILES['datafile']
         fs = FileSystemStorage()
         fname = fs.save(myfile.name, myfile)
@@ -529,40 +722,614 @@ def uploadfile(request):
         id_last = -1
         with open(uploaded_file_url) as csv_file:
             csv_reader=csv.reader(csv_file,delimiter=',')
-            next(csv_reader)
-            numberOfRows=0
+            print(csv_reader)
+            #next(csv_reader)
+            numberOfRows=-1
+            columns = []
+            mapped = {}
             for row in csv_reader:
+                if(numberOfRows == -1):
+                    columns = row
+                    for i in range(0,len(columns)):
+                        mapped[row[i]] = i
+                    print(mapped)
+                    numberOfRows = numberOfRows + 1
+                    continue
                 print(row)
                 temp = {}
-                if total_cols == 8:
-                    building_id = row[1]
-                    temp['air_temperature'] = row[2]
-                    temp['dew_temperature'] = row[3]
-                    temp['precip_depth'] = row[4]
-                    temp['building_size'] = row[5]
-                    temp['year_built'] = row[6]
-                    temp['floor_count'] = row[7]
-                elif total_cols == 7:
-                    building_id = row[0]
-                    temp['air_temperature'] = row[1]
-                    temp['dew_temperature'] = row[2]
-                    temp['precip_depth'] = row[3]
-                    temp['building_size'] = row[4]
-                    temp['year_built'] = row[5]
-                    temp['floor_count'] = row[6]
+                if total_cols == 15:
+                    building_id = row[mapped['building_id']]
+                    meter_type = row[mapped['meter_type']]
+
+                    date_in = row[mapped['timestamp']]
+                    print(type(date_in))
+                    date_out = datetime.strptime(date_in, '%d-%m-%Y %H:%M') 
+                    print("HI")
+                    print(date_out)
+                    print(type(date_out))
+                    month = date_out.month
+
+                    temp['air_temperature'] = row[mapped['air_temperature']]
+                    temp['cloud_coverage'] = row[mapped['cloud_coverage']]
+                    temp['dew_temperature'] = row[mapped['dew_temperature']]
+                    temp['precip_depth_1_hr'] = row[mapped['precip_depth_1_hr']]
+                    temp['sea_level_pressure'] = row[mapped['sea_level_pressure']]
+                    primary_use = row[mapped['primary_use']]
+                    print(primary_use)
+                    temp['wind_speed'] = row[mapped['wind_speed']]
+                    temp['wind_direction'] = row[mapped['wind_direction']]
+                    temp['square_feet'] = row[mapped['building_size']]
+                    temp['year_built'] = row[mapped['year_built']]
+                    temp['floor_count'] = row[mapped['floor_count']]
+
+                elif total_cols == 14:
+                    building_id = row[mapped['building_id']]
+                    meter_type = row[mapped['meter_type']]
+
+                    date_in = row[mapped['timestamp']]
+                    print(type(date_in))
+                    date_out = datetime(*[int(v) for v in date_in.replace('T', '-').replace(':', '-').split('-')])
+                    print(date_out)
+                    print(type(date_out))
+                    month = date_out.month
+
+                    temp['air_temperature'] = row[mapped['air_temperature']]
+                    temp['cloud_coverage'] = row[mapped['cloud_coverage']]
+                    temp['dew_temperature'] = row[mapped['dew_temperature']]
+                    temp['precip_depth_1_hr'] = row[mapped['precip_depth_1_hr']]
+                    temp['sea_level_pressure'] = row[mapped['sea_level_pressure']]
+                    primary_use = row[mapped['primary_use']]
+                    print(primary_use)
+                    temp['wind_speed'] = row[mapped['wind_speed']]
+                    temp['wind_direction'] = row[mapped['wind_direction']]
+                    temp['square_feet'] = row[mapped['building_size']]
+                    temp['year_built'] = row[mapped['year_built']]
+                    temp['floor_count'] = row[mapped['floor_count']]
+
+                if(meter_type == 'electricity'):
+                    temp['meter is 0'] = 1
+                    temp['meter is 1'] = 0
+                    temp['meter is 2'] = 0
+                    temp['meter is other'] = 0
+                    temp['meter is N/A'] = 0
+                elif(meter_type == 'chilledwater'):
+                    temp['meter is 0'] = 0
+                    temp['meter is 1'] = 1
+                    temp['meter is 2'] = 0
+                    temp['meter is other'] = 0
+                    temp['meter is N/A'] = 0
+                elif(meter_type == 'steam'):
+                    temp['meter is 0'] = 0
+                    temp['meter is 1'] = 0
+                    temp['meter is 2'] = 1
+                    temp['meter is other'] = 0
+                    temp['meter is N/A'] = 0
+                elif(meter_type == 'na' or meter_type == 'n/a' or meter_type is None):
+                    temp['meter is 0'] = 0
+                    temp['meter is 1'] = 0
+                    temp['meter is 2'] = 0
+                    temp['meter is other'] = 0
+                    temp['meter is N/A'] = 1
+                else:
+                    temp['meter is 0'] = 0
+                    temp['meter is 1'] = 0
+                    temp['meter is 2'] = 0
+                    temp['meter is other'] = 1
+                    temp['meter is N/A'] = 0
+
+                if(primary_use == 'education'):
+                    temp['primary_use is Education'] = 1
+                    temp['primary_use is Office'] = 0
+                    temp['primary_use is Lodging/residential'] = 0
+                    temp['primary_use is Entertainment/public assembly'] = 0
+                    temp['primary_use is Public services'] = 0
+                    temp['primary_use is Parking'] = 0
+                    temp['primary_use is Healthcare'] = 0
+                    temp['primary_use is Retail'] = 0
+                    temp['primary_use is Manufacturing/industrial'] = 0
+                    temp['primary_use is Warehouse/storage'] = 0
+                    temp['primary_use is Other'] = 0
+                    temp['primary_use is Technology/science'] = 0
+                    temp['primary_use is Utility'] = 0
+                    temp['primary_use is Food sales and service'] = 0
+                    temp['primary_use is Religious worship'] = 0
+                    temp['primary_use is N/A'] = 0
+                    temp['primary_use is other'] = 0
+                if(primary_use == 'office'):
+                    temp['primary_use is Education'] = 0
+                    temp['primary_use is Office'] = 1
+                    temp['primary_use is Lodging/residential'] = 0
+                    temp['primary_use is Entertainment/public assembly'] = 0
+                    temp['primary_use is Public services'] = 0
+                    temp['primary_use is Parking'] = 0
+                    temp['primary_use is Healthcare'] = 0
+                    temp['primary_use is Retail'] = 0
+                    temp['primary_use is Manufacturing/industrial'] = 0
+                    temp['primary_use is Warehouse/storage'] = 0
+                    temp['primary_use is Other'] = 0
+                    temp['primary_use is Technology/science'] = 0
+                    temp['primary_use is Utility'] = 0
+                    temp['primary_use is Food sales and service'] = 0
+                    temp['primary_use is Religious worship'] = 0
+                    temp['primary_use is N/A'] = 0
+                    temp['primary_use is other'] = 0
+                elif(primary_use == 'lodging/residential'):
+                    temp['primary_use is Education'] = 0
+                    temp['primary_use is Office'] = 0
+                    temp['primary_use is Lodging/residential'] = 1
+                    temp['primary_use is Entertainment/public assembly'] = 0
+                    temp['primary_use is Public services'] = 0
+                    temp['primary_use is Parking'] = 0
+                    temp['primary_use is Healthcare'] = 0
+                    temp['primary_use is Retail'] = 0
+                    temp['primary_use is Manufacturing/industrial'] = 0
+                    temp['primary_use is Warehouse/storage'] = 0
+                    temp['primary_use is Other'] = 0
+                    temp['primary_use is Technology/science'] = 0
+                    temp['primary_use is Utility'] = 0
+                    temp['primary_use is Food sales and service'] = 0
+                    temp['primary_use is Religious worship'] = 0
+                    temp['primary_use is N/A'] = 0
+                    temp['primary_use is other'] = 0
+                elif(primary_use == 'entertainment/public assembly'):
+                    temp['primary_use is Education'] = 0
+                    temp['primary_use is Office'] = 0
+                    temp['primary_use is Lodging/residential'] = 0
+                    temp['primary_use is Entertainment/public assembly'] = 1
+                    temp['primary_use is Public services'] = 0
+                    temp['primary_use is Parking'] = 0
+                    temp['primary_use is Healthcare'] = 0
+                    temp['primary_use is Retail'] = 0
+                    temp['primary_use is Manufacturing/industrial'] = 0
+                    temp['primary_use is Warehouse/storage'] = 0
+                    temp['primary_use is Other'] = 0
+                    temp['primary_use is Technology/science'] = 0
+                    temp['primary_use is Utility'] = 0
+                    temp['primary_use is Food sales and service'] = 0
+                    temp['primary_use is Religious worship'] = 0
+                    temp['primary_use is N/A'] = 0
+                    temp['primary_use is other'] = 0
+                elif(primary_use == 'public services'):
+                    temp['primary_use is Education'] = 0
+                    temp['primary_use is Office'] = 0
+                    temp['primary_use is Lodging/residential'] = 0
+                    temp['primary_use is Entertainment/public assembly'] = 0
+                    temp['primary_use is Public services'] = 1
+                    temp['primary_use is Parking'] = 0
+                    temp['primary_use is Healthcare'] = 0
+                    temp['primary_use is Retail'] = 0
+                    temp['primary_use is Manufacturing/industrial'] = 0
+                    temp['primary_use is Warehouse/storage'] = 0
+                    temp['primary_use is Other'] = 0
+                    temp['primary_use is Technology/science'] = 0
+                    temp['primary_use is Utility'] = 0
+                    temp['primary_use is Food sales and service'] = 0
+                    temp['primary_use is Religious worship'] = 0
+                    temp['primary_use is N/A'] = 0
+                    temp['primary_use is other'] = 0
+                elif(primary_use == 'parking'):
+                    temp['primary_use is Education'] = 0
+                    temp['primary_use is Office'] = 0
+                    temp['primary_use is Lodging/residential'] = 0
+                    temp['primary_use is Entertainment/public assembly'] = 0
+                    temp['primary_use is Public services'] = 0
+                    temp['primary_use is Parking'] = 1
+                    temp['primary_use is Healthcare'] = 0
+                    temp['primary_use is Retail'] = 0
+                    temp['primary_use is Manufacturing/industrial'] = 0
+                    temp['primary_use is Warehouse/storage'] = 0
+                    temp['primary_use is Other'] = 0
+                    temp['primary_use is Technology/science'] = 0
+                    temp['primary_use is Utility'] = 0
+                    temp['primary_use is Food sales and service'] = 0
+                    temp['primary_use is Religious worship'] = 0
+                    temp['primary_use is N/A'] = 0
+                    temp['primary_use is other'] = 0
+                elif(primary_use == 'healthcare'):
+                    temp['primary_use is Education'] = 0
+                    temp['primary_use is Office'] = 0
+                    temp['primary_use is Lodging/residential'] = 0
+                    temp['primary_use is Entertainment/public assembly'] = 0
+                    temp['primary_use is Public services'] = 0
+                    temp['primary_use is Parking'] = 0
+                    temp['primary_use is Healthcare'] = 1
+                    temp['primary_use is Retail'] = 0
+                    temp['primary_use is Manufacturing/industrial'] = 0
+                    temp['primary_use is Warehouse/storage'] = 0
+                    temp['primary_use is Other'] = 0
+                    temp['primary_use is Technology/science'] = 0
+                    temp['primary_use is Utility'] = 0
+                    temp['primary_use is Food sales and service'] = 0
+                    temp['primary_use is Religious worship'] = 0
+                    temp['primary_use is N/A'] = 0
+                    temp['primary_use is other'] = 0
+                elif(primary_use == 'retail'):
+                    temp['primary_use is Education'] = 0
+                    temp['primary_use is Office'] = 0
+                    temp['primary_use is Lodging/residential'] = 0
+                    temp['primary_use is Entertainment/public assembly'] = 0
+                    temp['primary_use is Public services'] = 0
+                    temp['primary_use is Parking'] = 0
+                    temp['primary_use is Healthcare'] = 0
+                    temp['primary_use is Retail'] = 1
+                    temp['primary_use is Manufacturing/industrial'] = 0
+                    temp['primary_use is Warehouse/storage'] = 0
+                    temp['primary_use is Other'] = 0
+                    temp['primary_use is Technology/science'] = 0
+                    temp['primary_use is Utility'] = 0
+                    temp['primary_use is Food sales and service'] = 0
+                    temp['primary_use is Religious worship'] = 0
+                    temp['primary_use is N/A'] = 0
+                    temp['primary_use is other'] = 0
+                elif(primary_use == 'manufacturing/industrial'):
+                    temp['primary_use is Education'] = 0
+                    temp['primary_use is Office'] = 0
+                    temp['primary_use is Lodging/residential'] = 0
+                    temp['primary_use is Entertainment/public assembly'] = 0
+                    temp['primary_use is Public services'] = 0
+                    temp['primary_use is Parking'] = 0
+                    temp['primary_use is Healthcare'] = 0
+                    temp['primary_use is Retail'] = 0
+                    temp['primary_use is Manufacturing/industrial'] = 1
+                    temp['primary_use is Warehouse/storage'] = 0
+                    temp['primary_use is Other'] = 0
+                    temp['primary_use is Technology/science'] = 0
+                    temp['primary_use is Utility'] = 0
+                    temp['primary_use is Food sales and service'] = 0
+                    temp['primary_use is Religious worship'] = 0
+                    temp['primary_use is N/A'] = 0
+                    temp['primary_use is other'] = 0
+                elif (primary_use == 'warehouse/storage'):
+                    temp['primary_use is Education'] = 0
+                    temp['primary_use is Office'] = 0
+                    temp['primary_use is Lodging/residential'] = 0
+                    temp['primary_use is Entertainment/public assembly'] = 0
+                    temp['primary_use is Public services'] = 0
+                    temp['primary_use is Parking'] = 0
+                    temp['primary_use is Healthcare'] = 0
+                    temp['primary_use is Retail'] = 0
+                    temp['primary_use is Manufacturing/industrial'] = 0
+                    temp['primary_use is Warehouse/storage'] = 1
+                    temp['primary_use is Other'] = 0
+                    temp['primary_use is Technology/science'] = 0
+                    temp['primary_use is Utility'] = 0
+                    temp['primary_use is Food sales and service'] = 0
+                    temp['primary_use is Religious worship'] = 0
+                    temp['primary_use is N/A'] = 0
+                    temp['primary_use is other'] = 0
+                elif(primary_use == 'other'):
+                    temp['primary_use is Education'] = 0
+                    temp['primary_use is Office'] = 0
+                    temp['primary_use is Lodging/residential'] = 0
+                    temp['primary_use is Entertainment/public assembly'] = 0
+                    temp['primary_use is Public services'] = 0
+                    temp['primary_use is Parking'] = 0
+                    temp['primary_use is Healthcare'] = 0
+                    temp['primary_use is Retail'] = 0
+                    temp['primary_use is Manufacturing/industrial'] = 0
+                    temp['primary_use is Warehouse/storage'] = 0
+                    temp['primary_use is Other'] = 1
+                    temp['primary_use is Technology/science'] = 0
+                    temp['primary_use is Utility'] = 0
+                    temp['primary_use is Food sales and service'] = 0
+                    temp['primary_use is Religious worship'] = 0
+                    temp['primary_use is N/A'] = 0
+                    temp['primary_use is other'] = 0
+                elif(primary_use == 'technology/science'):
+                    temp['primary_use is Education'] = 0
+                    temp['primary_use is Office'] = 0
+                    temp['primary_use is Lodging/residential'] = 0
+                    temp['primary_use is Entertainment/public assembly'] = 0
+                    temp['primary_use is Public services'] = 0
+                    temp['primary_use is Parking'] = 0
+                    temp['primary_use is Healthcare'] = 0
+                    temp['primary_use is Retail'] = 0
+                    temp['primary_use is Manufacturing/industrial'] = 0
+                    temp['primary_use is Warehouse/storage'] = 0
+                    temp['primary_use is Other'] = 0
+                    temp['primary_use is Technology/science'] = 1
+                    temp['primary_use is Utility'] = 0
+                    temp['primary_use is Food sales and service'] = 0
+                    temp['primary_use is Religious worship'] = 0
+                    temp['primary_use is N/A'] = 0
+                    temp['primary_use is other'] = 0
+                elif(primary_use == 'utility'):
+                    temp['primary_use is Education'] = 0
+                    temp['primary_use is Office'] = 0
+                    temp['primary_use is Lodging/residential'] = 0
+                    temp['primary_use is Entertainment/public assembly'] = 0
+                    temp['primary_use is Public services'] = 0
+                    temp['primary_use is Parking'] = 0
+                    temp['primary_use is Healthcare'] = 0
+                    temp['primary_use is Retail'] = 0
+                    temp['primary_use is Manufacturing/industrial'] = 0
+                    temp['primary_use is Warehouse/storage'] = 0
+                    temp['primary_use is Other'] = 0
+                    temp['primary_use is Technology/science'] = 0
+                    temp['primary_use is Utility'] = 1
+                    temp['primary_use is Food sales and service'] = 0
+                    temp['primary_use is Religious worship'] = 0
+                    temp['primary_use is N/A'] = 0
+                    temp['primary_use is other'] = 0
+                elif(primary_use == 'food sales and service'):
+                    temp['primary_use is Education'] = 0
+                    temp['primary_use is Office'] = 0
+                    temp['primary_use is Lodging/residential'] = 0
+                    temp['primary_use is Entertainment/public assembly'] = 0
+                    temp['primary_use is Public services'] = 0
+                    temp['primary_use is Parking'] = 0
+                    temp['primary_use is Healthcare'] = 0
+                    temp['primary_use is Retail'] = 0
+                    temp['primary_use is Manufacturing/industrial'] = 0
+                    temp['primary_use is Warehouse/storage'] = 0
+                    temp['primary_use is Other'] = 0
+                    temp['primary_use is Technology/science'] = 0
+                    temp['primary_use is Utility'] = 0
+                    temp['primary_use is Food sales and service'] = 1
+                    temp['primary_use is Religious worship'] = 0
+                    temp['primary_use is N/A'] = 0
+                    temp['primary_use is other'] = 0
+                elif(primary_use == 'religious worship'):
+                    temp['primary_use is Education'] = 0
+                    temp['primary_use is Office'] = 0
+                    temp['primary_use is Lodging/residential'] = 0
+                    temp['primary_use is Entertainment/public assembly'] = 0
+                    temp['primary_use is Public services'] = 0
+                    temp['primary_use is Parking'] = 0
+                    temp['primary_use is Healthcare'] = 0
+                    temp['primary_use is Retail'] = 0
+                    temp['primary_use is Manufacturing/industrial'] = 0
+                    temp['primary_use is Warehouse/storage'] = 0
+                    temp['primary_use is Other'] = 0
+                    temp['primary_use is Technology/science'] = 0
+                    temp['primary_use is Utility'] = 0
+                    temp['primary_use is Food sales and service'] = 0
+                    temp['primary_use is Religious worship'] = 1
+                    temp['primary_use is N/A'] = 0
+                    temp['primary_use is other'] = 0
+                elif(primary_use == 'na' or primary_use == 'n/a' or primary_use is None):
+                    temp['primary_use is Education'] = 0
+                    temp['primary_use is Office'] = 0
+                    temp['primary_use is Lodging/residential'] = 0
+                    temp['primary_use is Entertainment/public assembly'] = 0
+                    temp['primary_use is Public services'] = 0
+                    temp['primary_use is Parking'] = 0
+                    temp['primary_use is Healthcare'] = 0
+                    temp['primary_use is Retail'] = 0
+                    temp['primary_use is Manufacturing/industrial'] = 0
+                    temp['primary_use is Warehouse/storage'] = 0
+                    temp['primary_use is Other'] = 0
+                    temp['primary_use is Technology/science'] = 0
+                    temp['primary_use is Utility'] = 0
+                    temp['primary_use is Food sales and service'] = 0
+                    temp['primary_use is Religious worship'] = 0
+                    temp['primary_use is N/A'] = 1
+                    temp['primary_use is other'] = 0
+                else:
+                    temp['primary_use is Education'] = 0
+                    temp['primary_use is Office'] = 0
+                    temp['primary_use is Lodging/residential'] = 0
+                    temp['primary_use is Entertainment/public assembly'] = 0
+                    temp['primary_use is Public services'] = 0
+                    temp['primary_use is Parking'] = 0
+                    temp['primary_use is Healthcare'] = 0
+                    temp['primary_use is Retail'] = 0
+                    temp['primary_use is Manufacturing/industrial'] = 0
+                    temp['primary_use is Warehouse/storage'] = 0
+                    temp['primary_use is Other'] = 0
+                    temp['primary_use is Technology/science'] = 0
+                    temp['primary_use is Utility'] = 0
+                    temp['primary_use is Food sales and service'] = 0
+                    temp['primary_use is Religious worship'] = 0
+                    temp['primary_use is N/A'] = 0
+                    temp['primary_use is other'] = 1
+
+                if (month == 1):
+                    temp['timestamp_parsed_month is 1'] = 1
+                    temp['timestamp_parsed_month is 3'] = 0
+                    temp['timestamp_parsed_month is 4'] = 0
+                    temp['timestamp_parsed_month is 5'] = 0
+                    temp['timestamp_parsed_month is 6'] = 0
+                    temp['timestamp_parsed_month is 7'] = 0
+                    temp['timestamp_parsed_month is 8'] = 0
+                    temp['timestamp_parsed_month is 9'] = 0
+                    temp['timestamp_parsed_month is 10'] = 0
+                    temp['timestamp_parsed_month is 11'] = 0
+                    temp['timestamp_parsed_month is 12'] = 0
+                    temp['timestamp_parsed_month is N/A'] = 0
+                    temp['timestamp_parsed_month is other'] = 0
+                elif (month == 3):
+                    temp['timestamp_parsed_month is 1'] = 0
+                    temp['timestamp_parsed_month is 3'] = 1
+                    temp['timestamp_parsed_month is 4'] = 0
+                    temp['timestamp_parsed_month is 5'] = 0
+                    temp['timestamp_parsed_month is 6'] = 0
+                    temp['timestamp_parsed_month is 7'] = 0
+                    temp['timestamp_parsed_month is 8'] = 0
+                    temp['timestamp_parsed_month is 9'] = 0
+                    temp['timestamp_parsed_month is 10'] = 0
+                    temp['timestamp_parsed_month is 11'] = 0
+                    temp['timestamp_parsed_month is 12'] = 0
+                    temp['timestamp_parsed_month is N/A'] = 0
+                    temp['timestamp_parsed_month is other'] = 0
+                elif (month == 4):
+                    temp['timestamp_parsed_month is 1'] = 0
+                    temp['timestamp_parsed_month is 3'] = 0
+                    temp['timestamp_parsed_month is 4'] = 1
+                    temp['timestamp_parsed_month is 5'] = 0
+                    temp['timestamp_parsed_month is 6'] = 0
+                    temp['timestamp_parsed_month is 7'] = 0
+                    temp['timestamp_parsed_month is 8'] = 0
+                    temp['timestamp_parsed_month is 9'] = 0
+                    temp['timestamp_parsed_month is 10'] = 0
+                    temp['timestamp_parsed_month is 11'] = 0
+                    temp['timestamp_parsed_month is 12'] = 0
+                    temp['timestamp_parsed_month is N/A'] = 0
+                    temp['timestamp_parsed_month is other'] = 0
+                elif (month == 5):
+                    temp['timestamp_parsed_month is 1'] = 0
+                    temp['timestamp_parsed_month is 3'] = 0
+                    temp['timestamp_parsed_month is 4'] = 0
+                    temp['timestamp_parsed_month is 5'] = 1
+                    temp['timestamp_parsed_month is 6'] = 0
+                    temp['timestamp_parsed_month is 7'] = 0
+                    temp['timestamp_parsed_month is 8'] = 0
+                    temp['timestamp_parsed_month is 9'] = 0
+                    temp['timestamp_parsed_month is 10'] = 0
+                    temp['timestamp_parsed_month is 11'] = 0
+                    temp['timestamp_parsed_month is 12'] = 0
+                    temp['timestamp_parsed_month is N/A'] = 0
+                    temp['timestamp_parsed_month is other'] = 0
+                elif (month == 6):
+                    temp['timestamp_parsed_month is 1'] = 0
+                    temp['timestamp_parsed_month is 3'] = 0
+                    temp['timestamp_parsed_month is 4'] = 0
+                    temp['timestamp_parsed_month is 5'] = 0
+                    temp['timestamp_parsed_month is 6'] = 1
+                    temp['timestamp_parsed_month is 7'] = 0
+                    temp['timestamp_parsed_month is 8'] = 0
+                    temp['timestamp_parsed_month is 9'] = 0
+                    temp['timestamp_parsed_month is 10'] = 0
+                    temp['timestamp_parsed_month is 11'] = 0
+                    temp['timestamp_parsed_month is 12'] = 0
+                    temp['timestamp_parsed_month is N/A'] = 0
+                    temp['timestamp_parsed_month is other'] = 0
+                elif (month == 7):
+                    temp['timestamp_parsed_month is 1'] = 0
+                    temp['timestamp_parsed_month is 3'] = 0
+                    temp['timestamp_parsed_month is 4'] = 0
+                    temp['timestamp_parsed_month is 5'] = 0
+                    temp['timestamp_parsed_month is 6'] = 0
+                    temp['timestamp_parsed_month is 7'] = 1
+                    temp['timestamp_parsed_month is 8'] = 0
+                    temp['timestamp_parsed_month is 9'] = 0
+                    temp['timestamp_parsed_month is 10'] = 0
+                    temp['timestamp_parsed_month is 11'] = 0
+                    temp['timestamp_parsed_month is 12'] = 0
+                    temp['timestamp_parsed_month is N/A'] = 0
+                    temp['timestamp_parsed_month is other'] = 0
+                elif (month == 8):
+                    temp['timestamp_parsed_month is 1'] = 0
+                    temp['timestamp_parsed_month is 3'] = 0
+                    temp['timestamp_parsed_month is 4'] = 0
+                    temp['timestamp_parsed_month is 5'] = 0
+                    temp['timestamp_parsed_month is 6'] = 0
+                    temp['timestamp_parsed_month is 7'] = 0
+                    temp['timestamp_parsed_month is 8'] = 1
+                    temp['timestamp_parsed_month is 9'] = 0
+                    temp['timestamp_parsed_month is 10'] = 0
+                    temp['timestamp_parsed_month is 11'] = 0
+                    temp['timestamp_parsed_month is 12'] = 0
+                    temp['timestamp_parsed_month is N/A'] = 0
+                    temp['timestamp_parsed_month is other'] = 0
+                elif (month == 9):
+                    temp['timestamp_parsed_month is 1'] = 0
+                    temp['timestamp_parsed_month is 3'] = 0
+                    temp['timestamp_parsed_month is 4'] = 0
+                    temp['timestamp_parsed_month is 5'] = 0
+                    temp['timestamp_parsed_month is 6'] = 0
+                    temp['timestamp_parsed_month is 7'] = 0
+                    temp['timestamp_parsed_month is 8'] = 0
+                    temp['timestamp_parsed_month is 9'] = 1
+                    temp['timestamp_parsed_month is 10'] = 0
+                    temp['timestamp_parsed_month is 11'] = 0
+                    temp['timestamp_parsed_month is 12'] = 0
+                    temp['timestamp_parsed_month is N/A'] = 0
+                    temp['timestamp_parsed_month is other'] = 0
+                elif (month == 10):
+                    temp['timestamp_parsed_month is 1'] = 0
+                    temp['timestamp_parsed_month is 3'] = 0
+                    temp['timestamp_parsed_month is 4'] = 0
+                    temp['timestamp_parsed_month is 5'] = 0
+                    temp['timestamp_parsed_month is 6'] = 0
+                    temp['timestamp_parsed_month is 7'] = 0
+                    temp['timestamp_parsed_month is 8'] = 0
+                    temp['timestamp_parsed_month is 9'] = 0
+                    temp['timestamp_parsed_month is 10'] = 1
+                    temp['timestamp_parsed_month is 11'] = 0
+                    temp['timestamp_parsed_month is 12'] = 0
+                    temp['timestamp_parsed_month is N/A'] = 0
+                    temp['timestamp_parsed_month is other'] = 0
+                elif (month == 11):
+                    temp['timestamp_parsed_month is 1'] = 0
+                    temp['timestamp_parsed_month is 3'] = 0
+                    temp['timestamp_parsed_month is 4'] = 0
+                    temp['timestamp_parsed_month is 5'] = 0
+                    temp['timestamp_parsed_month is 6'] = 0
+                    temp['timestamp_parsed_month is 7'] = 0
+                    temp['timestamp_parsed_month is 8'] = 0
+                    temp['timestamp_parsed_month is 9'] = 0
+                    temp['timestamp_parsed_month is 10'] = 0
+                    temp['timestamp_parsed_month is 11'] = 1
+                    temp['timestamp_parsed_month is 12'] = 0
+                    temp['timestamp_parsed_month is N/A'] = 0
+                    temp['timestamp_parsed_month is other'] = 0
+                elif (month == 12):
+                    temp['timestamp_parsed_month is 1'] = 0
+                    temp['timestamp_parsed_month is 3'] = 0
+                    temp['timestamp_parsed_month is 4'] = 0
+                    temp['timestamp_parsed_month is 5'] = 0
+                    temp['timestamp_parsed_month is 6'] = 0
+                    temp['timestamp_parsed_month is 7'] = 0
+                    temp['timestamp_parsed_month is 8'] = 0
+                    temp['timestamp_parsed_month is 9'] = 0
+                    temp['timestamp_parsed_month is 10'] = 0
+                    temp['timestamp_parsed_month is 11'] = 0
+                    temp['timestamp_parsed_month is 12'] = 1
+                    temp['timestamp_parsed_month is N/A'] = 0
+                    temp['timestamp_parsed_month is other'] = 0
+                elif (month == 2):
+                    temp['timestamp_parsed_month is 1'] = 0
+                    temp['timestamp_parsed_month is 3'] = 0
+                    temp['timestamp_parsed_month is 4'] = 0
+                    temp['timestamp_parsed_month is 5'] = 0
+                    temp['timestamp_parsed_month is 6'] = 0
+                    temp['timestamp_parsed_month is 7'] = 0
+                    temp['timestamp_parsed_month is 8'] = 0
+                    temp['timestamp_parsed_month is 9'] = 0
+                    temp['timestamp_parsed_month is 10'] = 0
+                    temp['timestamp_parsed_month is 11'] = 0
+                    temp['timestamp_parsed_month is 12'] = 0
+                    temp['timestamp_parsed_month is N/A'] = 0
+                    temp['timestamp_parsed_month is other'] = 1
+                else:
+                    temp['timestamp_parsed_month is 1'] = 0
+                    temp['timestamp_parsed_month is 3'] = 1
+                    temp['timestamp_parsed_month is 4'] = 0
+                    temp['timestamp_parsed_month is 5'] = 0
+                    temp['timestamp_parsed_month is 6'] = 0
+                    temp['timestamp_parsed_month is 7'] = 0
+                    temp['timestamp_parsed_month is 8'] = 0
+                    temp['timestamp_parsed_month is 9'] = 0
+                    temp['timestamp_parsed_month is 10'] = 0
+                    temp['timestamp_parsed_month is 11'] = 0
+                    temp['timestamp_parsed_month is 12'] = 0
+                    temp['timestamp_parsed_month is N/A'] = 1
+                    temp['timestamp_parsed_month is other'] = 0
+                print(temp)
+                
                 testdata = pd.DataFrame({'x':temp}).transpose()
                 scoreval = reloadModel.predict(testdata)[0]
                 #scoreval = 1
                 user = request.user
+                print("score",scoreval)
                 obj = Energy_Data(username = user,
                                 building_id = building_id,
-                                air_temeprature=temp['air_temperature'],
-                                dew_temperature=temp['dew_temperature'],
-                                precip_depth = temp['precip_depth'],
-                                building_size=temp['building_size'],
-                                year_built=temp['year_built'],
-                                floor_count=temp['floor_count'],
-                                meter_reading= scoreval)
+                                air_temperature = temp['air_temperature'],
+                                cloud_coverage = temp['cloud_coverage'],
+                                dew_temperature = temp['dew_temperature'],
+                                floor_count = temp['floor_count'],
+                                precip_depth_1_hr = temp['precip_depth_1_hr'],
+                                sea_level_pressure = temp['sea_level_pressure'],
+                                building_size = temp['square_feet'],
+                                wind_direction = temp['wind_direction'],
+                                wind_speed = temp['wind_speed'],
+                                year_built = temp['year_built'],
+                                primary_use = primary_use,
+                                timestamp = date_out,
+                                meter_type = meter_type,
+                                meter_reading = scoreval)
+
                 obj.save()
                 print(temp)
                 if(numberOfRows == 0):
@@ -570,14 +1337,10 @@ def uploadfile(request):
                 numberOfRows=numberOfRows+1
         id_last = obj.id + numberOfRows
         fs.delete(fname)
-        messages.success(request,'File uploaded successful')
-        #return render(request, 'fileupload.html',{'a': 173687})
-        #return TemplateResponse(request,'fileupload.html',context)
-        #return render(request, 'fileupload.html',{'a': 1,'aas':123})
+        messages.success(request,'Please find the predictions and analyzed solutions below')
         return HttpResponse(reverse(fileupload))
-        #return redirect('/fileupload')
-
-
+    else:
+        return redirect('/fileupload')
 
 @login_required(login_url='/login')
 def export_csv(request):
@@ -585,7 +1348,22 @@ def export_csv(request):
     response['Content-Disposition'] = 'attachment; filename=MeterReading'  + '.csv'
 
     writer = csv.writer(response)
-    writer.writerow(['SNo.','Building Id','Air Temperature','Dew Temperature','Precip Depth','Building Size','Year Built','Floor_Count','Meter Reading'])
+    writer.writerow(['SNo.',
+                    'Building Id',
+                    'Meter Type',
+                    'TimeStamp',
+                    'Air Temperature',
+                    'Cloud Coverage',
+                    'Dew Temperature',
+                    'Precip Depth for 1 hr',
+                    'Sea Level Pressure',
+                    'Primary Use',
+                    'Wind Direction',
+                    'Wind Speed',
+                    'Building Size(sq feet)',
+                    'Year Built'
+                    ,'Floor_Count',
+                    'Meter Reading'])
     global id_first
     global id_last
     filtered_data = Energy_Data.objects.filter(id__range = [id_first,id_last])
@@ -595,9 +1373,16 @@ def export_csv(request):
     for data in filtered_data:
         writer.writerow([x,
                         data.building_id,
-                        data.air_temeprature,
+                        data.meter_type,
+                        data.timestamp,
+                        data.air_temperature,
+                        data.cloud_coverage,
                         data.dew_temperature,
-                        data.precip_depth,
+                        data.precip_depth_1_hr,
+                        data.sea_level_pressure,
+                        data.primary_use,
+                        data.wind_direction,
+                        data.wind_speed,
                         data.building_size,
                         data.year_built,
                         data.floor_count,

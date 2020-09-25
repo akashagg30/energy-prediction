@@ -28,6 +28,7 @@
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="{% static 'css/userdetails.css' %}">
+  <link rel="stylesheet" href="{% static 'css/mydashboard.css' %}">
 
   <style media="screen">
   .virtusa{
@@ -47,10 +48,10 @@
       margin-top: 10%;
     }
     .footer{
-      position: fixed;
+      position: relative;
       bottom: 0;
       width: 100%;
-      height: 3em;
+      height: 3.5em;
       background-color: #CCD1D1  ;
       padding-right: 5%;
       padding-left: 5%;
@@ -103,9 +104,7 @@
     .submenu ul li a {
       font-weight: normal;
     }
-    .container{
-      margin-top: 5%;
-    }
+
   </style>
 
 </head>
@@ -167,13 +166,12 @@
   <main>
 
 
-
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-  
 
     <div class = container>
+      <h1 onclick=toggle('history')>Prediction History</h1>
       {% if user_inputs %}
-      <table class = "userdetails">
+      <table id='history', class = "userdetails">
         <tr class = "head">
           <td>SNo.</td>
           <td>Date Created</td>
@@ -201,26 +199,41 @@
       </table>
     {% endif %}
     </div>
-
-    <h1>Report</h1>
-    <div id="charts" style="width: 75%;">
-        <canvas id="chart1"></canvas>
-        <br>
-        <br>
-        <br>
-        <br>
+<div class="reports">
+  <h1 onclick=toggle('charts')>Reports</h1>
+  <div id="charts" style="width: 100%;">
+      <div class="left">
+        <canvas id="chart1"></canvas><br><br>
         <canvas id="chart2"></canvas>
-        <br>
-        <br>
-        <br>
-        <br>
-        <canvas id="chart3"></canvas>
-        <br>
-        <br>
-        <br>
-        <br>
+
+      </div>
+      <div class="right">
+        <canvas id="chart3"></canvas><br><br>
         <canvas id="chart4"></canvas>
-    </div>
+
+      </div>
+
+
+  </div>
+
+</div><br><br><br><br>
+
+    <!-- for toggeling view -->
+    <script>
+      function toggle(id) {
+        var x = document.getElementById(id);
+        if (x.style.display === "none") {
+          x.style.display = "block";
+        } else {
+          x.style.display = "none";
+        }
+      } 
+
+      toggle('history')
+      toggle('charts')
+    </script>
+
+
     <script>
         function area_vs_electricity(){
             var ctx= document.getElementById('chart1').getContext('2d');
@@ -257,7 +270,7 @@
                 }
             })
         }
-
+        
         function temprature_vs_electricity(){
             var ctx= document.getElementById('chart3').getContext('2d');
 
@@ -265,12 +278,12 @@
                 type : 'line',
                 data : {
                     // X axis
-                    labels: {{X_Temprature_vs_electricity|safe}},
+                    labels: {{X_Temperature_vs_electricity|safe}},
                     datasets: [{
                         // Y label
                         label: 'Mean Meter Reading',
                         // Y axis
-                        data : {{Y_Temprature_vs_electricity|safe}},
+                        data : {{Y_Temperature_vs_electricity|safe}},
                     }]
                 }
             })
@@ -294,10 +307,9 @@
             })
         }
 
-
         area_vs_electricity();
         floorcount_vs_electricity();
-        temprature_vs_electricity();
+        temprature_vs_electricity();  
         age_vs_electricity();
     </script>
   </main>
