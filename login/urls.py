@@ -43,7 +43,6 @@ urlpatterns = [
     path('predict',views.predict),
     path('adminhome',views.adminhome),
     path('userdetails',views.userdetails),
-    path('dashboard', views.dashboard),
     path('exportcsv',views.export_csv),
     path('uploadfile',views.uploadfile),
     # ------------ system resource monitor --------

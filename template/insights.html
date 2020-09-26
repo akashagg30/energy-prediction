@@ -12,6 +12,18 @@
   <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}">
 
   <!-- CSS here -->
+
+
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
   <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
   <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
   <link rel="stylesheet" href="{% static 'css/slicknav.css' %}">
@@ -27,7 +39,7 @@
   <link rel="stylesheet" href="{% static 'css/nice-select.css' %}">
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="{% static 'css/userdetails.css' %}">
+  <!-- <link rel="stylesheet" href="{% static 'css/userdetails.css' %}"> -->
   <link rel="stylesheet" href="{% static 'css/mydashboard.css' %}">
 
   <style media="screen">
@@ -105,6 +117,11 @@
       font-weight: normal;
     }
 
+   #charts .chartscontianer h3{
+      margin-left: 44%;
+      margin-top:4%;
+    }
+
   </style>
 
 </head>
@@ -120,7 +137,7 @@
               <!-- Logo -->
               <div class="col-xl-2 col-lg-2">
                 <div class="logo">
-                  <a href="/index"><img class="virtusa" src="{% static 'img/logo/virtusa-footer-logo.png' %}" alt=""></a>
+                  <a href="/home"><img class="virtusa" src="{% static 'img/logo/virtusa-footer-logo.png' %}" alt=""></a>
                 </div>
               </div>
               <div class="col-xl-10 col-lg-10">
@@ -164,50 +181,88 @@
   </header>
   <!-- Header End -->
   <main>
-
-
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-
-    <div class = "container">
-      <h1 onclick=toggle('history')>Prediction History</h1>
+    <div class="historycontainer">
+      <h1>Prediction History</h1>
       <div id="history">
-
         <table class = "userdetails">
-          {% if user_inputs %}
+          {% if users %}
             <tr class = "head">
               <td>SNo.</td>
               <td>Date Created</td>
+              <td>Building Number</td>
+              <td>Meter Type</td>
+              <td>Timestamp</td>
               <td>Air Temperature</td>
+              <td>Cloud Coverage</td>
               <td>Dew Temperature</td>
-              <td>Precip Depth</td>
+              <td>Precip Depth per 1 hr</td>
+              <td>Sea Level Pressure</td>
+              <td>Primary Use</td>
+              <td>Wind Speed</td>
+              <td>Wind Direction</td>
               <td>Building Size</td>
               <td>Year Built</td>
               <td>Floor Count</td>
               <td>Meter Reading</td>
             </tr>
-            {% for data in user_inputs %}
+            {% for data in users %}
               <tr class="body">
-                <td>{{forloop.counter}}</td>
+                <td>{{ forloop.counter0|add:users.start_index}}</td>
                 <td>{{data.date_created}}</td>
+                <td>{{data.building_id}}</td>
+                <td>{{data.meter_type}}</td>
+                <td>{{data.timestamp}}</td>
                 <td>{{data.air_temperature}}</td>
+                <td>{{data.cloud_coverage}}</td>
                 <td>{{data.dew_temperature}}</td>
-                <td>{{data.precip_depth}}</td>
+                <td>{{data.precip_depth_1_hr}}</td>
+                <td>{{data.sea_level_pressure}}</td>
+                <td>{{data.primary_use}}</td>
+                <td>{{data.wind_speed}}</td>
+                <td>{{data.wind_direction}}</td>
                 <td>{{data.building_size}}</td>
                 <td>{{data.year_built}}</td>
                 <td>{{data.floor_count}}</td>
                 <td>{{data.meter_reading}}</td>
               </tr>
             {% endfor %}
+          {% else %}
+          <br>
+            <h3>No Predictions Done</h3>
           {% endif %}
         </table>
-
+        <div>
+          {% if users.has_other_pages %}
+            <ul class="pagination" style="margin-left: 21%;">
+              {% if users.has_previous %}
+                <li><a href="?page={{users.previous_page_number}}">&laquo;</a></li>
+              {% else %}
+                <li class = "disabled"><span>&laquo;</span></li>
+              {% endif %}
+              {% for i in users.paginator.page_range %}
+                {% if i <= users.number|add:10 and i >= users.number|add:-10 %}
+                  <li><a href="?page={{forloop.counter}}">{{forloop.counter}}</a></li>
+                {% endif %}
+              {% endfor %}
+              {% if users.has_next %}
+                <li><a href="?page={{users.next_page_number}}">&raquo;</a></li>
+              {% else %} 
+                <li class="disabled"><span>&raquo;</span></li>
+              {% endif %}
+            </ul>
+          {% endif %}
+        </div>
       </div>
+      
 
     </div>
 <div class="reports">
-  <h1 onclick=toggle("charts")>Reports</h1>
+  <h1>Reports</h1>
   <div id="charts" style="width: 100%;">
-    {% if X_Area_vs_electricity|length > 1 %}
+    <div class="chartscontianer">
+
+      {% if X_Area_vs_electricity|length > 1 %}
       <div class="left">
         <canvas id="chart1"></canvas><br><br>
         <canvas id="chart2"></canvas>
@@ -220,15 +275,17 @@
       </div>
 
 
-    {% else %}
-      <p>no data available</p>
-    {% endif %}
+      {% else %}
+        <h3>No Data Available</h3>
+      {% endif %}
+
+    </div>
+    
   </div>
 
 </div><br><br><br><br>
-
   <!-- for toggeling view -->
-  <script>
+  <!-- <script>
     function toggle(id) {
       var x = document.getElementById(id);
       console.log(x);
@@ -241,7 +298,7 @@
 
     toggle('history');
     toggle('charts');
-  </script>
+  </script> -->
 
   <script>
     {% if X_Area_vs_electricity|length > 1 %}

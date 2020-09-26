@@ -2,11 +2,11 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .decorators import unauthenticated_user
-
 from django.http import HttpResponse
 from subprocess import Popen, PIPE
 from json import dump
 from django.views.decorators.csrf import csrf_protect
+from .decorators import admin_only
 
 
 # user name
@@ -15,10 +15,11 @@ from django.views.decorators.csrf import csrf_protect
 def system_resource_monitor(request):
     return render(request, 'resource_monitor.html')
 
+@login_required(login_url='/login')
+@admin_only
 @csrf_protect
 def resource_info(request):
     user = "team07"
-
     ps = Popen(['ps', 'aux'], stdout=PIPE)
     ps = ps.communicate()[0]
     grep = Popen(['grep', user], stdout=PIPE, stdin=PIPE)

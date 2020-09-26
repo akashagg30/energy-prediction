@@ -119,22 +119,38 @@ body::before{
       font-size: 1.3em;
       color: white;
     }
-
-    body{
-      /* font-family: Roboto, sans-serif;
-      color: #0f3c4b;
-      background-color: #e5edf1; */
-
-    }
-
-    /* .inputTable input{
-      background-color: #e5edf1;
-      border-radius: 10px;
-    } */
-
-
     .inputTable input{
       /* background-color: #e5edf1; */
       background-color: white;
       border-radius: 10px;
     }
+
+    .nice-select {
+        background-color: #fff;
+        color: gray;
+        border-radius: 7px;
+        font-size: 16px;
+        height: 40px;
+        padding-left: 14px;
+        padding-right: 30px;
+        user-select: none;
+        width: 84%;
+      }
+.nice-select .option {
+  color: black;
+}
+
+.leftTab .nice-select{
+  width: 77%
+}
+
+.insightscontainer{
+  height: 2.5em;
+  background: linear-gradient(to bottom, #1291DD , #075584);
+  width: 12%;
+  padding-top: 0.5%;
+  padding-left: 1.2%;
+  border-radius: 7px;
+  margin-left: 48%;
+  font-size: 1.2em;
+}

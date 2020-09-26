@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Input</title>
+    <title>Single PEP</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- <link rel="manifest" href="site.webmanifest"> -->
@@ -209,19 +209,18 @@
                   <tr>
                     <td class="col1"><label>Meter Type:<span style="color:red">&nbsp*</span></label></td>
                     <td  class="col2">
-                      <input type="text" name="meter_type" value="" list="type" placeholder="Select a meter type">
-                      <datalist id="type">
+                      <select name="meter_type">
                         <option value="Electricity">Electricity</option>
                         <option value="Chilled Water">Chilled Water</option>
                         <option value="Steam">Steam</option>
                         <option value="Hot Water">Hot Water</option>
-                        </datalist>
+                      </select>
                     </td>
                   </tr>
 
                   <tr>
                     <td class="col1"><label for="">Time Stamp:<span style="color:red">&nbsp*</span></label></td>
-                    <td  class="col2"><input type="datetime-local" name="timestamp" value="" required></td>
+                    <td  class="col2"><input id="localtime" type="datetime-local" name="timestamp" value="" required></td>
                   </tr>
                   <tr>
                     <td class="col1"><label for="">Air Temperature:<span style="color:red">&nbsp*</span></label></td>
@@ -255,7 +254,25 @@
                     <tr>
                       <td class="col1"><label for="">Primary Use:<span style="color:red">&nbsp*</span></label></td>
                       <td  class="col2">
-                        <input type="text" name="primary_use" value="" list="uses" placeholder="Primary use of Building">
+                        <select name="primary_use">
+                            <option>Education</option>
+                            <option>Entertainment/public assembly</option>
+                            <option>Food sales and service</option>
+                            <option>Healthcare</option>
+                            <option>Lodging/residential</option>
+                            <option>Manufacturing/industrial</option>
+                            <option>Office</option>
+                            <option>Parking</option>
+                            <option>Public services</option>
+                            <option>Religious worship</option>
+                            <option >Retail</option>
+                            <option>Services</option>
+                            <option>Technology/science</option>
+                            <option >Utility</option>
+                            <option>Warehouse/storage</option>
+                            <option>Other</option>
+                          </select>
+                        <!-- <input type="text" name="primary_use" value="" list="uses" placeholder="Primary use of Building">
                         <datalist id="uses">
                             <option value ="Education" >Education</option>
                             <option value = "Entertainment/public assembly">Entertainment/public assembly</option>
@@ -273,7 +290,7 @@
                             <option value="Utility">Utility</option>
                             <option value="Warehouse/storage">Warehouse/storage</option>
                             <option value="Other">Other</option>
-                          </datalist>
+                          </datalist> -->
                       </td>
                     </tr>
                     <tr>
@@ -313,7 +330,12 @@
           </form>
           <br><br><br>
           {% if scoreval %}
-            <h3 class="output">Your Property would consume <b>{{scoreval}}</b>  units of power for every hour </h3>
+            <h3 class="output">Your Property would consume <b style="color: coral;">{{scoreval}}</b>  units of power for every hour </h3>
+            <br>
+            <div class="insightscontainer">
+              <a class="insights" href="/insights">Quick insights</a>
+            </div>
+            
           {% endif %}
 
           <br>
@@ -343,11 +365,25 @@
 
       </div>
 
+      <script>
+      var date = new Date();
+      var hrs = date.getHours();
+      var mins = date.getMinutes();
+      var secs = date.getSeconds();
+      var mon = date.getMonth()+1;
+      var day = date.getDate();
+      var year = date.getFullYear();
+      if(mon<10){
+        mon = "0"+mon.toString();
+      }
+      if(day<10){
+        day = "0"+day.toString();
+      }
+      var d = year.toString()+"-"+mon.toString()+"-"+day.toString()+"T"+hrs.toString()+":"+mins.toString()+":"+secs.toString();
+      document.getElementById('localtime').defaultValue = d;
+      console.log(d);
+      </script>
 
-      <!-- Scroll Up -->
-      <!-- <div id="back-top" >
-        <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
-    </div> -->
     <script src="{% static 'js/myScript.js' %}"></script>
 
     <!-- JS here -->

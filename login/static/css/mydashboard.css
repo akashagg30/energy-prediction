@@ -19,25 +19,59 @@
       width: 45%;
     }
 
-  .container{
+    
+    .historycontainer table{
+      width: 89%;
+      border-collapse: collapse;
+      border-left: 1px solid black;
+      border-right: 1px solid black;
+    }
+    
+    .historycontainer table tr, .historycontainer table td{
+      border-bottom: 1px solid black;
+      height: 35px;
+      text-align: center;
+    }
+    
+    .head{
+      border-top: 1px solid black;
+      text-align: center;
+      background-color:  #D8EAF7 ;
+      color: #0F4970;
+      font-weight: bold;
+      font-size: 1em;
+      height: 40px;
+    }
+    
+    .body:hover{
+      background-color: #F1F3D1;
+    }
+
+  .historycontainer
+{
     margin-top: 8%;
+    margin-left:5%;
+    /* width: 100vw; */
+    /* width: 95%; */
+    margin-right: 5%;
     text-align: center;
     /* margin-left: 0; */
     align-items: center;
   }
-  .container h1{
+  .historycontainer h1{
     font-size: 3em;
     width: 33%;
-    margin-left: 30%;
+    margin-left: 35%;
   }
 
-  .container h1:hover{
+  .historycontainer h1:hover{
     cursor: pointer;
   }
 
-  .container .userdetails{
+  .historycontainer .userdetails{
     margin-top: 2%;
-    margin-left: 2%;
+    /* margin-left: 2%; */
+    width: 100%;
   }
 
 .reports h1{

@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>File Upload</title>
+  <title>Multi PEP</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- <link rel="manifest" href="site.webmanifest"> -->
@@ -124,7 +124,7 @@
         font-size: 1.8rem;
         background-color: #c8dadf;
         position: relative;
-        padding: 80px 20px;
+        padding: 60px 20px;
       }
 
       .box.has-advanced-upload {
@@ -280,19 +280,26 @@
 
       .message{
         /* margin-left: 35%; */
+        margin-top: 0;
         text-align: center;
       }
 
       .message p{
         margin-left: auto;
-        margin-bottom: 1%;
-        margin-top: 4%;
+        margin-bottom: 0;
+        margin-top: 3.5%;
       }
+
+      .message .msgtext{
+        margin-top: 1%;
+        font-size: 1em
+      }
+
       .btncontainer{
         margin-left: 0;
       }
 
-      .topcontainer{
+      .bottomcontainer{
         display: flex;
         justify-content: space-around;
         padding-left: 30%;
@@ -376,7 +383,13 @@
   </header>
   <!-- Header End -->
   <main>
-
+    <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+      <df-messenger
+        intent="WELCOME"
+        chat-title="PEP_Assist"
+        agent-id="5e5a1101-30e8-48e4-8f93-38ab1e38f330"
+        language-code="en"
+      ></df-messenger>
     <div class="maincontainer">
       <p>Please upload CSV format file below for Predicting Energy Consumption of all the properties</p>
       <div class="container" role="main">
@@ -400,6 +413,7 @@
     <div class="message">
       {% for message in messages %}
         <p> {{message}} </p>
+        <p class="msgtext">(Download the file before proceeding further)</p>
       {% endfor %}
 
       {% if messages %}
@@ -408,7 +422,8 @@
             <a href="/exportcsv">
               <button class="box__button" type="button" name="button">Download File</button>
             </a>
-
+          </div>
+          <div class="bottomcontainer">
             <a href="/insights">
               <button class="box__button" type="button" name="button">Summary</button>
             </a>
@@ -416,8 +431,8 @@
             <a href="/home">
               <button class="box__button" type="button" name="button">Back to Home</button>
             </a>
-          </div>
 
+          </div>
         </div>
       {% endif %}
 
@@ -448,11 +463,6 @@
 
     </div>
   </footer>
-
-
-  <!-- <div id="back-top">
-    <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
-  </div> -->
   <!-- JS here -->
   <script src="{% static 'js/fileupload.js' %}"></script>
 

@@ -1,11 +1,12 @@
 
 .container{
-  margin-top: 7%;
+  margin-top: 4%;
   margin-left: 9.5%;
+  margin-right: 9.5%;
 }
 
 .container table{
-  width: 89%;
+  width: 100%;
   border-collapse: collapse;
   border-left: 1px solid black;
   border-right: 1px solid black;

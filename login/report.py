@@ -6,6 +6,7 @@ from django.contrib.auth.models import Group
 from .decorators import unauthenticated_user
 from .models import *
 from .decorators import unauthenticated_user, admin_only
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from login.models import Energy_Data as db
 import numpy as np
@@ -95,7 +96,7 @@ def Report(request):
         area.append(x['building_size'])
         floorcount.append(x['floor_count'])
         age.append(x['year_built'])
-        temperature.append(x['air_temeprature'])
+        temperature.append(x['air_temperature'])
         electrictiy.append(x['meter_reading'])
 
     # generating data for sending to charts to renger them
@@ -112,9 +113,17 @@ def Report(request):
 
     if request.user.is_authenticated:
         user_id = request.user.id
-    # print(user_id)
-    user_inputs = Energy_Data.objects.filter(username = user_id)
-    # print(user_inputs)
+        # print(user_id)
+        user_inputs = Energy_Data.objects.filter(username = user_id)
+        page = request.GET.get('page',1)
+        paginator = Paginator(user_inputs, 10)
+        try:
+            users = paginator.page(page)
+        except PageNotAnInteger:
+            users = paginator.page(1)
+        except EmptyPage:
+            users = paginator.page(paginator.num_pages)
+        # print(user_inputs)
 
     return render(request, 'insights.html', {
         'X_Area_vs_electricity': X_Area_vs_electricity,
@@ -129,5 +138,5 @@ def Report(request):
         'X_Age_vs_electricity': X_Age_vs_electricity,
         'Y_Age_vs_electricity': Y_Age_vs_electricity,
 
-        'user_inputs':user_inputs
+        'users':users
     })

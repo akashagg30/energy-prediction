@@ -52,9 +52,6 @@ body {font-family: Verdana, sans-serif; margin:0}
   font-size: 1.5em;
 }
 
-.knowmore:hover{
-  /* font-size: 1.7em */
-}
 
 /* Next & previous buttons */
 .prev, .next {
@@ -100,7 +97,7 @@ body {font-family: Verdana, sans-serif; margin:0}
   font-size: 15px;
   padding: 8px 12px;
   position: absolute;
-  bottom: 8px;
+  bottom: 4em;
   width: 100%;
   text-align: center;
 }
@@ -134,56 +131,3 @@ body {font-family: Verdana, sans-serif; margin:0}
   from {opacity: .4}
   to {opacity: 1}
 }
-
-
-
-
-/* #slide1_container {
-  width:450px;
-  height:281px;
-  overflow:hidden;
-  margin:0 auto;
-}
-#slide1_images {
-  width:1800px;
-  transition:all 1.0s ease-in-out;
-}
-#slide1_images img {
-  padding:0;
-  margin:0;
-  float:left;
-}
-
-
-
- */
-/*
-#slide1_controls {
-text-align:center;
-}
-
-#slide1_controls span {
-padding-right:2em;
-cursor:pointer;
-}
-
-#slide1_container {
-width:450px;
-height:281px;
-overflow:hidden;
-margin:0 auto;
-}
-
-#slide1_images {
-width:1800px;
--webkit-transition:all 1.0s ease-in-out;
--moz-transition:all 1.0s ease-in-out;
--o-transition:all 1.0s ease-in-out;
-transition:all 1.0s ease-in-out;
-}
-
-#slide1_images img {
-padding:0;
-margin:0;
-float:left;
-} */
