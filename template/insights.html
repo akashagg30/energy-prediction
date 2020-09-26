@@ -200,20 +200,22 @@
         {% endif %}
       </table>
     </div>
+
+<!-- ------------------------------------------ graphs ---------------------------------------- -->
 <div class="reports">
   <h1 onclick=toggle("charts")>Reports</h1>
   <div id="charts" style="width: 100%;">
     {% if user_inputs|length > 9 %}
       <canvas id="chart1"></canvas><br><br>
       <!-- form to handle search query -->
-      <input type="text" id="temperature" list="temperature_list" value="all">
+      temperature : <input type="text" id="temperature" list="temperature_list" value="all">
       <datalist id="temperature_list">
         <option value="all">all</option>
         {% for data in user_inputs %}
           <option value="{{data.air_temperature}}">{{data.air_temperature}}</option>
         {% endfor %}
       </datalist>
-      <input type="text" id="floor_count" list="floor_list">
+      floor count : <input type="text" id="floor_count" list="floor_list" value="all">
       <datalist id="floor_list">
         <option value="all">all</option>
         {% for data in user_inputs %}
@@ -288,6 +290,7 @@
         })
       }
 
+      draw_chart();
   {% endif %}
 </script>
 </main>
