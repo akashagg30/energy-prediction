@@ -47,7 +47,8 @@ urlpatterns = [
     path('exportcsv',views.export_csv),
     path('uploadfile',views.uploadfile),
     # ------------ system resource monitor --------
-
     path('resources',resources.system_resource_monitor),
     path('resources/get',resources.resource_info),
+    # ------------- for fetching data realted to chatrs -------------
+    path('insights/get',report.make_graph)
     ]

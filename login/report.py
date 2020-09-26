@@ -8,7 +8,10 @@ from .models import *
 from .decorators import unauthenticated_user, admin_only
 
 from login.models import Energy_Data as db
+from django.views.decorators.csrf import csrf_exempt
 import numpy as np
+import json
+from django.http import HttpResponse
 # def extract
 
 
@@ -32,8 +35,8 @@ def make_bins(X, Y):
     n = 0
     sum = 0
 
-    if len(X)==0:
-        return (new_X,new_Y)
+    if len(X) == 0:
+        return (new_X, new_Y)
 
     X, Y = sort_list(X, Y)
     # calculating bin size
@@ -66,8 +69,9 @@ def make_bins(X, Y):
 def make_bars(X, Y):
     new_X = []
     new_Y = []
-    
-    if len(X)==0: return (new_X,new_Y)
+
+    if len(X) == 0:
+        return (new_X, new_Y)
 
     # dictionary having floors as key and [sum_of_electricity,count] as value for calculating mean
     floor = {}
@@ -81,21 +85,21 @@ def make_bars(X, Y):
         new_Y.append(floor[x][0]/floor[x][1])
     return (new_X, new_Y)
 
+
 @login_required(login_url='/login')
 def Report(request):
     data = db.objects.filter(username=request.user.id).values()
-
-    area=[]
-    floorcount=[]
-    age=[]
-    temperature=[]
-    electrictiy=[]
+    area = []
+    floorcount = []
+    age = []
+    temperature = []
+    electrictiy = []
 
     for x in data:
         area.append(x['building_size'])
         floorcount.append(x['floor_count'])
         age.append(x['year_built'])
-        temperature.append(x['air_temeprature'])
+        temperature.append(x['air_temperature'])
         electrictiy.append(x['meter_reading'])
 
     # generating data for sending to charts to renger them
@@ -107,13 +111,11 @@ def Report(request):
     X_Age_vs_electricity, Y_Age_vs_electricity = make_bars(
         age, electrictiy)
 
-    print(X_Temperature_vs_electricity)
-
 
     if request.user.is_authenticated:
         user_id = request.user.id
     # print(user_id)
-    user_inputs = Energy_Data.objects.filter(username = user_id)
+    user_inputs = Energy_Data.objects.filter(username=user_id)
     # print(user_inputs)
 
     return render(request, 'insights.html', {
@@ -129,5 +131,32 @@ def Report(request):
         'X_Age_vs_electricity': X_Age_vs_electricity,
         'Y_Age_vs_electricity': Y_Age_vs_electricity,
 
-        'user_inputs':user_inputs
+        'user_inputs': user_inputs
     })
+
+@csrf_exempt
+def make_graph(request):
+    data=request.body.decode("utf-8")   
+    data=data.split("|")
+    temperature = data[0]
+    floor_count = data[1]
+    if temperature == 'all' and floor_count == 'all':
+        data = db.objects.filter(username=request.user.id).values()
+    elif temperature == 'all':
+        data = db.objects.filter(username=request.user.id, floor_count=int(floor_count)).values()
+    elif floor_count == 'all':
+        data = db.objects.filter(username=request.user.id, air_temperature=float(temperature)).values()
+    else:
+        data = db.objects.filter(username=request.user.id, air_temperature=float(temperature), floor_count=int(floor_count)).values()
+    
+    print(data)
+    area = []
+    electrictiy = []
+
+    for x in data:
+        area.append(x['building_size'])
+        electrictiy.append(x['meter_reading'])
+    X_Area_vs_electricity, Y_Area_vs_electricity = make_bins(area, electrictiy)
+
+    json_data=json.dumps({'X' : X_Area_vs_electricity, 'Y' : Y_Area_vs_electricity})
+    return HttpResponse(json_data,content_type="application/json")

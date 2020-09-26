@@ -1,4 +1,5 @@
 {% load static %}
+{% csrf_token %}
 <!doctype html>
 <html class="no-js" lang="zxx">
 
@@ -168,60 +169,62 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
-    <div class = "container">
+    <div class = container>
       <h1 onclick=toggle('history')>Prediction History</h1>
-      <div id="history">
-
-        <table class = "userdetails">
-          {% if user_inputs %}
-            <tr class = "head">
-              <td>SNo.</td>
-              <td>Date Created</td>
-              <td>Air Temperature</td>
-              <td>Dew Temperature</td>
-              <td>Precip Depth</td>
-              <td>Building Size</td>
-              <td>Year Built</td>
-              <td>Floor Count</td>
-              <td>Meter Reading</td>
+      <table id='history' class = "userdetails">
+        {% if user_inputs %}
+          <tr class = "head">
+            <td>SNo.</td>
+            <td>Date Created</td>
+            <td>Air Temperature</td>
+            <td>Dew Temperature</td>
+            <td>Precip Depth</td>
+            <td>Building Size</td>
+            <td>Year Built</td>
+            <td>Floor Count</td>
+            <td>Meter Reading</td>
+          </tr>
+          {% for data in user_inputs %}
+            <tr class="body">
+              <td>{{forloop.counter}}</td>
+              <td>{{data.date_created}}</td>
+              <td>{{data.air_temperature}}</td>
+              <td>{{data.dew_temperature}}</td>
+              <td>{{data.precip_depth}}</td>
+              <td>{{data.building_size}}</td>
+              <td>{{data.year_built}}</td>
+              <td>{{data.floor_count}}</td>
+              <td>{{data.meter_reading}}</td>
             </tr>
-            {% for data in user_inputs %}
-              <tr class="body">
-                <td>{{forloop.counter}}</td>
-                <td>{{data.date_created}}</td>
-                <td>{{data.air_temperature}}</td>
-                <td>{{data.dew_temperature}}</td>
-                <td>{{data.precip_depth}}</td>
-                <td>{{data.building_size}}</td>
-                <td>{{data.year_built}}</td>
-                <td>{{data.floor_count}}</td>
-                <td>{{data.meter_reading}}</td>
-              </tr>
-            {% endfor %}
-          {% endif %}
-        </table>
-
-      </div>
-
+          {% endfor %}
+        {% endif %}
+      </table>
     </div>
 <div class="reports">
   <h1 onclick=toggle("charts")>Reports</h1>
   <div id="charts" style="width: 100%;">
-    {% if X_Area_vs_electricity|length > 1 %}
-      <div class="left">
-        <canvas id="chart1"></canvas><br><br>
-        <canvas id="chart2"></canvas>
-
-      </div>
-      <div class="right">
-        <canvas id="chart3"></canvas><br><br>
-        <canvas id="chart4"></canvas>
-
-      </div>
-
+    {% if user_inputs|length > 9 %}
+      <canvas id="chart1"></canvas><br><br>
+      <!-- form to handle search query -->
+      <input type="text" id="temperature" list="temperature_list" value="all">
+      <datalist id="temperature_list">
+        <option value="all">all</option>
+        {% for data in user_inputs %}
+          <option value="{{data.air_temperature}}">{{data.air_temperature}}</option>
+        {% endfor %}
+      </datalist>
+      <input type="text" id="floor_count" list="floor_list">
+      <datalist id="floor_list">
+        <option value="all">all</option>
+        {% for data in user_inputs %}
+          <option value="{{data.floor_count}}">{{data.floor_count}}</option>
+        {% endfor %}
+      </datalist>
+      <button onclick=draw_chart()>show</button><br><br>
+      <canvas id="chart2"></canvas>
 
     {% else %}
-      <p>no data available</p>
+      <p>not enough data</p>
     {% endif %}
   </div>
 
@@ -244,7 +247,7 @@
   </script>
 
   <script>
-    {% if X_Area_vs_electricity|length > 1 %}
+    {% if user_inputs|length > 9 %}
       function area_vs_electricity(){
           var ctx= document.getElementById('chart1').getContext('2d');
 
@@ -263,65 +266,28 @@
           })
       }
       area_vs_electricity();
-
-
-    function floorcount_vs_electricity(){
+      
+      async function draw_chart(){
+        var req= document.getElementById('temperature').value+'|'+document.getElementById('floor_count').value
+        var data= await fetch('insights/get',{method:'POST', body : req})
+        data = await data.json()
         var ctx= document.getElementById('chart2').getContext('2d');
-
-        var chart = new Chart(ctx,{
-            type : 'line',
-            data : {
-                // X axis
-                labels: {{X_Floorcount_vs_electricity|safe}},
-                datasets: [{
-                    // Y label
-                    label: 'Mean Meter Reading',
-                    // Y axis
-                    data : {{Y_Floorcount_vs_electricity|safe}},
-                }]
-            }
-        })
-    }
-
-    function temprature_vs_electricity(){
-        var ctx= document.getElementById('chart3').getContext('2d');
-
-        var chart = new Chart(ctx,{
-            type : 'line',
-            data : {
-                // X axis
-                labels: {{X_Temperature_vs_electricity|safe}},
-                datasets: [{
-                    // Y label
-                    label: 'Mean Meter Reading',
-                    // Y axis
-                    data : {{Y_Temperature_vs_electricity|safe}},
-                }]
-            }
-        })
-    }
-
-    function age_vs_electricity(){
-        var ctx= document.getElementById('chart4').getContext('2d');
 
         var chart = new Chart(ctx,{
             type : 'bar',
             data : {
                 // X axis
-                labels: {{X_Age_vs_electricity|safe}},
+                labels: data['X'],
                 datasets: [{
                     // Y label
                     label: 'Mean Meter Reading',
                     // Y axis
-                    data : {{Y_Age_vs_electricity|safe}},
+                    data : data['Y'],
                 }]
             }
         })
-    }
+      }
 
-    floorcount_vs_electricity();
-    temprature_vs_electricity();
-    age_vs_electricity();
   {% endif %}
 </script>
 </main>
