@@ -34,7 +34,7 @@ def customers_only(view_func):
         print("h",group)
         if group == 'customer':
             return view_func(request,*args,**kwargs)
-        elif group == 'admin':
+        else:
             return redirect('/adminhome')
             #return redirect('/logout')
             # auth.logout(request)
@@ -48,9 +48,9 @@ def admin_only(view_func):
         if request.user.groups.exists():
             group = request.user.groups.all()[0].name
         print("HI",group)
-        if group == 'admin':
+        if group != 'customer':
             return view_func(request,*args,**kwargs)
-        elif group == 'customer':
+        else:
             return redirect('/home')
             #return redirect('/logout')
             # auth.logout(request)

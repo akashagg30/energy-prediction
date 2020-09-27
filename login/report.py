@@ -139,7 +139,6 @@ def Report(request):
 
         'X_Age_vs_electricity': X_Age_vs_electricity,
         'Y_Age_vs_electricity': Y_Age_vs_electricity,
-
         'users':users
     })
 

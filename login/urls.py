@@ -45,6 +45,7 @@ urlpatterns = [
     path('userdetails',views.userdetails),
     path('exportcsv',views.export_csv),
     path('uploadfile',views.uploadfile),
+    path('adminfilter',views.adminfilter),
     # ------------ system resource monitor --------
     path('resources',resources.system_resource_monitor),
     path('resources/get',resources.resource_info),

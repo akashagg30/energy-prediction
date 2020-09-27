@@ -20,6 +20,7 @@ def system_resource_monitor(request):
 @csrf_protect
 def resource_info(request):
     user = "team07"
+    # user = "ghost38o"
     ps = Popen(['ps', 'aux'], stdout=PIPE)
     ps = ps.communicate()[0]
     grep = Popen(['grep', user], stdout=PIPE, stdin=PIPE)

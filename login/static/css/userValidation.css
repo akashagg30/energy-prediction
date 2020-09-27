@@ -6,20 +6,22 @@
  .tooltiptextUname,
  .tooltiptextConfirmPwd{
   visibility: hidden;
-  width: 27%;
+  /* width: 27%; */
+  width: 30%;
   background-color: #A6ACAF ;
   /* background-color: #1ab188; */
   color: black;
   text-align: center;
   border-radius: 14px;
   padding: 9px 0;
-  margin-top: 4%;
+  /* margin-top: 4%; */
   font-weight: bold;
+  /* margin-left: 12%; */
 
   /* Position the tooltip */
   position: absolute;
   z-index: 1;
-  left: 13%;
+  left: 6%;
 }
 
 span.tooltiptextEmail::before,
@@ -35,17 +37,17 @@ span.tooltiptextUname::before,
       border-width: 10px;
       border-style: solid;
       border-color: transparent transparent #A6ACAF  transparent;
-      top: -25%;
+      top: -19%;
       left: 55%;
       transform: translate(calc(-100% - 5px), -50%);
 }
 
   .tooltiptextPwd, .tooltiptextConfirmPwd {
     width: 17%;
-    margin-top: 4%;
-    left: 11%;
+    /* margin-top: 4%; */
+    left: 5%;
 }
 
   .tooltiptextConfirmPwd{
-    left: 25%;
+    left: 20%;
 }

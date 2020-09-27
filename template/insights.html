@@ -12,7 +12,7 @@
   <!-- <link rel="manifest" href="site.webmanifest"> -->
   <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}">
 
-  <!-- CSS here -->
+
 
 
   <!-- Latest compiled and minified CSS -->
@@ -24,7 +24,7 @@
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-
+  <!-- CSS here -->
   <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
   <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
   <link rel="stylesheet" href="{% static 'css/slicknav.css' %}">
@@ -262,29 +262,30 @@
 <!-- ------------------------------------------ graphs ---------------------------------------- -->
 <div class="reports">
   <h1>Reports</h1>
-  <div id="charts" style="width: 100%;">
-    {% if user_inputs|length > 9 %}
+  <div id="charts" style="width: 70%;margin-left:15%">
+    <br>
+    {% if users|length > 9 %}
       <canvas id="chart1"></canvas><br><br>
       <!-- form to handle search query -->
       temperature : <input type="text" id="temperature" list="temperature_list" value="all">
       <datalist id="temperature_list">
         <option value="all">all</option>
-        {% for data in user_inputs %}
+        {% for data in users %}
           <option value="{{data.air_temperature}}">{{data.air_temperature}}</option>
         {% endfor %}
       </datalist>
       floor count : <input type="text" id="floor_count" list="floor_list" value="all">
       <datalist id="floor_list">
         <option value="all">all</option>
-        {% for data in user_inputs %}
+        {% for data in users %}
           <option value="{{data.floor_count}}">{{data.floor_count}}</option>
         {% endfor %}
-      </datalist>
-      <button onclick=draw_chart()>show</button><br><br>
+      </datalist><br><br>
+      <button style="width:10%;background-color:rgb(117, 117, 185);border-radius:5px;" onclick=draw_chart()>show</button><br><br>
       <canvas id="chart2"></canvas>
 
     {% else %}
-      <p>not enough data</p>
+      <p>Not enough data</p>
     {% endif %}
   </div>
 
@@ -306,7 +307,7 @@
   </script> -->
 
   <script>
-    {% if user_inputs|length > 9 %}
+    {% if users|length > 9 %}
       function area_vs_electricity(){
           var ctx= document.getElementById('chart1').getContext('2d');
 

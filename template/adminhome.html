@@ -5,11 +5,19 @@
     <meta charset="utf-8">
     <title>Admin</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
     <link rel="stylesheet" href="{% static 'css/adminhome.css' %}">
     <link rel="stylesheet" href="{% static 'css/userdetails.css' %}">
 
 
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}">
     <style media="screen">
     .container{
@@ -27,7 +35,7 @@
         <div class="logo">
           <a href="/adminhome"><img src="{% static 'img/logo/virtusa-footer-logo.png' %}" alt=""></a>
         </div>
-        <div class="wrapper">
+        <div class="headwrapper">
           <nav>
             <ul class="top">
               <li class="sub4"><a href="/adminhome">DataBase Search</a></li>
@@ -49,7 +57,7 @@
     </div>
 
     <div class="content">
-      <form class="" action="" method="post">
+      <form class="" action="/adminfilter" method="post">
         {% csrf_token %}
         <div class="meterdetails">
           <fieldset>
@@ -57,7 +65,7 @@
             <table>
               <tr>
                 <td class="col1"><label for="">Meter Type:</label></td>
-                <td><select style="width:97%;height:45px;" name="meter_type">
+                <td><select style="width:90%;height:45px;" name="meter_type">
                     <option selected disabled>Choose Tagging</option>
                     <option value="electricity">Electricity</option>
                     <option value="chilledwater">Chilled Water</option>
@@ -110,7 +118,7 @@
                 <td>
                   <!-- <input type="text" name="" list="uses" placeholder="Primary use of Building">
                   <datalist id="uses"> -->
-                  <select style="width:97%;height:45px;" name="primary_use">
+                  <select style="width:90%;height:45px;" name="primary_use">
                       <option selected disabled>Choose Tagging</option>
                       <option>Education</option>
                       <option>Entertainment/public assembly</option>
@@ -318,7 +326,7 @@
       </tr>
     {% for data in users %}
         <tr class="body">
-          <td>{{forloop.counter}}</td>
+          <td>{{forloop.counter0|add:users.start_index}}</td>
           <td>{{data.username}}</td>
           <td>{{data.date_created}}</td>
           <td>{{data.building_id}}</td>

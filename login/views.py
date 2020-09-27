@@ -627,104 +627,109 @@ def export_csv(request):
 @login_required(login_url='/login')
 @admin_only
 def adminhome(request):
-    if request.method == 'POST':
-        meter_type = request.POST.get('meter_type')
-        if meter_type:
-            meter_type = meter_type.lower()
-        meter_reading1 = request.POST.get('meter_reading1')
-        meter_reading2 = request.POST.get('meter_reading2')
-
-        timestamp1 = None
-        timestamp2 = None
-        date_in1 = request.POST.get('timestamp1')
-        if date_in1:
-            timestamp1 = datetime(*[int(v) for v in date_in1.replace('T', '-').replace(':', '-').split('-')])
-        date_in2 = request.POST.get('timestamp2')
-        if date_in2:
-            timestamp2 = datetime(*[int(v) for v in date_in2.replace('T', '-').replace(':', '-').split('-')])
-
-        primary_use = request.POST.get('primary_use')
-        if primary_use:
-            primary_use = primary_use.lower()
-        year_built1 = request.POST.get('year_built1')
-        year_built2 = request.POST.get('year_built2')
-        building_size1 = request.POST.get('building_size1')
-        building_size2 = request.POST.get('building_size2')
-        floor_count1 = request.POST.get('floor_count1')
-        floor_count2 = request.POST.get('floor_count2')
-        wind_speed1 = request.POST.get('wind_speed1')
-        wind_speed2 = request.POST.get('wind_speed2')
-        wind_direction1 = request.POST.get('wind_direction1')
-        wind_direction2 = request.POST.get('wind_direction2')
-        cloud_coverage1 = request.POST.get('cloud_coverage1')
-        cloud_coverage2 = request.POST.get('cloud_coverage2')
-        air_temperature1 = request.POST.get('air_temperature1')
-        air_temperature2 = request.POST.get('air_temperature2')
-        dew_temperature1 = request.POST.get('dew_temperature1')
-        dew_temperature2 = request.POST.get('dew_temperature2')
-        precip_depth1 = request.POST.get('precip_depth1')
-        precip_depth2 = request.POST.get('precip_depth2')
-        sea_level_pressure1 = request.POST.get('sea_level_pressure1')
-        sea_level_pressure2 = request.POST.get('sea_level_pressure2')
-
-        print(meter_type)
-        print(meter_reading1," ",meter_reading2)
-        print(timestamp1," ",timestamp2)
-        print(primary_use)
-        print(year_built1," ",year_built2)
-        print(building_size1," ",building_size2)
-        print(floor_count1," ",floor_count2)
-        print(wind_speed1," ",wind_speed2)
-        print(wind_direction1," ",wind_direction2)
-        print(cloud_coverage1," ",cloud_coverage2)
-        print(air_temperature1," ",air_temperature2)
-        print(dew_temperature1," ",dew_temperature2)
-        print(precip_depth1," ",precip_depth2)
-        print(sea_level_pressure1," ",sea_level_pressure2)
-        #filtered_data = Energy_prediction_Data.objects.all()
-        filtered_data = Energy_Data.objects.all().order_by('-date_created')
-        print(filtered_data)
-        if meter_type:
-            filtered_data = filtered_data.filter(meter_type=meter_type).order_by('-date_created')
-        if meter_reading1 and meter_reading2:
-            filtered_data = filtered_data.filter(meter_reading__range = [meter_reading1,meter_reading2]).order_by('-date_created')
-        if timestamp1 and timestamp2:
-            filtered_data = filtered_data.filter(timestamp__range = [timestamp1,timestamp2]).order_by('-date_created')
-        if primary_use:
-            primary_use = filtered_data.filter(primary_use=primary_use).order_by('-date_created')
-        if year_built2 and year_built2:
-            filtered_data = filtered_data.filter(year_built__range = [year_built1,year_built2]).order_by('-date_created')
-        if building_size1 and building_size2:
-            filtered_data = filtered_data.filter(building_size__range = [building_size1,building_size2]).order_by('-date_created')
-        if floor_count1 and floor_count2:
-            filtered_data = filtered_data.filter(floor_count__range = [floor_count1,floor_count2]).order_by('-date_created')
-        if wind_speed1 and wind_speed2:
-            filtered_data = filtered_data.filter(wind_speed__range = [wind_speed1, wind_speed2]).order_by('-date_created')
-        if wind_direction1 and wind_direction2:
-            filtered_data = filtered_data.filter(wind_direction__range = [wind_direction1, wind_direction2]).order_by('-date_created')
-        if cloud_coverage1 and cloud_coverage2:
-            filtered_data = filtered_data.filter(cloud_coverage__range = [cloud_coverage1, cloud_coverage2]).order_by('-date_created')
-        if air_temperature1 and air_temperature2:
-            filtered_data = filtered_data.filter(air_temperature__range = [air_temperature1,air_temperature2]).order_by('-date_created')
-        if dew_temperature1 and dew_temperature2:
-            filtered_data = filtered_data.filter(dew_temperature__range = [dew_temperature1,dew_temperature2]).order_by('-date_created')
-        if precip_depth1 and precip_depth2:
-            filtered_data = filtered_data.filter(precip_depth_1_hr__range = [precip_depth1,precip_depth2]).order_by('-date_created')
-        if sea_level_pressure1 and sea_level_pressure2:
-            filtered_data = filtered_data.filter(sea_level_pressure__range = [sea_level_pressure1, sea_level_pressure2]).order_by('-date_created')
-        print(filtered_data)
-
-        page = request.GET.get('page',1)
-        paginator = Paginator(filtered_data, 10)
-        try:
-            users = paginator.page(page)
-        except PageNotAnInteger:
-            users = paginator.page(10)
-        except EmptyPage:
-            users = paginator.page(paginator.num_pages)
-        return render(request,'adminhome.html',{'users': users})
     return render(request, 'adminhome.html')
 
+@login_required(login_url='/login')
+def adminfilter(request):
+    #if request.method == 'POST':
+    meter_type = request.POST.get('meter_type')
+    if meter_type:
+        meter_type = meter_type.lower()
+    meter_reading1 = request.POST.get('meter_reading1')
+    meter_reading2 = request.POST.get('meter_reading2')
+
+    timestamp1 = None
+    timestamp2 = None
+    date_in1 = request.POST.get('timestamp1')
+    if date_in1:
+        timestamp1 = datetime(*[int(v) for v in date_in1.replace('T', '-').replace(':', '-').split('-')])
+    date_in2 = request.POST.get('timestamp2')
+    if date_in2:
+        timestamp2 = datetime(*[int(v) for v in date_in2.replace('T', '-').replace(':', '-').split('-')])
+
+    primary_use = request.POST.get('primary_use')
+    if primary_use:
+        primary_use = primary_use.lower()
+    year_built1 = request.POST.get('year_built1')
+    year_built2 = request.POST.get('year_built2')
+    building_size1 = request.POST.get('building_size1')
+    building_size2 = request.POST.get('building_size2')
+    floor_count1 = request.POST.get('floor_count1')
+    floor_count2 = request.POST.get('floor_count2')
+    wind_speed1 = request.POST.get('wind_speed1')
+    wind_speed2 = request.POST.get('wind_speed2')
+    wind_direction1 = request.POST.get('wind_direction1')
+    wind_direction2 = request.POST.get('wind_direction2')
+    cloud_coverage1 = request.POST.get('cloud_coverage1')
+    cloud_coverage2 = request.POST.get('cloud_coverage2')
+    air_temperature1 = request.POST.get('air_temperature1')
+    air_temperature2 = request.POST.get('air_temperature2')
+    dew_temperature1 = request.POST.get('dew_temperature1')
+    dew_temperature2 = request.POST.get('dew_temperature2')
+    precip_depth1 = request.POST.get('precip_depth1')
+    precip_depth2 = request.POST.get('precip_depth2')
+    sea_level_pressure1 = request.POST.get('sea_level_pressure1')
+    sea_level_pressure2 = request.POST.get('sea_level_pressure2')
+
+    print(meter_type)
+    print(meter_reading1," ",meter_reading2)
+    print(timestamp1," ",timestamp2)
+    print(primary_use)
+    print(year_built1," ",year_built2)
+    print(building_size1," ",building_size2)
+    print(floor_count1," ",floor_count2)
+    print(wind_speed1," ",wind_speed2)
+    print(wind_direction1," ",wind_direction2)
+    print(cloud_coverage1," ",cloud_coverage2)
+    print(air_temperature1," ",air_temperature2)
+    print(dew_temperature1," ",dew_temperature2)
+    print(precip_depth1," ",precip_depth2)
+    print(sea_level_pressure1," ",sea_level_pressure2)
+    #filtered_data = Energy_prediction_Data.objects.all()
+    filtered_data = Energy_Data.objects.all().order_by('-date_created')
+    print(filtered_data)
+    if meter_type:
+        filtered_data = filtered_data.filter(meter_type=meter_type)
+    if meter_reading1 and meter_reading2:
+        filtered_data = filtered_data.filter(meter_reading__range = [meter_reading1,meter_reading2])
+    if timestamp1 and timestamp2:
+        filtered_data = filtered_data.filter(timestamp__range = [timestamp1,timestamp2])
+    if primary_use:
+        filtered_data= filtered_data.filter(primary_use=primary_use)
+    if year_built2 and year_built2:
+        filtered_data = filtered_data.filter(year_built__range = [year_built1,year_built2])
+    if building_size1 and building_size2:
+        filtered_data = filtered_data.filter(building_size__range = [building_size1,building_size2])
+    if floor_count1 and floor_count2:
+        filtered_data = filtered_data.filter(floor_count__range = [floor_count1,floor_count2])
+    if wind_speed1 and wind_speed2:
+        filtered_data = filtered_data.filter(wind_speed__range = [wind_speed1, wind_speed2])
+    if wind_direction1 and wind_direction2:
+        filtered_data = filtered_data.filter(wind_direction__range = [wind_direction1, wind_direction2])
+    if cloud_coverage1 and cloud_coverage2:
+        filtered_data = filtered_data.filter(cloud_coverage__range = [cloud_coverage1, cloud_coverage2])
+    if air_temperature1 and air_temperature2:
+        filtered_data = filtered_data.filter(air_temperature__range = [air_temperature1,air_temperature2])
+    if dew_temperature1 and dew_temperature2:
+        filtered_data = filtered_data.filter(dew_temperature__range = [dew_temperature1,dew_temperature2])
+    if precip_depth1 and precip_depth2:
+        filtered_data = filtered_data.filter(precip_depth_1_hr__range = [precip_depth1,precip_depth2])
+    if sea_level_pressure1 and sea_level_pressure2:
+        filtered_data = filtered_data.filter(sea_level_pressure__range = [sea_level_pressure1, sea_level_pressure2])
+    print(filtered_data)
+
+    page = request.GET.get('page',1)
+    paginator = Paginator(filtered_data, 10)
+    try:
+        users = paginator.page(page)
+    except PageNotAnInteger:
+        users = paginator.page(1)
+    except EmptyPage:
+        users = paginator.page(paginator.num_pages)
+    print(page)
+    print(paginator)
+    print(users)
+    return render(request,'adminhome.html',{'users': users})
 
 
 @login_required(login_url='/login')

@@ -207,7 +207,7 @@
                         <td class="col2"><input type="number" name="building_id" required placeholder="Enter Building Number" min="0"></td>
                     </tr>
                   <tr>
-                    <td class="col1"><label>Meter Type:<span style="color:red">&nbsp*</span></label></td>
+                    <td class="col1"><label>Meter Type:</label></td>
                     <td  class="col2">
                       <select name="meter_type">
                         <option selected disabled>Choose Tagging</option>
@@ -229,17 +229,17 @@
                   </tr>
 
                   <tr>
-                    <td class="col1"><label for="">Cloud Coverage:<span style="color:red">&nbsp*</span></label></td>
+                    <td class="col1"><label for="">Cloud Coverage:</label></td>
                     <td  class="col2"><input type="number" name="cloud_coverage" value="cloud_coverage" min="0" placeholder="Enter Cloud Coverage"></td>
                   </tr>
 
                   <tr>
-                    <td class="col1"><label for="">Dew Temperature:<span style="color:red">&nbsp*</span></label></td>
+                    <td class="col1"><label for="">Dew Temperature:</label></td>
                     <td  class="col2"><input type="number"  name = "dew_temperature" value="dewtemperature" placeholder="Enter temperature Dew" step="any"></td>
                   </tr>
 
                   <tr>
-                    <td class="col1"><label for="">Precip depth for 1 hr:<span style="color:red">&nbsp*</span></label></td>
+                    <td class="col1"><label for="">Precip depth for 1 hr:</label></td>
                     <td  class="col2"><input type="number" name = "precip_depth" value="precipdepth" placeholder="Enter Precip depth for 1 hr" ></td>
                   </tr>
 
@@ -249,11 +249,11 @@
                 <div class="rightTab">
                   <table class="inputTable">
                     <tr>
-                      <td class="col1"><label for="">Sea level Pressure:<span style="color:red">&nbsp*</span></label></td>
+                      <td class="col1"><label for="">Sea level Pressure:</label></td>
                       <td class="col2"><input type="number" name = "sea_level_pressure" min="0" value="sealevelpressure" placeholder="Enter Sea Level Pressure" step="any"></td>
                     </tr>
                     <tr>
-                      <td class="col1"><label for="">Primary Use:<span style="color:red">&nbsp*</span></label></td>
+                      <td class="col1"><label for="">Primary Use:</label></td>
                       <td  class="col2">
                         <select name="primary_use">
                           <option selected disabled>Choose Tagging</option>
@@ -296,12 +296,12 @@
                       </td>
                     </tr>
                     <tr>
-                      <td class="col1"><label for="">Wind Direction:<span style="color:red">&nbsp*</span></label></td>
+                      <td class="col1"><label for="">Wind Direction:</label></td>
                       <td  class="col2"><input type="number" name="wind_direction" min="0"value="wind_direction" placeholder="Enter Wind Direction"></td>
                     </tr>
 
                     <tr>
-                      <td class="col1"><label for="">Wind Speed:<span style="color:red">&nbsp*</span></label></td>
+                      <td class="col1"><label for="">Wind Speed:</label></td>
                       <td  class="col2"><input type="number" name= "wind_speed" min="0" value="wind_speed" placeholder="Enter Wind Speed" step="any"></td>
                     </tr>
 
@@ -319,8 +319,8 @@
                     </tr>
 
                     <tr>
-                      <td class="col1"><label for="">Floor Count:<span style="color:red">&nbsp*</span></label></td>
-                      <td  class="col2"><input type="number" name="floor_count" value="" min="0" placeholder="No of floors in building" </td>
+                      <td class="col1"><label for="">Floor Count:</label></td>
+                      <td  class="col2"><input type="number" name="floor_count" value="" min="0" placeholder="No of floors in building"> </td>
                     </tr>
                   </table>
                 </div>
@@ -330,7 +330,7 @@
             </div>
 
           </form>
-          <br><br><br>
+          <br><br>
           {% if scoreval %}
             <h3 class="output">Your Property would consume <b style="color: coral;">{{scoreval}}</b>  units of power for every hour </h3>
             <br>

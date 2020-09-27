@@ -1,7 +1,7 @@
 body{
   position: relative;
   margin-top:6%;
-  background-image: url(../img/hero/inputbg.jpg);
+  background-image: url(../img/hero/b8.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -15,7 +15,7 @@ body::before{
   right: 0px;
   bottom: 0px;
   left: 0px;
-  background-color: rgba(0,0,0,0.7);
+   background-color: rgba(255,255,255,0.5);;
 }
 
 .virtusa{
@@ -33,11 +33,11 @@ body::before{
 }
 
 .tabContainer .text{
-  margin-left: 15%;
+  margin-left: 13%;
   font-size: 1.6em;
   margin-top: 1%;
   text-align: center;
-  color: white
+  color: black
 }
 .inputForm{
   width: 100%;
@@ -114,7 +114,7 @@ body::before{
     .output{
       margin-left: 25%;
       font-size: 1.3em;
-      color: white;
+      color: black;
     }
     .inputTable input{
       /* background-color: #e5edf1; */
@@ -132,10 +132,11 @@ body::before{
         padding-right: 30px;
         user-select: none;
         padding-top: 0;
+        border: 2px solid black;
         /* padding-bottom: 10px; */
-        width: 260px;
-        z-index: 1000;
-        /* width: 70% */
+        /* width: 260px; */
+        /* z-index: 1000; */
+        width: 66%
       }
 .nice-select .option {
   color: black;
@@ -156,7 +157,16 @@ body::before{
   width: 70%
 }
 
-.insights{
+.insightscontainer{
   height: 2.3em;
-  background-color: linear-gradient(to bottom, #1291DD , #075584);
+  width: 10%;
+  border-radius:10px;
+  background: linear-gradient(to bottom, #1291DD , #075584);
+  padding-left: 10px;
+  padding-top: 3px;;
+  margin-left: 43%;
+}
+.insightscontainer .insights{
+  font-size: 1.2em;
+  font-weight: 500;
 }

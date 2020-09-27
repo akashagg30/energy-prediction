@@ -7421,6 +7421,7 @@ b, sup, sub, u, del {
   padding-top: 3%;
   padding-right: 15%;
   font-weight: bold;
+  color: black;
   /* margin-right: 20%; */
 }
 
