@@ -5,13 +5,13 @@
     <meta charset="utf-8">
     <title>Admin</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
-    <link rel="stylesheet" href="{% static 'css/adminhome.css' %}">
-    <link rel="stylesheet" href="{% static 'css/userdetails.css' %}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
 
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
 
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -25,17 +25,19 @@
       margin-bottom: 17%;
     }
     </style>
+    <link rel="stylesheet" href="{% static 'css/adminhome.css' %}">
+    <link rel="stylesheet" href="{% static 'css/userdetails.css' %}">
 
 
   </head>
   <body>
 
     <div class="header">
-      <div class="headcontainer">
+      <div id="headcontainer">
         <div class="logo">
           <a href="/adminhome"><img src="{% static 'img/logo/virtusa-footer-logo.png' %}" alt=""></a>
         </div>
-        <div class="headwrapper">
+        <div id="headwrapper">
           <nav>
             <ul class="top">
               <li class="sub4"><a href="/adminhome">DataBase Search</a></li>
@@ -45,11 +47,10 @@
                   <i class="fa fa-user" aria-hidden="true"></i>
                   <i class="fa fa-caret-down" aria-hidden="true"></i>
                   <ul class="submenu">
-                      <li><a class="sub" style="font-weight: normal;" href="/customerhome">Customer Pane</a></li><hr>
+                      <li><a class="sub" style="font-weight: normal;" href="/customerhome">Customer Panel</a></li><hr>
                       <li><a class="sub" style="font-weight: normal;" href="/logout">Logout</a></li>
                   </ul>
               </li>
-              <!-- <li class="sub1"><a href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i></a></li> -->
             </ul>
           </nav>
         </div>
@@ -347,8 +348,8 @@
         </tr>
     {% endfor %}
     {% else %}
-      <br>
-        <h3>No Data to Show</h3>
+      <!-- <br> -->
+        <h3 style="text-align:center">No filters applied.</h3>
     {% endif %}
     </table>
     <div>
@@ -366,7 +367,7 @@
           {% endfor %}
           {% if users.has_next %}
             <li><a href="?page={{users.next_page_number}}">&raquo;</a></li>
-          {% else %} 
+          {% else %}
             <li class="disabled"><span>&raquo;</span></li>
           {% endif %}
         </ul>

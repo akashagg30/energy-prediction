@@ -33,16 +33,11 @@ def login(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
-        print(username)
-        print(password)
         user = auth.authenticate(username=username,password=password)
-        print(user)
         if user is not None:
             auth.login(request,user)
-            print('Login Done')
             return redirect('/home')
         else:
-            print('Wrong')
             messages.info(request,'Invalid Credentials')
             return redirect('/')
 
@@ -58,30 +53,23 @@ def signup(request):
         password1 = request.POST['password1']
         password2 = request.POST['password2']
         email = request.POST['email']
-        print(password1)
-        print(password2)
         if password1 == password2:
             if User.objects.filter(username=username).exists():
                 messages.info(request,'Username Taken')
-                print('Username taken')
                 return redirect('/signup')
             elif User.objects.filter(email=email).exists():
                 messages.info(request,'Email Taken')
-                print('Email taken')
                 return redirect('/signup')
             else:
                 user = User.objects.create_user(username=username, password = password1, email = email, first_name = first_name, last_name = last_name)
                 user.save()
                 group = Group.objects.get(name = 'customer')
                 user.groups.add(group)
-                #messages.info(request,'User Created')
-                print('user created')
                 auth.login(request,user)
                 return redirect('/home')
 
         else:
             messages.info(request,'password not matchedUsername Taken')
-            print('password not matched')
             return redirect('/signup')
     else:
         return render(request,'signup.html')
@@ -133,15 +121,11 @@ def predict(request):
             meter_type = meter_type.lower()
 
         date_in = request.POST.get('timestamp')
-        print(date_in)
         if date_in:
             date_out = datetime(*[int(v) for v in date_in.replace('T', '-').replace(':', '-').split('-')])
             month = date_out.month
         else:
             month = None
-        # print(date_out)
-        # print(type(date_out))
-        # month = date_out.month
 
         temp['air_temperature'] = request.POST.get('air_temperature')
         temp['cloud_coverage'] = request.POST.get('cloud_coverage')
@@ -151,12 +135,10 @@ def predict(request):
         primary_use = request.POST.get('primary_use')
         if primary_use:
             primary_use = primary_use.lower()
-        print(primary_use)
         temp['wind_speed'] = request.POST.get('wind_speed')
         temp['wind_direction'] = request.POST.get('wind_direction')
         temp['square_feet'] = request.POST.get('building_size')
         temp['year_built'] = request.POST.get('year_built')
-        #temp['year_built'] = math.nan
         temp['floor_count'] = request.POST.get('floor_count')
 
         if not temp['cloud_coverage']:
@@ -171,8 +153,6 @@ def predict(request):
             temp['wind_direction'] = 178.0
         if not temp['wind_speed']:
             temp['wind_speed'] = 3.6
-        if not temp['floor_count']:
-            temp['floor_count'] = 2
         
 
         temp['meter is 0'] = 0
@@ -286,10 +266,9 @@ def predict(request):
         else:
             temp['timestamp_parsed_month is N/A'] = 1
                 
-        print(temp)
         testdata = pd.DataFrame({'x':temp}).transpose()
         scoreval = reloadModel.predict(testdata)[0]
-        #scoreval = 1
+        scoreval = round(scoreval,2)
         user = request.user
         obj = Energy_Data(username = user,
                         building_id = building_id,
@@ -309,39 +288,26 @@ def predict(request):
                         meter_reading = scoreval)
         obj.save()
         context = {'scoreval':scoreval}
-        print(temp)
-        #return redirect('/input',context)
         return render(request, 'input.html',context)
     else:
         redirect('/input')
 
 @login_required(login_url='/login')
 def uploadfile(request):
-    print("upload")
-    print(request.FILES)
-    print(len(request.FILES))
     if request.method=='POST' and len(request.FILES) == 1  and  request.FILES['datafile']:
-        print("inside upload")
         myfile = request.FILES['datafile']
         fs = FileSystemStorage()
         fname = fs.save(myfile.name, myfile)
-        print(fname)
         uploaded_file_url = fs.url(fname)
-        print("HI",uploaded_file_url)
-        print(os.getcwd())
         uploaded_file_url = os.path.join(os.getcwd(),fname)
-        print("HI",uploaded_file_url)
         df = pd.read_csv(uploaded_file_url)
         total_cols=len(df.axes[1])
-        print(total_cols)
         global id_first
         global id_last
         id_first = -1
         id_last = -1
         with open(uploaded_file_url) as csv_file:
             csv_reader=csv.reader(csv_file,delimiter=',')
-            print(csv_reader)
-            #next(csv_reader)
             numberOfRows=-1
             columns = []
             mapped = {}
@@ -350,10 +316,8 @@ def uploadfile(request):
                     columns = row
                     for i in range(0,len(columns)):
                         mapped[row[i]] = i
-                    print(mapped)
                     numberOfRows = numberOfRows + 1
                     continue
-                print(row)
                 temp = {}
                 if total_cols == 15:
                     building_id = row[mapped['building_id']]
@@ -377,7 +341,6 @@ def uploadfile(request):
                     primary_use = row[mapped['primary_use']]
                     if primary_use:
                         primary_use = primary_use.lower()
-                    print(primary_use)
                     temp['wind_speed'] = row[mapped['wind_speed']]
                     temp['wind_direction'] = row[mapped['wind_direction']]
                     temp['square_feet'] = row[mapped['building_size']]
@@ -394,7 +357,7 @@ def uploadfile(request):
 
                     date_in = row[mapped['timestamp']]
                     if date_in:
-                        date_out = datetime(*[int(v) for v in date_in.replace('T', '-').replace(':', '-').split('-')])
+                        date_out = datetime.strptime(date_in,"%d-%m-%Y %H:%M")
                         month = date_out.month
                     else:
                         month = None
@@ -407,27 +370,26 @@ def uploadfile(request):
                     primary_use = row[mapped['primary_use']]
                     if primary_use:
                         primary_use = primary_use.lower()
-                    print(primary_use)
                     temp['wind_speed'] = row[mapped['wind_speed']]
                     temp['wind_direction'] = row[mapped['wind_direction']]
                     temp['square_feet'] = row[mapped['building_size']]
                     temp['year_built'] = row[mapped['year_built']]
                     temp['floor_count'] = row[mapped['floor_count']]
-                
-                    if not temp['cloud_coverage']:
-                        temp['cloud_coverage'] = 0
-                    if not temp['precip_depth_1_hr']:
-                        temp['precip_depth_1_hr'] = 0
-                    if not temp['dew_temperature']:
-                        temp['dew_temperature'] = 7.5
-                    if not temp['sea_level_pressure']:
-                        temp['sea_level_pressure'] = 1015.7
-                    if not temp['wind_direction']:
-                        temp['wind_direction'] = 178.0
-                    if not temp['wind_speed']:
-                        temp['wind_speed'] = 3.6
-                    if not temp['floor_count']:
-                        temp['floor_count'] = 2
+
+                if not temp['cloud_coverage']:
+                    temp['cloud_coverage'] = 0
+                if not temp['precip_depth_1_hr']:
+                    temp['precip_depth_1_hr'] = 0
+                if not temp['dew_temperature']:
+                    temp['dew_temperature'] = 7.5
+                if not temp['sea_level_pressure']:
+                    temp['sea_level_pressure'] = 1015.7
+                if not temp['wind_direction']:
+                    temp['wind_direction'] = 178.0
+                if not temp['wind_speed']:
+                    temp['wind_speed'] = 3.6
+                if not temp['floor_count']:
+                    temp['floor_count'] = 2
 
 
                 temp['meter is 0'] = 1
@@ -540,13 +502,11 @@ def uploadfile(request):
                     temp['timestamp_parsed_month is other'] = 1
                 else:
                     temp['timestamp_parsed_month is N/A'] = 1
-                print(temp)
                 
                 testdata = pd.DataFrame({'x':temp}).transpose()
                 scoreval = reloadModel.predict(testdata)[0]
-                #scoreval = 1
+                scoreval = round(scoreval,2)
                 user = request.user
-                print("score",scoreval)
                 obj = Energy_Data(username = user,
                                 building_id = building_id,
                                 air_temperature = temp['air_temperature'],
@@ -565,10 +525,9 @@ def uploadfile(request):
                                 meter_reading = scoreval)
 
                 obj.save()
-                print(temp)
                 if(numberOfRows == 0):
                     id_first = obj.id
-                numberOfRows=numberOfRows+1
+                numberOfRows= numberOfRows+1
         id_last = obj.id + numberOfRows
         fs.delete(fname)
         messages.success(request,'Please find the predictions and analyzed solutions below')
@@ -601,8 +560,6 @@ def export_csv(request):
     global id_first
     global id_last
     filtered_data = Energy_Data.objects.filter(id__range = [id_first,id_last])
-    print(id_first,id_last)
-    print(filtered_data)
     x = 1
     for data in filtered_data:
         writer.writerow([x,
@@ -631,7 +588,6 @@ def adminhome(request):
 
 @login_required(login_url='/login')
 def adminfilter(request):
-    #if request.method == 'POST':
     meter_type = request.POST.get('meter_type')
     if meter_type:
         meter_type = meter_type.lower()
@@ -671,23 +627,7 @@ def adminfilter(request):
     sea_level_pressure1 = request.POST.get('sea_level_pressure1')
     sea_level_pressure2 = request.POST.get('sea_level_pressure2')
 
-    print(meter_type)
-    print(meter_reading1," ",meter_reading2)
-    print(timestamp1," ",timestamp2)
-    print(primary_use)
-    print(year_built1," ",year_built2)
-    print(building_size1," ",building_size2)
-    print(floor_count1," ",floor_count2)
-    print(wind_speed1," ",wind_speed2)
-    print(wind_direction1," ",wind_direction2)
-    print(cloud_coverage1," ",cloud_coverage2)
-    print(air_temperature1," ",air_temperature2)
-    print(dew_temperature1," ",dew_temperature2)
-    print(precip_depth1," ",precip_depth2)
-    print(sea_level_pressure1," ",sea_level_pressure2)
-    #filtered_data = Energy_prediction_Data.objects.all()
-    filtered_data = Energy_Data.objects.all().order_by('-date_created')
-    print(filtered_data)
+    filtered_data = Energy_Data.objects.all()
     if meter_type:
         filtered_data = filtered_data.filter(meter_type=meter_type)
     if meter_reading1 and meter_reading2:
@@ -716,7 +656,6 @@ def adminfilter(request):
         filtered_data = filtered_data.filter(precip_depth_1_hr__range = [precip_depth1,precip_depth2])
     if sea_level_pressure1 and sea_level_pressure2:
         filtered_data = filtered_data.filter(sea_level_pressure__range = [sea_level_pressure1, sea_level_pressure2])
-    print(filtered_data)
 
     page = request.GET.get('page',1)
     paginator = Paginator(filtered_data, 10)
@@ -726,9 +665,6 @@ def adminfilter(request):
         users = paginator.page(1)
     except EmptyPage:
         users = paginator.page(paginator.num_pages)
-    print(page)
-    print(paginator)
-    print(users)
     return render(request,'adminhome.html',{'users': users})
 
 
@@ -745,15 +681,10 @@ def userdetails(request):
         users = paginator.page(10)
     except EmptyPage:
         users = paginator.page(paginator.num_pages)
-    print(user_data)
     return render(request,'userdetails.html',{'users':users})
 
 
 @login_required
 def password_changed(request):
   messages.success(request, 'Your password has been changed.')
-  context = {'a' : 1}
-  return render(request,'password_change_form.html',context)
-    #return render(request,'password_reset.html')
-# def reset_password_sent(request):
-#     return render(request,'password_reset_sent.html')
+  return render(request,'password_change_form.html')

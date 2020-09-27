@@ -1,13 +1,9 @@
 body{
   margin: 0;
   font-family:Helvetica;
-  /* background-image:url(../img/hero/b3.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center */
 }
 
-.headcontainer{
+.header #headcontainer{
   background-color: #0F4970;
   display: flex;
   justify-content: space-between;
@@ -19,25 +15,31 @@ body{
 
 legend{
   color: #0F4970;
+  width: auto;
+  border: 0
 }
 
-.headcontainer .logo{
+fieldset{
+    border: 1px solid black;
+}
+
+#headcontainer .logo{
   width: 10%;
 }
 
-.headcontainer .logo img{
+#headcontainer .logo img{
   width: 100%;
 }
 
-.headcontainer .headwrapper{
+#headcontainer #headwrapper{
   width: 50%;
 }
 
-.headwrapper nav{
+#headwrapper nav{
   margin-top: 0;
 }
 
-.headwrapper .top{
+#headwrapper .top{
   display: flex;
   margin: 0;
   /* margin-top: 1em; */
@@ -46,34 +48,34 @@ legend{
   /* padding-right: 5%; */
 }
 
-.headwrapper a{
-  font-size: 1.2em;
+#headwrapper a{
+  font-size: 1.5em;
   text-decoration:none;
   color: #fff;
 }
 
-.headwrapper li{
+#headwrapper li{
   list-style-type:  none;
-  /* width: 40%; */
+  width: auto;
   align-items: center;
 }
 
-.headwrapper .sub4{
-  padding-left: 10%;
+#headwrapper .sub4{
+  /* padding-left: 10%; */
   width: 30%;
 }
 
-.headwrapper .sub3{
+#headwrapper .sub3{
   width: 24%;
 }
 
-.headwrapper .sub2{
+#headwrapper .sub2{
   width: 22%;
 }
 
 
 
-.headwrapper li .fa{
+#headwrapper li .fa{
   font-size: 1.5em;
   /* padding-left: 50%; */
 }
@@ -133,7 +135,7 @@ legend{
 }
 
 .search{
-  margin-left: 32%;
+  margin-left: 36%;
   width: 30%;
   height: 35px;
   border: none;
@@ -163,7 +165,7 @@ legend{
   background-color:white;
 }
 
-.headwrapper .user-avatar{
+#headwrapper .user-avatar{
   /* padding-bottom: 10px; */
   width: 10%;
   color: #E7E6E6;
@@ -177,12 +179,12 @@ legend{
   color: white;
 }
 
-.headwrapper ul ul.submenu {
+#headwrapper ul ul.submenu {
   margin-top: 30%;
   position: absolute;
-  width: 150px;
+  width: 170px;
   background: #fff;
-  left: -150%;
+  left: -100%;
   top:0;
   /* top: 30%; */
   visibility: hidden;
@@ -198,7 +200,7 @@ legend{
 }
 
 
-.headwrapper ul ul.submenu>li>a {
+#headwrapper ul ul.submenu>li>a {
   padding: 6px 15px !important;
   padding-bottom: 20px;
   font-size: 16px;
@@ -207,7 +209,7 @@ legend{
 
 
 
-.headwrapper ul>li:hover>ul.submenu {
+#headwrapper ul>li:hover>ul.submenu {
   visibility: visible;
   opacity: 1;
   top: 100%
@@ -222,7 +224,7 @@ legend{
   border-bottom: 1px solid gray;
 }
 
-.headwrapper ul ul.submenu>li>.sub:hover {
+#headwrapper ul ul.submenu>li>.sub:hover {
   color: #C86FFF;
   background: none;
   padding-left: 20px !important
@@ -234,9 +236,4 @@ legend{
 
 .sub{
   margin-bottom: 10px;
-}
-
-a:focus, a:hover {
-  color:white;
-
 }
