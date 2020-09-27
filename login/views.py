@@ -364,7 +364,7 @@ def uploadfile(request):
 
                     date_in = row[mapped['timestamp']]
                     if date_in:
-                        date_out = datetime(*[int(v) for v in date_in.replace('T', '-').replace(':', '-').split('-')])
+                        date_out = datetime.strptime(date_in,"%d-%m-%Y %H:%M")
                         month = date_out.month
                     else:
                         month = None
