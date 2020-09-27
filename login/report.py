@@ -140,11 +140,7 @@ def Report(request):
         'X_Age_vs_electricity': X_Age_vs_electricity,
         'Y_Age_vs_electricity': Y_Age_vs_electricity,
 
-<<<<<<< HEAD
         'users':users
-=======
-        'user_inputs': user_inputs
->>>>>>> ce83b544ed8315de5de9111e5a001290f2734e5e
     })
 
 @csrf_exempt

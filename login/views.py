@@ -128,21 +128,29 @@ def predict(request):
     if request.method == 'POST':
         temp = {}
         building_id = request.POST.get('building_id')
-        meter_type = request.POST.get('meter_type').lower()
+        meter_type = request.POST.get('meter_type')
+        if meter_type:
+            meter_type = meter_type.lower()
 
         date_in = request.POST.get('timestamp')
         print(date_in)
-        date_out = datetime(*[int(v) for v in date_in.replace('T', '-').replace(':', '-').split('-')])
-        print(date_out)
-        print(type(date_out))
-        month = date_out.month
+        if date_in:
+            date_out = datetime(*[int(v) for v in date_in.replace('T', '-').replace(':', '-').split('-')])
+            month = date_out.month
+        else:
+            month = None
+        # print(date_out)
+        # print(type(date_out))
+        # month = date_out.month
 
         temp['air_temperature'] = request.POST.get('air_temperature')
         temp['cloud_coverage'] = request.POST.get('cloud_coverage')
         temp['dew_temperature'] = request.POST.get('dew_temperature')
         temp['precip_depth_1_hr'] = request.POST.get('precip_depth')
         temp['sea_level_pressure'] = request.POST.get('sea_level_pressure')
-        primary_use = request.POST.get('primary_use').lower()
+        primary_use = request.POST.get('primary_use')
+        if primary_use:
+            primary_use = primary_use.lower()
         print(primary_use)
         temp['wind_speed'] = request.POST.get('wind_speed')
         temp['wind_direction'] = request.POST.get('wind_direction')
@@ -151,7 +159,21 @@ def predict(request):
         #temp['year_built'] = math.nan
         temp['floor_count'] = request.POST.get('floor_count')
 
-
+        if not temp['cloud_coverage']:
+            temp['cloud_coverage'] = 0
+        if not temp['precip_depth_1_hr']:
+            temp['precip_depth_1_hr'] = 0
+        if not temp['dew_temperature']:
+            temp['dew_temperature'] = 7.5
+        if not temp['sea_level_pressure']:
+            temp['sea_level_pressure'] = 1015.7
+        if not temp['wind_direction']:
+            temp['wind_direction'] = 178.0
+        if not temp['wind_speed']:
+            temp['wind_speed'] = 3.6
+        if not temp['floor_count']:
+            temp['floor_count'] = 2
+        
 
         temp['meter is 0'] = 0
         temp['meter is 1'] = 0
@@ -164,7 +186,7 @@ def predict(request):
             temp['meter is 1'] = 1
         elif(meter_type == 'steam'):
             temp['meter is 2'] = 1
-        elif(meter_type == 'na' or meter_type == 'n/a' or meter_type is None):
+        elif(meter_type == 'na' or meter_type == 'n/a'):
             temp['meter is N/A'] = 1
         else:
             temp['meter is other'] = 1
@@ -218,7 +240,7 @@ def predict(request):
             temp['primary_use is Food sales and service'] = 1
         elif(primary_use == 'religious worship'):
             temp['primary_use is Religious worship'] = 1
-        elif(primary_use == 'na' or primary_use == 'n/a' or primary_use is None):
+        elif(primary_use == 'na' or primary_use == 'n/a'):
             temp['primary_use is N/A'] = 1
         else:
             temp['primary_use is other'] = 1
@@ -290,6 +312,8 @@ def predict(request):
         print(temp)
         #return redirect('/input',context)
         return render(request, 'input.html',context)
+    else:
+        redirect('/input')
 
 @login_required(login_url='/login')
 def uploadfile(request):
@@ -335,13 +359,15 @@ def uploadfile(request):
                     building_id = row[mapped['building_id']]
                     meter_type = row[mapped['meter_type']]
 
+                    if meter_type:
+                        meter_type = meter_type.lower()
+
                     date_in = row[mapped['timestamp']]
-                    print(type(date_in))
-                    date_out = datetime.strptime(date_in, '%d-%m-%Y %H:%M') 
-                    print("HI")
-                    print(date_out)
-                    print(type(date_out))
-                    month = date_out.month
+                    if date_in:
+                        date_out = datetime(*[int(v) for v in date_in.replace('T', '-').replace(':', '-').split('-')])
+                        month = date_out.month
+                    else:
+                        month = None
 
                     temp['air_temperature'] = row[mapped['air_temperature']]
                     temp['cloud_coverage'] = row[mapped['cloud_coverage']]
@@ -349,6 +375,8 @@ def uploadfile(request):
                     temp['precip_depth_1_hr'] = row[mapped['precip_depth_1_hr']]
                     temp['sea_level_pressure'] = row[mapped['sea_level_pressure']]
                     primary_use = row[mapped['primary_use']]
+                    if primary_use:
+                        primary_use = primary_use.lower()
                     print(primary_use)
                     temp['wind_speed'] = row[mapped['wind_speed']]
                     temp['wind_direction'] = row[mapped['wind_direction']]
@@ -360,12 +388,16 @@ def uploadfile(request):
                     building_id = row[mapped['building_id']]
                     meter_type = row[mapped['meter_type']]
 
+                    if meter_type:
+                        meter_type = meter_type.lower()
+                    
+
                     date_in = row[mapped['timestamp']]
-                    print(type(date_in))
-                    date_out = datetime(*[int(v) for v in date_in.replace('T', '-').replace(':', '-').split('-')])
-                    print(date_out)
-                    print(type(date_out))
-                    month = date_out.month
+                    if date_in:
+                        date_out = datetime(*[int(v) for v in date_in.replace('T', '-').replace(':', '-').split('-')])
+                        month = date_out.month
+                    else:
+                        month = None
 
                     temp['air_temperature'] = row[mapped['air_temperature']]
                     temp['cloud_coverage'] = row[mapped['cloud_coverage']]
@@ -373,6 +405,8 @@ def uploadfile(request):
                     temp['precip_depth_1_hr'] = row[mapped['precip_depth_1_hr']]
                     temp['sea_level_pressure'] = row[mapped['sea_level_pressure']]
                     primary_use = row[mapped['primary_use']]
+                    if primary_use:
+                        primary_use = primary_use.lower()
                     print(primary_use)
                     temp['wind_speed'] = row[mapped['wind_speed']]
                     temp['wind_direction'] = row[mapped['wind_direction']]
@@ -380,6 +414,21 @@ def uploadfile(request):
                     temp['year_built'] = row[mapped['year_built']]
                     temp['floor_count'] = row[mapped['floor_count']]
                 
+                    if not temp['cloud_coverage']:
+                        temp['cloud_coverage'] = 0
+                    if not temp['precip_depth_1_hr']:
+                        temp['precip_depth_1_hr'] = 0
+                    if not temp['dew_temperature']:
+                        temp['dew_temperature'] = 7.5
+                    if not temp['sea_level_pressure']:
+                        temp['sea_level_pressure'] = 1015.7
+                    if not temp['wind_direction']:
+                        temp['wind_direction'] = 178.0
+                    if not temp['wind_speed']:
+                        temp['wind_speed'] = 3.6
+                    if not temp['floor_count']:
+                        temp['floor_count'] = 2
+
 
                 temp['meter is 0'] = 1
                 temp['meter is 1'] = 0
@@ -393,7 +442,7 @@ def uploadfile(request):
                     temp['meter is 1'] = 1
                 elif(meter_type == 'steam'):
                     temp['meter is 2'] = 1
-                elif(meter_type == 'na' or meter_type == 'n/a' or meter_type is None):
+                elif(meter_type == 'na' or meter_type == 'n/a'):
                     temp['meter is N/A'] = 1
                 else:
                     temp['meter is other'] = 1
@@ -446,7 +495,7 @@ def uploadfile(request):
                     temp['primary_use is Food sales and service'] = 1
                 elif(primary_use == 'religious worship'):
                     temp['primary_use is Religious worship'] = 1
-                elif(primary_use == 'na' or primary_use == 'n/a' or primary_use is None):
+                elif(primary_use == 'na' or primary_use == 'n/a'):
                     temp['primary_use is N/A'] = 1
                 else:
                     temp['primary_use is other'] = 1
@@ -633,7 +682,7 @@ def adminhome(request):
         print(precip_depth1," ",precip_depth2)
         print(sea_level_pressure1," ",sea_level_pressure2)
         #filtered_data = Energy_prediction_Data.objects.all()
-        filtered_data = Energy_Data.objects.all()
+        filtered_data = Energy_Data.objects.all().order_by('-date_created')
         print(filtered_data)
         if meter_type:
             filtered_data = filtered_data.filter(meter_type=meter_type).order_by('-date_created')
@@ -668,12 +717,12 @@ def adminhome(request):
         page = request.GET.get('page',1)
         paginator = Paginator(filtered_data, 10)
         try:
-            filtered_data = paginator.page(page)
+            users = paginator.page(page)
         except PageNotAnInteger:
-            filtered_data = paginator.page(10)
+            users = paginator.page(10)
         except EmptyPage:
-            filtered_data = paginator.page(paginator.num_pages)
-        return render(request,'adminhome.html',{'users':filtered_data})
+            users = paginator.page(paginator.num_pages)
+        return render(request,'adminhome.html',{'users': users})
     return render(request, 'adminhome.html')
 
 

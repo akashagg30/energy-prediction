@@ -204,12 +204,13 @@
                   <table class="inputTable">
                     <tr>
                         <td class="col1"><label>Building Number:<span style="color:red">&nbsp*</span></label></td>
-                        <td class="col2"><input type="number" name="building_id" required placeholder="Enter Building Number"></td>
+                        <td class="col2"><input type="number" name="building_id" required placeholder="Enter Building Number" min="0"></td>
                     </tr>
                   <tr>
                     <td class="col1"><label>Meter Type:<span style="color:red">&nbsp*</span></label></td>
                     <td  class="col2">
                       <select name="meter_type">
+                        <option selected disabled>Choose Tagging</option>
                         <option value="Electricity">Electricity</option>
                         <option value="Chilled Water">Chilled Water</option>
                         <option value="Steam">Steam</option>
@@ -229,17 +230,17 @@
 
                   <tr>
                     <td class="col1"><label for="">Cloud Coverage:<span style="color:red">&nbsp*</span></label></td>
-                    <td  class="col2"><input type="number" name="cloud_coverage" value="cloud_coverage" placeholder="Enter Cloud Coverage" required></td>
+                    <td  class="col2"><input type="number" name="cloud_coverage" value="cloud_coverage" min="0" placeholder="Enter Cloud Coverage"></td>
                   </tr>
 
                   <tr>
                     <td class="col1"><label for="">Dew Temperature:<span style="color:red">&nbsp*</span></label></td>
-                    <td  class="col2"><input type="number"  name = "dew_temperature" value="dewtemperature" placeholder="Enter temperature Dew" required step="any"></td>
+                    <td  class="col2"><input type="number"  name = "dew_temperature" value="dewtemperature" placeholder="Enter temperature Dew" step="any"></td>
                   </tr>
 
                   <tr>
                     <td class="col1"><label for="">Precip depth for 1 hr:<span style="color:red">&nbsp*</span></label></td>
-                    <td  class="col2"><input type="number" name = "precip_depth" value="precipdepth" placeholder="Enter Precip depth for 1 hr" required></td>
+                    <td  class="col2"><input type="number" name = "precip_depth" value="precipdepth" placeholder="Enter Precip depth for 1 hr" ></td>
                   </tr>
 
                 </table>
@@ -249,12 +250,13 @@
                   <table class="inputTable">
                     <tr>
                       <td class="col1"><label for="">Sea level Pressure:<span style="color:red">&nbsp*</span></label></td>
-                      <td class="col2"><input type="number" name = "sea_level_pressure" value="sealevelpressure" placeholder="Enter Sea Level Pressure" required step="any"></td>
+                      <td class="col2"><input type="number" name = "sea_level_pressure" min="0" value="sealevelpressure" placeholder="Enter Sea Level Pressure" step="any"></td>
                     </tr>
                     <tr>
                       <td class="col1"><label for="">Primary Use:<span style="color:red">&nbsp*</span></label></td>
                       <td  class="col2">
                         <select name="primary_use">
+                          <option selected disabled>Choose Tagging</option>
                             <option>Education</option>
                             <option>Entertainment/public assembly</option>
                             <option>Food sales and service</option>
@@ -295,30 +297,30 @@
                     </tr>
                     <tr>
                       <td class="col1"><label for="">Wind Direction:<span style="color:red">&nbsp*</span></label></td>
-                      <td  class="col2"><input type="number" name="wind_direction" value="wind_direction" placeholder="Enter Wind Direction" required></td>
+                      <td  class="col2"><input type="number" name="wind_direction" min="0"value="wind_direction" placeholder="Enter Wind Direction"></td>
                     </tr>
 
                     <tr>
                       <td class="col1"><label for="">Wind Speed:<span style="color:red">&nbsp*</span></label></td>
-                      <td  class="col2"><input type="number" name= "wind_speed" value="wind_speed" placeholder="Enter Wind Speed" required step="any"></td>
+                      <td  class="col2"><input type="number" name= "wind_speed" min="0" value="wind_speed" placeholder="Enter Wind Speed" step="any"></td>
                     </tr>
 
 
 
                     <tr>
                       <td class="col1"><label for="">Building Size(sq feet):<span style="color:red">&nbsp*</span></label></td>
-                      <td  class="col2"><input type="number" name="building_size" value="" placeholder="Buliding size in sq feet" required></td>
+                      <td  class="col2"><input type="number" name="building_size" min="0" value="" placeholder="Buliding size in sq feet" required></td>
                     </tr>
 
 
                     <tr>
                       <td class="col1"><label for="">Year Built:<span style="color:red">&nbsp*</span></label></td>
-                      <td  class="col2"><input type="number" name="year_built" value="" placeholder="YYYY" required main="1000" max="2020"></td>
+                      <td  class="col2"><input type="number" name="year_built" value="" placeholder="YYYY" required min="1000" max="2020"></td>
                     </tr>
 
                     <tr>
                       <td class="col1"><label for="">Floor Count:<span style="color:red">&nbsp*</span></label></td>
-                      <td  class="col2"><input type="number" name="floor_count" value="" placeholder="No of floors in building" required></td>
+                      <td  class="col2"><input type="number" name="floor_count" value="" min="0" placeholder="No of floors in building" </td>
                     </tr>
                   </table>
                 </div>
