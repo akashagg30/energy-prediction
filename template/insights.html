@@ -263,20 +263,20 @@
 <div class="reports">
   <h1>Reports</h1>
   <div id="charts" style="width: 100%;">
-    {% if user_inputs|length > 9 %}
+    {% if users|length > 9 %}
       <canvas id="chart1"></canvas><br><br>
       <!-- form to handle search query -->
       temperature : <input type="text" id="temperature" list="temperature_list" value="all">
       <datalist id="temperature_list">
         <option value="all">all</option>
-        {% for data in user_inputs %}
+        {% for data in users %}
           <option value="{{data.air_temperature}}">{{data.air_temperature}}</option>
         {% endfor %}
       </datalist>
       floor count : <input type="text" id="floor_count" list="floor_list" value="all">
       <datalist id="floor_list">
         <option value="all">all</option>
-        {% for data in user_inputs %}
+        {% for data in users %}
           <option value="{{data.floor_count}}">{{data.floor_count}}</option>
         {% endfor %}
       </datalist>
@@ -306,7 +306,7 @@
   </script> -->
 
   <script>
-    {% if user_inputs|length > 9 %}
+    {% if users|length > 9 %}
       function area_vs_electricity(){
           var ctx= document.getElementById('chart1').getContext('2d');
 
