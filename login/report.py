@@ -51,40 +51,46 @@ def make_bins(X, Y):
             n += 1
         else:
             # appending values to list
-            new_X.append(str(left)+"-"+str(right))
+            if left!=right:
+                new_X.append(str(left)+"-"+str(right))
+            else: 
+                new_X.append(str(left))
             new_Y.append(sum/n)
             # for next iteration
             sum = y
             n = 1
-            left = right+1
+            left = right+1 if x<=right+1+h else x
             right = left+h
 
     if(n != 0):
-        new_X.append(str(left)+"-"+str(right))
+        if left!=right:
+            new_X.append(str(left)+"-"+str(right))
+        else: 
+            new_X.append(str(left))
         new_Y.append(sum/n)
 
     return (new_X, new_Y)
 
 
 # for line plot
-def make_bars(X, Y):
-    new_X = []
-    new_Y = []
+# def make_bars(X, Y):
+#     new_X = []
+#     new_Y = []
 
-    if len(X) == 0:
-        return (new_X, new_Y)
+#     if len(X) == 0:
+#         return (new_X, new_Y)
 
-    # dictionary having floors as key and [sum_of_electricity,count] as value for calculating mean
-    floor = {}
-    for x, y in zip(X, Y):
-        if x not in floor:
-            floor[x] = [0, 0]
-        floor[x][0] += y
-        floor[x][1] += 1
-    for x in sorted(floor):
-        new_X.append(x)
-        new_Y.append(floor[x][0]/floor[x][1])
-    return (new_X, new_Y)
+#     # dictionary having floors as key and [sum_of_electricity,count] as value for calculating mean
+#     floor = {}
+#     for x, y in zip(X, Y):
+#         if x not in floor:
+#             floor[x] = [0, 0]
+#         floor[x][0] += y
+#         floor[x][1] += 1
+#     for x in sorted(floor):
+#         new_X.append(x)
+#         new_Y.append(floor[x][0]/floor[x][1])
+#     return (new_X, new_Y)
 
 
 @login_required(login_url='/login')
@@ -92,27 +98,28 @@ def Report(request):
     data = db.objects.filter(username=request.user.id).values()
     area = []
     floorcount = []
-    age = []
     temperature = []
     electrictiy = []
 
     for x in data:
         area.append(x['building_size'])
         floorcount.append(x['floor_count'])
-        age.append(x['year_built'])
         temperature.append(x['air_temperature'])
         electrictiy.append(x['meter_reading'])
 
     # generating data for sending to charts to renger them
     X_Area_vs_electricity, Y_Area_vs_electricity = make_bins(area, electrictiy)
-    X_Floorcount_vs_electricity, Y_Floorcount_vs_electricity = make_bars(
-        floorcount, electrictiy)
-    X_Temperature_vs_electricity, Y_Temperature_vs_electricity = make_bars(
-        temperature, electrictiy)
-    X_Age_vs_electricity, Y_Age_vs_electricity = make_bars(
-        age, electrictiy)
 
+    # for showing list data (in options) for charts
+    if len(floorcount)<10:
+        floorcount = []
+        temperature = []
+    else:
+        floorcount = list(dict.fromkeys(floorcount))
+        temperature = list(dict.fromkeys(temperature))
+    print(temperature)
 
+    # sunidhi's code
     if request.user.is_authenticated:
         user_id = request.user.id
         # print(user_id)
@@ -130,16 +137,11 @@ def Report(request):
     return render(request, 'insights.html', {
         'X_Area_vs_electricity': X_Area_vs_electricity,
         'Y_Area_vs_electricity': Y_Area_vs_electricity,
+        
+        'floorcount' : floorcount,
+        'temperature' : temperature,
 
-        'X_Floorcount_vs_electricity': X_Floorcount_vs_electricity,
-        'Y_Floorcount_vs_electricity': Y_Floorcount_vs_electricity,
-
-        'X_Temperature_vs_electricity': X_Temperature_vs_electricity,
-        'Y_Temperature_vs_electricity': Y_Temperature_vs_electricity,
-
-        'X_Age_vs_electricity': X_Age_vs_electricity,
-        'Y_Age_vs_electricity': Y_Age_vs_electricity,
-        'users':users
+        'users':users,
     })
 
 @csrf_exempt
@@ -157,7 +159,7 @@ def make_graph(request):
     else:
         data = db.objects.filter(username=request.user.id, air_temperature=float(temperature), floor_count=int(floor_count)).values()
     
-    print(data)
+
     area = []
     electrictiy = []
 

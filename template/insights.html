@@ -270,15 +270,15 @@
       temperature : <input type="text" id="temperature" list="temperature_list" value="all">
       <datalist id="temperature_list">
         <option value="all">all</option>
-        {% for data in users %}
-          <option value="{{data.air_temperature}}">{{data.air_temperature}}</option>
+        {% for data in temperature %}
+          <option value="{{data}}">{{data}}</option>
         {% endfor %}
       </datalist>
       floor count : <input type="text" id="floor_count" list="floor_list" value="all">
       <datalist id="floor_list">
         <option value="all">all</option>
-        {% for data in users %}
-          <option value="{{data.floor_count}}">{{data.floor_count}}</option>
+        {% for data in floorcount %}
+          <option value="{{data}}">{{data}}</option>
         {% endfor %}
       </datalist><br><br>
       <button style="width:10%;background-color:rgb(117, 117, 185);border-radius:5px;" onclick=draw_chart()>show</button><br><br>
@@ -312,17 +312,56 @@
           var ctx= document.getElementById('chart1').getContext('2d');
 
           var chart = new Chart(ctx,{
-              type : 'bar',
-              data : {
-                  // X axis
-                  labels: {{X_Area_vs_electricity|safe}},
-                  datasets: [{
-                      // Y label
-                      label: 'Mean Meter Reading',
-                      // Y axis
-                      data : {{Y_Area_vs_electricity|safe}},
-                  }]
-              }
+            type : 'bar',
+            data : {
+                // X axis
+                labels: {{X_Area_vs_electricity|safe}},
+                datasets: [{
+                    // Y label
+                    backgroundColor: 'rgb(229,152,102,0.7)',
+                    label: 'Mean Meter Reading',
+                    // Y axis
+                    data : {{Y_Area_vs_electricity|safe}},
+                }]
+            },
+            options : {
+              // animation : false,
+              title :{
+                  display : true,
+                  text : 'Energy Consumption Vs Area',
+                  fontSize : 25,
+              },
+              scales : {
+                  xAxes : [{
+                      display : true,
+                      scaleLabel : {
+                          display : true,
+                          labelString : 'Area',
+                          fontSize : 18,
+                      },
+                      ticks: {
+                          major: {
+                              fontStyle: 'bold',
+                              fontColor: '#FF0000',
+                          }
+                      }
+                  }],
+                  yAxes : [{
+                      display : true,
+                      scaleLabel : {
+                          display : true,
+                          labelString : 'meter reading',
+                          fontSize : 18,
+                      },
+                      ticks: {
+                          major: {
+                              fontStyle: 'bold',
+                              fontColor: '#FF0000',
+                          },
+                      }
+                  }],
+              },
+            },
           })
       }
       area_vs_electricity();
@@ -340,11 +379,50 @@
                 labels: data['X'],
                 datasets: [{
                     // Y label
+                    backgroundColor: 'rgb(229,152,102,0.7)',
                     label: 'Mean Meter Reading',
                     // Y axis
                     data : data['Y'],
                 }]
-            }
+            },
+            options : {
+              // animation : false,
+              title :{
+                  display : true,
+                  text : 'Energy Consumption Vs Area',
+                  fontSize : 25,
+              },
+              scales : {
+                  xAxes : [{
+                      display : true,
+                      scaleLabel : {
+                          display : true,
+                          labelString : 'Area',
+                          fontSize : 18,
+                      },
+                      ticks: {
+                          major: {
+                              fontStyle: 'bold',
+                              fontColor: '#FF0000',
+                          }
+                      }
+                  }],
+                  yAxes : [{
+                      display : true,
+                      scaleLabel : {
+                          display : true,
+                          labelString : 'meter reading',
+                          fontSize : 18,
+                      },
+                      ticks: {
+                          major: {
+                              fontStyle: 'bold',
+                              fontColor: '#FF0000',
+                          },
+                      }
+                  }],
+              },
+            },
         })
       }
 
