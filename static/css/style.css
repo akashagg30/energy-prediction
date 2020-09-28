@@ -349,7 +349,7 @@ hr {
   background: #FF9F67;
   font-family: "Josefin Sans", sans-serif;
   text-transform: capitalize;
-  padding: 25px 38px !important;
+  /* padding: 25px 38px !important; */
   color: #fff;
   cursor: pointer;
   display: inline-blockc !important;
@@ -362,7 +362,7 @@ hr {
   line-height: 0;
   margin-bottom: 0;
   cursor: pointer;
-  transition: color 0.4s linear;
+  /* transition: color 0.4s linear; */
   position: relative;
   z-index: 1;
   border: 0;
@@ -394,7 +394,7 @@ hr {
 }
 
 .btn:hover::before {
-  transform: scaleX(1);
+  /* transform: scaleX(1); */
   color: #fff !important;
   z-index: -1
 }
@@ -2821,7 +2821,9 @@ hr {
 } */
 
 .main-header .main-menu ul ul.submenu>li>a {
-  padding: 6px 10px !important;
+  padding: 5px 2px ;
+
+
   font-size: 16px;
   color: #367FFF
 }
@@ -7419,6 +7421,7 @@ b, sup, sub, u, del {
   padding-top: 3%;
   padding-right: 15%;
   font-weight: bold;
+  color: black;
   /* margin-right: 20%; */
 }
 
@@ -7427,22 +7430,22 @@ b, sup, sub, u, del {
 }
 
 .col2 input{
-  width: 76%;
+  width: 70%;
   height: 40px;
   padding-left: 10px;
 }
 
 .rightTab .col2 input{
-  width: 83%;
+  width: 66%;
 }
-
 .tabContainer{
-  margin-top: 0;
-  margin-left: 0;
+  margin: 0;
+  width: 100%;
 }
 
 .tableContainer .leftTab{
   width: 50%;
+  padding-left: 2%
 }
 
 .tableContainer .rightTab{

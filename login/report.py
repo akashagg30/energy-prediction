@@ -117,12 +117,10 @@ def Report(request):
     else:
         floorcount = list(dict.fromkeys(floorcount))
         temperature = list(dict.fromkeys(temperature))
-    print(temperature)
 
     # sunidhi's code
     if request.user.is_authenticated:
         user_id = request.user.id
-        # print(user_id)
         user_inputs = Energy_Data.objects.filter(username = user_id)
         page = request.GET.get('page',1)
         paginator = Paginator(user_inputs, 10)
@@ -132,7 +130,6 @@ def Report(request):
             users = paginator.page(1)
         except EmptyPage:
             users = paginator.page(paginator.num_pages)
-        # print(user_inputs)
 
     return render(request, 'insights.html', {
         'X_Area_vs_electricity': X_Area_vs_electricity,

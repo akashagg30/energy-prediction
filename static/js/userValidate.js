@@ -1,4 +1,5 @@
 function ValidateFname(){
+  console.log("validate f name");
   var name = document.form1.first_name;
   if(name.value == ''){
     return true;
