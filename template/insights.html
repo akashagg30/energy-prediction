@@ -262,37 +262,43 @@
 <!-- ------------------------------------------ graphs ---------------------------------------- -->
 <div class="reports">
   <h1>Reports</h1>
+  <!-- ------------------------- prasanna check this---------------------------------------------- -->
+  <a id='download_1' download="ChartImage.jpg" href="">download</a> 
   <div id="charts" style="width: 70%;margin-left:15%">
     <br>
-    {% if users|length > 9 %}
-      <canvas id="chart1"></canvas><br><br>
-      <!-- form to handle search query -->
-      temperature : <input type="text" id="temperature" list="temperature_list" value="all">
-      <datalist id="temperature_list">
-        <option value="all">all</option>
-        {% for data in temperature %}
-          <option value="{{data}}">{{data}}</option>
-        {% endfor %}
-      </datalist>
-      floor count : <input type="text" id="floor_count" list="floor_list" value="all">
-      <datalist id="floor_list">
-        <option value="all">all</option>
-        {% for data in floorcount %}
-          <option value="{{data}}">{{data}}</option>
-        {% endfor %}
-      </datalist><br><br>
-      <button style="width:10%;background-color:rgb(117, 117, 185);border-radius:5px;" onclick=draw_chart()>show</button><br><br>
-      <canvas id="chart2"></canvas>
-
+    {% if temperature|length > 0 %}
+    <canvas id="chart1"></canvas><br><br>
+    <!-- form to handle search query -->
+    temperature : <input type="text" id="temperature" list="temperature_list" value="all">
+    <datalist id="temperature_list">
+      <option value="all">all</option>
+      {% for data in temperature %}
+      <option value="{{data}}">{{data}}</option>
+      {% endfor %}
+    </datalist>
+    floor count : <input type="text" id="floor_count" list="floor_list" value="all">
+    <datalist id="floor_list">
+      <option value="all">all</option>
+      {% for data in floorcount %}
+      <option value="{{data}}">{{data}}</option>
+      {% endfor %}
+    </datalist><br><br>
+    <button style="width:10%;background-color:rgb(117, 117, 185);border-radius:5px;" onclick=draw_chart()>show</button><br><br>
+    
+    
+    <!-- ------------------------- prasanna check this---------------------------------------------- -->
+    <a id='download_2' download="ChartImage.jpg" href="">download</a>
+    <canvas id="chart2"></canvas>
+    
     {% else %}
-      <p>Not enough data</p>
+    <p>Not enough data</p>
     {% endif %}
   </div>
-
+  
 </div><br><br><br><br>
-  <!-- for toggeling view -->
-  <!-- <script>
-    function toggle(id) {
+<!-- for toggeling view -->
+<!-- <script>
+  function toggle(id) {
       var x = document.getElementById(id);
       console.log(x);
       if (x.style.display === "none") {
@@ -307,7 +313,27 @@
   </script> -->
 
   <script>
-    {% if users|length > 9 %}
+    {% if temperature|length > 0 %}
+
+      document.getElementById("download_1").addEventListener('click', function(){
+        /*Get image of canvas element*/
+        var url_base64jp = document.getElementById("chart1").toDataURL("image/jpg");
+        /*get download button (tag: <a></a>) */
+        var a =  document.getElementById("download_1");
+        /*insert chart image url to download button (tag: <a></a>) */
+        a.href = url_base64jp;
+      });
+      
+      document.getElementById("download_2").addEventListener('click', function(){
+        /*Get image of canvas element*/
+        var url_base64jp = document.getElementById("chart2").toDataURL("image/jpg");
+        /*get download button (tag: <a></a>) */
+        var a =  document.getElementById("download_2");
+        /*insert chart image url to download button (tag: <a></a>) */
+        a.href = url_base64jp;
+      });
+
+
       function area_vs_electricity(){
           var ctx= document.getElementById('chart1').getContext('2d');
 
