@@ -48,6 +48,7 @@ urlpatterns = [
     path('exportcsv',views.export_csv),
     path('uploadfile',views.uploadfile),
     path('adminfilter',views.adminfilter),
+    path('clear_prediction',views.clear_prediction),
     # ------------ system resource monitor --------
     path('resources',resources.system_resource_monitor),
     path('resources/get',resources.resource_info),

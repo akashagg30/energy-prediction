@@ -503,10 +503,12 @@ def uploadfile(request):
                 else:
                     temp['timestamp_parsed_month is N/A'] = 1
                 
+                print(temp)
                 testdata = pd.DataFrame({'x':temp}).transpose()
                 scoreval = reloadModel.predict(testdata)[0]
                 scoreval = round(scoreval,2)
                 user = request.user
+
                 obj = Energy_Data(username = user,
                                 building_id = building_id,
                                 air_temperature = temp['air_temperature'],
@@ -684,16 +686,23 @@ def userdetails(request):
     return render(request,'userdetails.html',{'users':users})
 
 
-@login_required
+@login_required(login_url='/login')
 def password_changed(request):
   messages.success(request, 'Your password has been changed.')
   context = {'a':1}
   return render(request,'password_change_form.html',context)
 
 
-@login_required
+@login_required(login_url='/login')
 @admin_only
 def admin_password_changed(request):
   messages.success(request, 'Your password has been changed.')
   context = {'a':1}
   return render(request,'admin_change_pwd.html',context)
+
+
+@login_required(login_url='/login')
+def clear_prediction(request):
+    user_id = request.user.id
+    Energy_Data.objects.filter(username = user_id).delete()
+    return redirect('/insights')

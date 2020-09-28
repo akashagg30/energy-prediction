@@ -155,6 +155,21 @@
       border-radius: 5px;
     }
 
+    #clear{
+      padding-top: 10px;
+      margin-left: 40%;
+      width: 20%;
+      background-color: #4255A4;
+      border-radius: 5px;
+      height: 3em;
+      
+    }
+    #clear a{
+      color: white;
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+
   </style>
 
 </head>
@@ -218,6 +233,11 @@
     <div class="historycontainer">
       <h1>Prediction History</h1>
       <div id="history">
+        {% if users %}
+        <div id="clear">
+          <a href="/clear_prediction">Clear Prediction History</a>
+        </div>
+        {% endif %}
         <table class = "userdetails">
           {% if users %}
             <tr class = "head">
@@ -343,15 +363,15 @@
     Air temperature : <input type="text" id="temperature" list="temperature_list" value="all">
     <datalist id="temperature_list">
       <option value="all">all</option>
-      {% for data in users %}
-      <option value="{{data.air_temperature}}">{{data.air_temperature}}</option>
+      {% for data in temperature %}
+      <option value="{{data}}">{{data}}</option>
       {% endfor %}
     </datalist>
     &nbsp&nbsp floor count : <input type="text" id="floor_count" list="floor_list" value="all">
     <datalist id="floor_list">
       <option value="all">all</option>
-      {% for data in users %}
-      <option value="{{data.floor_count}}">{{data.floor_count}}</option>
+      {% for data in floorcount %}
+      <option value="{{data}}">{{data}}</option>
       {% endfor %}
     </datalist><br><br>
 
@@ -370,11 +390,11 @@
         <label for="">Floor Count</label>
       </div>
    </div>
-   <input id="input_holder" type="number" placeholder="Enter the value according to selected feature"><br><br>
+   <input id="input_holder" type="number" placeholder="Enter the value according to selected feature"><br><br> -->
 
     <button style="width:10%;background-color:rgb(117, 117, 185);border-radius:5px;" onclick=draw_chart()>show</button><br><br>
     
-    <script>
+    <!-- <script>
 
       var buildid = document.getElementById('building_no');
       var temp = document.getElementById('temperature');
