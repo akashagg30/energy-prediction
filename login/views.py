@@ -320,61 +320,61 @@ def uploadfile(request):
                     continue
                 temp = {}
                 if total_cols == 15:
-                    building_id = row[mapped['building_id']]
-                    meter_type = row[mapped['meter_type']]
+                    building_id = row[mapped['Building Id']]
+                    meter_type = row[mapped['Meter Type']]
 
                     if meter_type:
                         meter_type = meter_type.lower()
 
-                    date_in = row[mapped['timestamp']]
+                    date_in = row[mapped['Timestamp']]
                     if date_in:
                         date_out = datetime.strptime(date_in,"%d-%m-%Y %H:%M")
                         month = date_out.month
                     else:
                         month = None
 
-                    temp['air_temperature'] = row[mapped['air_temperature']]
-                    temp['cloud_coverage'] = row[mapped['cloud_coverage']]
-                    temp['dew_temperature'] = row[mapped['dew_temperature']]
-                    temp['precip_depth_1_hr'] = row[mapped['precip_depth_1_hr']]
-                    temp['sea_level_pressure'] = row[mapped['sea_level_pressure']]
-                    primary_use = row[mapped['primary_use']]
+                    temp['air_temperature'] = row[mapped['Air Temperature']]
+                    temp['cloud_coverage'] = row[mapped['Cloud Coverage']]
+                    temp['dew_temperature'] = row[mapped['Dew Temperature']]
+                    temp['precip_depth_1_hr'] = row[mapped['Precip Depth']]
+                    temp['sea_level_pressure'] = row[mapped['Sea Level Pressure']]
+                    primary_use = row[mapped['Primary Use']]
                     if primary_use:
                         primary_use = primary_use.lower()
-                    temp['wind_speed'] = row[mapped['wind_speed']]
-                    temp['wind_direction'] = row[mapped['wind_direction']]
-                    temp['square_feet'] = row[mapped['building_size']]
-                    temp['year_built'] = row[mapped['year_built']]
-                    temp['floor_count'] = row[mapped['floor_count']]
+                    temp['wind_speed'] = row[mapped['Wind Speed']]
+                    temp['wind_direction'] = row[mapped['Wind Direction']]
+                    temp['square_feet'] = row[mapped['Building Size']]
+                    temp['year_built'] = row[mapped['Year Built']]
+                    temp['floor_count'] = row[mapped['Floor Count']]
 
                 elif total_cols == 14:
-                    building_id = row[mapped['building_id']]
-                    meter_type = row[mapped['meter_type']]
+                    building_id = row[mapped['Building Id']]
+                    meter_type = row[mapped['Meter Type']]
 
                     if meter_type:
                         meter_type = meter_type.lower()
                     
 
-                    date_in = row[mapped['timestamp']]
+                    date_in = row[mapped['Timestamp']]
                     if date_in:
                         date_out = datetime.strptime(date_in,"%d-%m-%Y %H:%M")
                         month = date_out.month
                     else:
                         month = None
 
-                    temp['air_temperature'] = row[mapped['air_temperature']]
-                    temp['cloud_coverage'] = row[mapped['cloud_coverage']]
-                    temp['dew_temperature'] = row[mapped['dew_temperature']]
-                    temp['precip_depth_1_hr'] = row[mapped['precip_depth_1_hr']]
-                    temp['sea_level_pressure'] = row[mapped['sea_level_pressure']]
-                    primary_use = row[mapped['primary_use']]
+                    temp['air_temperature'] = row[mapped['Air Temperature']]
+                    temp['cloud_coverage'] = row[mapped['Cloud Coverage']]
+                    temp['dew_temperature'] = row[mapped['Dew Temperature']]
+                    temp['precip_depth_1_hr'] = row[mapped['Precip Depth']]
+                    temp['sea_level_pressure'] = row[mapped['Sea Level Pressure']]
+                    primary_use = row[mapped['Primary Use']]
                     if primary_use:
                         primary_use = primary_use.lower()
-                    temp['wind_speed'] = row[mapped['wind_speed']]
-                    temp['wind_direction'] = row[mapped['wind_direction']]
-                    temp['square_feet'] = row[mapped['building_size']]
-                    temp['year_built'] = row[mapped['year_built']]
-                    temp['floor_count'] = row[mapped['floor_count']]
+                    temp['wind_speed'] = row[mapped['Wind Speed']]
+                    temp['wind_direction'] = row[mapped['Wind Direction']]
+                    temp['square_feet'] = row[mapped['Building Size']]
+                    temp['year_built'] = row[mapped['Year Built']]
+                    temp['floor_count'] = row[mapped['Floor Count']]
 
                 if not temp['cloud_coverage']:
                     temp['cloud_coverage'] = 0
@@ -544,7 +544,7 @@ def export_csv(request):
     writer.writerow(['SNo.',
                     'Building Id',
                     'Meter Type',
-                    'TimeStamp',
+                    'Timestamp',
                     'Air Temperature',
                     'Cloud Coverage',
                     'Dew Temperature',
@@ -554,8 +554,8 @@ def export_csv(request):
                     'Wind Direction',
                     'Wind Speed',
                     'Building Size(sq feet)',
-                    'Year Built'
-                    ,'Floor_Count',
+                    'Year Built',
+                    'Floor Count',
                     'Meter Reading'])
     global id_first
     global id_last
