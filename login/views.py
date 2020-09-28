@@ -687,4 +687,13 @@ def userdetails(request):
 @login_required
 def password_changed(request):
   messages.success(request, 'Your password has been changed.')
-  return render(request,'password_change_form.html')
+  context = {'a':1}
+  return render(request,'password_change_form.html',context)
+
+
+@login_required
+@admin_only
+def admin_password_changed(request):
+  messages.success(request, 'Your password has been changed.')
+  context = {'a':1}
+  return render(request,'admin_change_pwd.html',context)

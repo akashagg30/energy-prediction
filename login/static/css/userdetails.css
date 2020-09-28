@@ -6,6 +6,7 @@
 }
 
 .container table{
+  margin-left: 2%;
   width: 100%;
   border-collapse: collapse;
   border-left: 1px solid black;

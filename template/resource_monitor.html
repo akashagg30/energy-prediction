@@ -10,8 +10,18 @@
   <link rel="stylesheet" href="{% static 'css/adminhome.css' %}">
 
   <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}">
+  <script>
+    #headwrapper ul ul.submenu {
+        width: 170px;
+      }
+    
+      #headwrapper a {
+      font-size: 1.3em;
+    }
+  </script>
 
 </head>
+
 
 
 <body>
@@ -19,7 +29,7 @@
 
   <div class="header">
 
-    <div class="headcontainer">
+    <div id="headcontainer">
 
       <div class="logo">
 
@@ -27,7 +37,7 @@
 
       </div>
 
-      <div class="wrapper">
+      <div id="headwrapper">
         <nav>
           <ul class="top">
             <li class="sub4"><a style="opacity:0.6" href="/adminhome">DataBase Search</a></li>
@@ -39,6 +49,7 @@
                 <i class="fa fa-caret-down" aria-hidden="true"></i>
                 <ul class="submenu">
                     <li><a class="sub" style="font-weight: normal;" href="/customerhome">Customer Pane</a></li><hr>
+                    <li><a class="sub" style="font-weight: normal;" href="/admin_change_pwd">Change Password</a></li><hr>
                     <li><a class="sub" style="font-weight: normal;" href="/logout">Logout</a></li>
                 </ul>
             </li>

@@ -1,0 +1,146 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Admin</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}">
+
+    <link rel="stylesheet" href="{% static 'css/adminhome.css' %}">
+    <style media="screen">
+
+    #headwrapper ul ul.submenu {
+      width: 170px;
+    }
+
+    #headwrapper a {
+    font-size: 1.3em;
+  }
+
+    .profContainer{
+      box-shadow: 0 0 4px #999;
+      width: 65%;
+      margin: 5% 13%;
+      padding: 4%;
+      padding-top: 3%;
+    }
+
+    .temp input{
+      width: 70%;
+      height: 40px;
+      font-size: 1em;
+      /* border-radius: 7px; */
+    }
+
+    .leftContent h1{
+      color: #0F4970
+    }
+
+    .submit{
+      width: 71.5%;
+      height: 40px;
+      font-size: 1em;
+      border-radius: 4px;
+      color: #ffffff;
+      background-color: #0F4970;
+      font-weight: bold;
+      display: inline-block;
+      text-decoration: none;
+      border: 2px solid #0F4970;
+      transition: border-color 0.5s ease-in-out, background-color 0.5s ease-in-out, background-image 0.5s ease-in-out;
+    }
+
+    .submit:hover{
+      background-color: white;
+      color: #0F4970;
+      cursor: pointer;
+    }
+
+    </style>
+    </head>
+
+    <body>
+
+      <div class="header">
+        <div id="headcontainer">
+          <div class="logo">
+            <a href="/adminhome"><img src="{% static 'img/logo/virtusa-footer-logo.png' %}" alt=""></a>
+          </div>
+          <div id="headwrapper">
+            <nav>
+              <ul class="top">
+                <li class="sub4"><a style="opacity:0.6" href="/adminhome">DataBase Search</a></li>
+                <li class="sub3"><a style="opacity:0.6" href="/userdetails">User details</a></li>
+                <li class="sub2"><a style="opacity:0.6" href="/resources">Dashboard</a></li>
+                <li class="user-avatar">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <i class="fa fa-caret-down" aria-hidden="true"></i>
+                    <ul class="submenu">
+                        <li><a class="sub" style="font-weight: normal;" href="/customerhome">Customer Panel</a></li><hr>
+                        <li><a class="sub" style="font-weight: normal;" href="/admin_change_pwd">Change Password</a></li><hr>
+                        <li><a class="sub" style="font-weight: normal;" href="/logout">Logout</a></li>
+                    </ul>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="profContainer" >
+        <div class="left">
+          <div class="leftContent">
+            <h1>Change Password</h1>
+            <br>
+            <form method = 'post'>
+                {% csrf_token%}
+                <div class="temp">
+                  {{form.old_password}}
+                </div><br>
+
+                <div class="temp">
+                  {{form.new_password1}}
+                </div>
+
+                <br>
+                <div class="temp">
+                  {{form.new_password2}}
+                </div>
+
+                <div>
+                    {% for field in form %}
+                      <h3> {{field.errors}} </h3>
+                    {% endfor %}
+                </div>
+                <br>
+                {% if a != 1 %}
+                <input class="submit" type = 'submit' name = 'Update Password'>
+                {% endif %}
+
+              </form>
+              <div>
+            {% for message in messages %}
+              <h3> {{message}} </h3>
+              <br>
+            {% endfor %}
+          </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+
+          //Query All input fields
+          var form_fields = document.getElementsByTagName('input');
+          form_fields[1].placeholder='Old Password';
+          form_fields[2].placeholder='New Password';
+          form_fields[3].placeholder='Confirm password';
+          // form_fields[4].placeholder='Re-enter Password...';
+          for (var field in form_fields){
+          form_fields[field].className += ' form-control'
+          }
+      </script>
+
+    </body>
+</html>

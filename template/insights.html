@@ -267,14 +267,14 @@
     {% if users|length > 9 %}
       <canvas id="chart1"></canvas><br><br>
       <!-- form to handle search query -->
-      temperature : <input type="text" id="temperature" list="temperature_list" value="all">
+      Air temperature : <input type="text" id="temperature" list="temperature_list" value="all">
       <datalist id="temperature_list">
         <option value="all">all</option>
         {% for data in users %}
           <option value="{{data.air_temperature}}">{{data.air_temperature}}</option>
         {% endfor %}
       </datalist>
-      floor count : <input type="text" id="floor_count" list="floor_list" value="all">
+     &nbsp&nbsp floor count : <input type="text" id="floor_count" list="floor_list" value="all">
       <datalist id="floor_list">
         <option value="all">all</option>
         {% for data in users %}
@@ -357,7 +357,7 @@
     <div class="footer">
       <div class="fcontainer" style="display:flex;justify-content:space-between;">
         <div class="fcontact" >
-          <p><b>Contact Us&nbsp&nbsp</b> <i class="fa fa-envelope" aria-hidden="true"></i> <strong>Email:&nbsp&nbsp</strong> sample@gmail.com &nbsp&nbsp <i class="fa fa-phone" aria-hidden="true"></i> <strong>Phone No:&nbsp&nbsp</strong>+91 xxxxx xxxxx </p>
+          <p><b>Contact Us&nbsp&nbsp</b> <i class="fa fa-envelope" aria-hidden="true"></i> <strong>Email:&nbsp&nbsp</strong>team07.neuralhack@gmail.com &nbsp&nbsp <i class="fa fa-phone" aria-hidden="true"></i> <strong>Phone No:&nbsp&nbsp</strong>+91 94905 73099 </p>
         </div>
         <div style="width:30%;" class="fcontent">
           <div class="main-menu d-none d-lg-block">

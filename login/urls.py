@@ -31,6 +31,8 @@ urlpatterns = [
     path('reset_password_complete',auth_views.PasswordResetCompleteView.as_view(template_name = 'password_reset_done.html'), name = "password_reset_complete"),
     path('change_password',auth_views.PasswordChangeView.as_view(template_name = 'password_change_form.html',success_url ='/password_changed'),name = 'password_change'),
     path('password_changed',views.password_changed),
+    path('admin_change_pwd',auth_views.PasswordChangeView.as_view(template_name = 'admin_change_pwd.html',success_url ='/admin_password_changed'),name = 'password_change'),
+    path('admin_password_changed',views.admin_password_changed),
     path('fileupload',views.fileupload),
     path('input', views.input),
     path('home', views.home),
