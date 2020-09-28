@@ -81,7 +81,13 @@
   </header>
     <!-- Header End -->
     <main >
-
+      <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+      <df-messenger
+        intent="WELCOME"
+        chat-title="PEP_Assist"
+        agent-id="5e5a1101-30e8-48e4-8f93-38ab1e38f330"
+        language-code="en"
+      ></df-messenger>
         <div class="tabContainer">
           <p class="text">Please provide below inputs for prediction</p>
             <form class="inputForm" action="predict" enctype="multipart/form-data" method="post">

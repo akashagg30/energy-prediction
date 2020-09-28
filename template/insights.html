@@ -137,6 +137,23 @@
       font-weight: bold;
       color: white;
     }
+    #Userchoice{
+      display: flex;
+      width: 70%;
+      justify-content: space-around;
+      margin-left: 15%;
+    }
+    #Userchoice p{
+      font-size: 1.2em;
+      margin-bottom: 3%;
+      
+    }
+
+    #input_holder{
+      width: 33%;
+      height: 2em;
+      border-radius: 5px;
+    }
 
   </style>
 
@@ -337,8 +354,45 @@
       <option value="{{data.floor_count}}">{{data.floor_count}}</option>
       {% endfor %}
     </datalist><br><br>
+
+   <!-- <div id="Userchoice">
+     <p>Choose an option</p>
+     <div>
+        <input type="radio" id="building_no" name="feature" value="">
+        <label for="">Building number</label>
+     </div>
+     <div>
+      <input type="radio" id="temperature" name="feature" value="">
+      <label for="">Temperature</label>
+     </div>
+      <div>
+        <input type="radio" id="floor_cnt" name="feature" value="">
+        <label for="">Floor Count</label>
+      </div>
+   </div>
+   <input id="input_holder" type="number" placeholder="Enter the value according to selected feature"><br><br>
+
     <button style="width:10%;background-color:rgb(117, 117, 185);border-radius:5px;" onclick=draw_chart()>show</button><br><br>
     
+    <script>
+
+      var buildid = document.getElementById('building_no');
+      var temp = document.getElementById('temperature');
+      var floorcnt = document.getElementById('floor_cnt');
+      var inputHolder = document.getElementById('input_holder');
+      buildid.onclick = function(){
+        inputHolder.placeholder = "Enter Building Number";
+      }
+      floorcnt.onclick = function(){
+        inputHolder.placeholder = "Enter Floor count";
+      }
+      temp.onclick = function(){
+        inputHolder.placeholder = "Enter Air temperature";
+        inputHolder.step = "any";
+      }
+
+
+    </script> -->
     
     <!-- ------------------------- prasanna check this---------------------------------------------- -->
     <div id="graphdownload">
