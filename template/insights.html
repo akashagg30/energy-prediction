@@ -392,13 +392,18 @@
       }
       area_vs_electricity();
       
+      var chart2=null;
+
       async function draw_chart(){
         var req= document.getElementById('temperature').value+'|'+document.getElementById('floor_count').value
         var data= await fetch('insights/get',{method:'POST', body : req})
         data = await data.json()
         var ctx= document.getElementById('chart2').getContext('2d');
 
-        var chart = new Chart(ctx,{
+        if(chart2!=null)[
+          chart2.destroy()
+        ]
+        chart2 = new Chart(ctx,{
             type : 'bar',
             data : {
                 // X axis
