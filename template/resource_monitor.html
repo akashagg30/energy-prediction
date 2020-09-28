@@ -101,9 +101,13 @@
             });
         }
 
+        var chart1=null;
         function cpu(){
             var ctx= document.getElementById('chart1').getContext('2d');
-            var chart = new Chart(ctx,{
+            if(chart1!=null){
+                chart1.destroy();
+            }
+            chart1 = new Chart(ctx,{
                 type : 'line',
                 data : {
                     // X axis
@@ -154,11 +158,6 @@
                         }],
                         yAxes : [{
                             display : true,
-                            scaleLabel : {
-                                display : true,
-                                labelString : 'cpu usage',
-                                fontSize : 18,
-                            },
                             ticks: {
                                 major: {
                                     fontStyle: 'bold',

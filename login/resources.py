@@ -11,7 +11,9 @@ from .decorators import admin_only
 
 # user name
 
-
+@login_required(login_url='/login')
+@admin_only
+@csrf_protect
 def system_resource_monitor(request):
     return render(request, 'resource_monitor.html')
 
