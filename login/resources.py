@@ -7,6 +7,7 @@ from subprocess import Popen, PIPE
 from json import dump
 from django.views.decorators.csrf import csrf_protect
 from .decorators import admin_only
+import os
 
 
 # user name
@@ -21,7 +22,7 @@ def system_resource_monitor(request):
 @admin_only
 @csrf_protect
 def resource_info(request):
-    user = "team07"
+    user = os.environ['USER']
     # user = "ghost38o"
     ps = Popen(['ps', 'aux'], stdout=PIPE)
     ps = ps.communicate()[0]
